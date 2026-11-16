@@ -20,6 +20,11 @@ body {
   overflow-x: hidden;
 }
 
+header {
+  color: brown;
+  padding: 50px;
+}
+
 body {
   min-height: 100%;
   display: flex;
@@ -29,6 +34,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+footer {
+  color: brown;
+  padding: 50px;
 }
 
 * {
