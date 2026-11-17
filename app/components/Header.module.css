@@ -1,6 +1,11 @@
 .header {
-  color: brown;
-  padding: 50px;
+  display: flex; /* Brug flexbox til at arrangere elementerne på samme linje i headeren */
+   width: 100%;
+  align-items: center; /* Centerer elementerne vertikalt i headeren */
+  justify-content: space-between; /* Placer elementerne i headeren med plads imellem */
+  background-color: var(--color-surface);
+  padding: 24px;
+  color: var(--color-text);
 }
 
 .leftSide {
@@ -12,4 +17,29 @@
 .navigation {
   display: flex; /* Brug flexbox til at arrangere navigationselementerne */
   gap: 24px; /* Gap imellem navigationselementerne */
+}
+
+.navigation a {
+  font-size: var(--fs-2xl);
+}
+
+/* Eventgenerator knap styling */
+.eventButton {
+  background-color: var(--color-primary);
+  padding: 8px 24px;
+  border-radius: 8px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.iconLink {
+  color: var(--color-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: figtree;
 }
