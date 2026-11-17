@@ -1,5 +1,6 @@
 
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./Header.module.css";
 
 {/* Header komponenten, der indeholder navigationen og logoet */}
@@ -8,7 +9,12 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.leftSide}>
         <Link href="/" className={styles.logo}>
-          TicketMaster
+          <Image
+            src="/assets/icons/ticketmaster-logo.svg"
+            alt="Ticketmaster"
+            width={150}
+            height={20}
+          />
         </Link>
 
         {/* navigation elementer til de forskellige kategorier */}
@@ -27,11 +33,30 @@ export default function Header() {
         <Link href="/eventgenerator" className={styles.eventButton}>
           Eventgenerator
         </Link>
-        <button type="button" className={styles.iconLink}>Søg</button>
+        <button type="button" className={styles.iconLink}>
+          <Image
+            src="/assets/icons/søg.svg"
+            alt="Søg"
+            width={32}
+            height={32}
+          />
+        </button>
         <Link href="/events" className={styles.iconLink}>
-          Favoritter
+          <Image
+          src="/assets/icons/favorite.svg"
+          alt="Favoritter"
+          width={32}
+          height={32}
+        />
         </Link>
-        <button type="button" className={styles.iconLink}>Bruger</button>
+        <button type="button" className={styles.iconLink}>
+          <Image
+          src="/assets/icons/bruger.svg"
+          alt="Bruger"
+          width={32}
+          height={32}
+        />
+        </button>
       </div>
     </header>
   );
