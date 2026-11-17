@@ -1,0 +1,45 @@
+/* ==============================
+   STJERNER OVER FOOTEREN – rammen
+   ============================== */
+.stjerner {
+  position: relative; /* Stjernerne placeres inde i denne boks */
+  height: 73px; /* Højden fra Figma */
+  overflow: hidden; /* Stjerner, der driver ud over kanten, skjules */
+}
+
+/* ==============================
+   EN ENKELT STJERNE
+   ============================== */
+.stjerne {
+  position: absolute; /* Placeres med left og bottom fra JavaScript */
+  border-radius: 50%; /* Gør den firkantede span rund */
+  background-color: var(--color-text); /* Hvid */
+  animation-name: glimt; /* Bruger animationen nedenfor */
+  animation-timing-function: linear; /* Jævn fart, som i Figma */
+  animation-iteration-count: infinite; /* Gentages for altid */
+}
+
+/* ==============================
+   ANIMATIONEN – blink og drift
+   ============================== */
+@keyframes glimt {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(0, 0);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(var(--drift), calc(var(--drift) * -0.6));
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(calc(var(--drift) * -0.8), calc(var(--drift) * 0.4));
+  }
+  75% {
+    opacity: 0.9;
+    transform: translate(calc(var(--drift) * 0.3), calc(var(--drift) * 0.8));
+  }
+}
+
+ 
