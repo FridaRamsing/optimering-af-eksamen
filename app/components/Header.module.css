@@ -1,9 +1,11 @@
 .header {
   display: flex; /* Brug flexbox til at arrangere elementerne på samme linje i headeren */
-   width: 100%;
+  width: 100%;
+  position: relative; /* Gør headeren relativ for at kunne placere elementer absolut indenfor den */
+  z-index: 1000; /* Sørger for at headeren ligger over andre elementer */
   align-items: center; /* Centerer elementerne vertikalt i headeren */
   justify-content: space-between; /* Placer elementerne i headeren med plads imellem */
-  background-color: var(--color-background);
+  background-color: var(--color-bg);
   padding: 24px; /* Tilføjer padding til headeren */
   color: var(--color-text);
   border-bottom: 1px solid var(--color-surface); /* Tilføjer stroke til headeren */
@@ -37,6 +39,11 @@
   font-size: var(--fs-xl);
 }
 
+.eventButton:hover {
+  background-color: var(--color-text);
+  color: var(--color-primary);
+}
+
 .actions {
   display: flex;
   align-items: center;
@@ -54,7 +61,6 @@
   background: none;
   border: none;
   cursor: pointer;
-  font: figtree;
 }
 
 .iconHover {
