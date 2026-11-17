@@ -1,7 +1,7 @@
-
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Header.module.css";
+import MusicDropdown from "./MusicDropdown";
 
 {/* Header komponenten, der indeholder navigationen og logoet */}
 export default function Header() {
@@ -21,6 +21,7 @@ export default function Header() {
         <nav className={styles.navigation}>
           <div className={styles.categoryItem}>
             <Link href="/kategori/musik">Musik</Link>
+            <MusicDropdown />
           </div>
           <Link href="/kategori/sport">Sport</Link>
           <Link href="/kategori/underholdning">Underholdning</Link>
@@ -42,44 +43,44 @@ export default function Header() {
             className={styles.iconDefault}
           />
           <Image
-          src="/assets/icons/søg-hover.svg"
-          alt=""
-          width={32}
-          height={32}
-          className={styles.iconHover}
-        />
+            src="/assets/icons/søg-hover.svg"
+            alt=""
+            width={32}
+            height={32}
+            className={styles.iconHover}
+          />
         </button>
         <Link href="/events" className={styles.iconLink}>
           <Image
-          src="/assets/icons/favorite.svg"
-          alt="Favoritter"
-          width={32}
-          height={32}
-          className={styles.iconDefault}
-        />
-        <Image
-        src="/assets/icons/favorite-hover.svg"
-        alt=""
-        width={32}
-        height={32}
-        className={styles.iconHover}
-      />
+            src="/assets/icons/favorite.svg"
+            alt="Favoritter"
+            width={32}
+            height={32}
+            className={styles.iconDefault}
+          />
+          <Image
+            src="/assets/icons/favorite-hover.svg"
+            alt=""
+            width={32}
+            height={32}
+            className={styles.iconHover}
+          />
         </Link>
         <button type="button" className={styles.iconLink}>
           <Image
-          src="/assets/icons/bruger.svg"
-          alt="Bruger"
-          width={32}
-          height={32}
-          className={styles.iconDefault}
-        />
-        <Image
-        src="/assets/icons/bruger-hover.svg"
-        alt=""
-        width={32}
-        height={32}
-        className={styles.iconHover}
-      />
+            src="/assets/icons/bruger.svg"
+            alt="Bruger"
+            width={32}
+            height={32}
+            className={styles.iconDefault}
+          />
+          <Image
+            src="/assets/icons/bruger-hover.svg"
+            alt=""
+            width={32}
+            height={32}
+            className={styles.iconHover}
+          />
         </button>
       </div>
     </header>
