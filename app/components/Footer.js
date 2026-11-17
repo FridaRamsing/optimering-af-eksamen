@@ -3,7 +3,7 @@
 export default function Footer() {
   return (
     <footer>
-      <p>Spørgsmål?</p>
+      <p>Vi tester lige</p>
     </footer>
   );
 }
