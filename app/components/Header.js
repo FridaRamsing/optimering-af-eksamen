@@ -5,12 +5,18 @@ import styles from "./Header.module.css";
 export default function Header() {
   return (
     <header className={styles.header}>
-      <Link href="/">Logo</Link>
-      <nav>
-        <Link href="/events">Events</Link>
-        <Link href="/mine-billetter">Mine billetter</Link>
-        <Link href="/login">Log ind</Link>
-      </nav>
+      <div className={styles.leftSide}>
+        <Link href="/" className={styles.logo}>
+          TicketMaster
+        </Link>
+
+        <nav className={styles.navigation}>
+          <Link href="/kategori/musik">Musik</Link>
+          <Link href="/kategori/sport">Sport</Link>
+          <Link href="/kategori/underholdning">Underholdning</Link>
+          <Link href="/kategori/oplevelse">Oplevelse</Link>
+        </nav>
+      </div>
     </header>
   );
 }

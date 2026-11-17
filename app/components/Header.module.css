@@ -1,5 +1,15 @@
-
 .header {
   color: brown;
   padding: 50px;
+}
+
+.leftSide {
+  display: flex; /* Brug flexbox til at arrangere logo og navigation */
+  align-items: center; /* Centerer logoet vertikalt */
+  gap: 40px; /* Gap imellem logo og navigation */
+}
+
+.navigation {
+  display: flex; /* Brug flexbox til at arrangere navigationselementerne */
+  gap: 24px; /* Gap imellem navigationselementerne */
 }
