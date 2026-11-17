@@ -3,9 +3,10 @@
    width: 100%;
   align-items: center; /* Centerer elementerne vertikalt i headeren */
   justify-content: space-between; /* Placer elementerne i headeren med plads imellem */
-  background-color: var(--color-surface);
-  padding: 24px;
+  background-color: var(--color-background);
+  padding: 24px; /* Tilføjer padding til headeren */
   color: var(--color-text);
+  border-bottom: 1px solid var(--color-surface); /* Tilføjer stroke til headeren */
 }
 
 .leftSide {
@@ -20,7 +21,7 @@
 }
 
 .navigation a {
-  font-size: var(--fs-2xl);
+  font-size: var(--fs-xl); /* Brug variabel for fontstørrelse */
 }
 
 /* Eventgenerator knap styling */
@@ -28,6 +29,7 @@
   background-color: var(--color-primary);
   padding: 8px 24px;
   border-radius: 8px;
+  font-size: var(--fs-xl);
 }
 
 .actions {
