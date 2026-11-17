@@ -1,6 +1,145 @@
-
-
+/* ==============================
+   FOOTER – hele rammen
+   ============================== */
 .footer {
-  color: rgb(172, 107, 107);
-  padding: 50px;
+  display: flex; /* Flexbox til at stable footerens dele */
+  flex-direction: column; /* Delene lægges under hinanden */
+  gap: var(--gap-40); /* Afstand mellem hver del */
+  padding: var(--gap-48) var(--gap-40); /* top/bund, venstre/højre */
+  background-color: var(--color-bg);
+  border-top: 1px solid var(--color-muted); /* Tynd linje i toppen */
+}
+
+/* ==============================
+   ØVERSTE DEL – venstre og højre side
+   ============================== */
+.indhold {
+  display: flex; /* Venstre og højre side ved siden af hinanden */
+  justify-content: space-between; /* Skubber dem ud til hver sin kant */
+  align-items: flex-start; /* Begge starter i toppen */
+}
+
+/* ------------------------------
+   Venstre side
+   ------------------------------ */
+.venstre {
+  display: flex;
+  flex-direction: column; /* Logo, Følg os, apps osv. under hinanden */
+  gap: var(--gap-48); /* Afstand mellem hver blok i venstre side */
+}
+
+/* Fælles for "Følg os", "Download vores apps" og "Betal trygt med" */
+.gruppe {
+  display: flex;
+  flex-direction: column; /* Tekst over, indhold under */
+  gap: var(--gap-8); /* Afstand fra "Følg os" ned til ikonerne */
+  font-size: var(--fs-md);
+}
+
+/* Følg os – sociale ikoner */
+.ikonRaekke {
+  display: flex; /* Ikonerne på én række */
+  gap: var(--gap-16); /* 20px i Figma → nærmeste variabel */
+  list-style: none; /* Fjerner prikkerne fra <ul> */
+}
+
+.ikonRaekke img {
+  display: block; /* Fjerner den lille luft under billederne */
+}
+
+/* Download vores apps – App Store og Google Play */
+.badges {
+  display: flex; /* De to badges ved siden af hinanden */
+  gap: var(--gap-16); /* 20px i Figma → nærmeste variabel */
+}
+
+/* Teksten om retningslinjer */
+.retningslinjer {
+  font-size: var(--fs-md);
+  max-width: 430px; /* Teksten brydes som i Figma, men må blive smallere på mobil */
+}
+
+.retningslinjer span {
+  text-decoration: underline; /* Kun ordet "retningslinjer" understreges */
+}
+
+/* ------------------------------
+   Højre side – de 4 kolonner
+   ------------------------------ */
+.kolonner {
+  display: flex; /* De 4 kolonner ved siden af hinanden */
+  gap: var(--gap-32); /* Afstand mellem kolonnerne */
+}
+
+.kolonne {
+  width: 192px; /* Fast bredde fra Figma */
+  display: flex;
+  flex-direction: column; /* Overskrift over, liste under */
+  gap: var(--gap-24); /* Afstand fra overskrift ned til listen */
+}
+
+.kolonneTitel {
+  font-size: var(--fs-xl);
+  font-weight: 700; /* Bold */
+  min-height: 48px; /* Alle overskrifter lige høje, så listerne starter ens */
+}
+
+.liste {
+  display: flex;
+  flex-direction: column; /* Punkterne under hinanden */
+  gap: var(--gap-16); /* Afstand mellem punkterne */
+  font-size: var(--fs-lg);
+  list-style: none; /* Fjerner prikkerne */
+}
+
+/* Teksten bliver blå, når musen er over den */
+.liste li {
+  transition: color 0.2s; /* Farven skifter blødt i stedet for med det samme */
+}
+
+.liste li:hover {
+  color: var(--color-primary);
+}
+
+/* ==============================
+   STREGER – mellem sektionerne
+   ============================== */
+.streg {
+  border: none; /* Fjerner browserens standard-kant på <hr> */
+  height: 1px; /* Stregens tykkelse */
+  background-color: var(--color-border); /* Stregens farve */
+}
+
+/* ==============================
+   VORES NETVÆRK – rækken i midten
+   ============================== */
+.netvaerk {
+  display: flex; /* De tre tekster ved siden af hinanden */
+  justify-content: center; /* Centreret vandret */
+  align-items: center; /* Centreret lodret */
+  gap: var(--gap-32); /* Afstand mellem teksterne */
+  font-size: var(--fs-md);
+  font-weight: 800; /* ExtraBold – gælder alle tre tekster */
+}
+
+/* ==============================
+   BUND – tekster og copyright
+   ============================== */
+.bund {
+  display: flex; /* Tekster og copyright ved siden af hinanden */
+  justify-content: space-between; /* Tekster til venstre, copyright til højre */
+  align-items: center; /* Centreret lodret i forhold til hinanden */
+  color: var(--color-muted); /* Grå tekst */
+  font-size: var(--fs-sm);
+}
+
+.bundTekster {
+  display: flex; /* De 5 tekster på én række */
+  list-style: none; /* Fjerner prikkerne */
+}
+
+/* Streg mellem teksterne – men ikke foran den første */
+.bundTekster li + li::before {
+  content: "|";
+  margin: 0 var(--gap-8); /* Luft på begge sider af stregen */
 }
