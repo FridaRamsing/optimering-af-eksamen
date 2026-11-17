@@ -43,7 +43,7 @@ export default function Header() {
           />
           <Image
           src="/assets/icons/søg-hover.svg"
-          alt="Søg"
+          alt=""
           width={32}
           height={32}
           className={styles.iconHover}
@@ -59,7 +59,7 @@ export default function Header() {
         />
         <Image
         src="/assets/icons/favorite-hover.svg"
-        alt="Favoritter"
+        alt=""
         width={32}
         height={32}
         className={styles.iconHover}
@@ -75,7 +75,7 @@ export default function Header() {
         />
         <Image
         src="/assets/icons/bruger-hover.svg"
-        alt="Bruger"
+        alt=""
         width={32}
         height={32}
         className={styles.iconHover}
