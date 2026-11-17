@@ -22,6 +22,11 @@
 
 .navigation a {
   font-size: var(--fs-xl); /* Brug variabel for fontstørrelse */
+  font-weight: var(--fx-regular); 
+}
+
+.navigation a:hover {
+  font-weight: var(--fx-semibold);
 }
 
 /* Eventgenerator knap styling */
@@ -39,9 +44,27 @@
 }
 
 .iconLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0px;
   color: var(--color-text);
   background: none;
   border: none;
   cursor: pointer;
   font: figtree;
+}
+
+.iconHover {
+  display: none;
+}
+
+.iconLink:hover .iconDefault {
+  display: none;
+}
+
+.iconLink:hover .iconHover {
+  display: block;
 }

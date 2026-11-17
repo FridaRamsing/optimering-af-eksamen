@@ -22,6 +22,15 @@
   --fs-3xl: 32px;
   --fs-5xl: 72px;
 
+  /* Font weights */
+  --fx-light: 300;
+  --fx-regular: 400;
+  --fx-medium: 500;
+  --fx-semibold: 600;
+  --fx-bold: 700;
+  --fx-extrabold: 800;
+  --fx-black: 900;
+
   /* Afstande fra Figma */
   --gap-8: 8px;
   --gap-16: 16px;
