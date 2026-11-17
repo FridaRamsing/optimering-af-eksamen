@@ -1,6 +1,8 @@
 
 import { Suspense } from "react";
 import { supabase } from "@/lib/supabase";
+import EventCard from "@/app/components/EventCard";
+import styles from "./page.module.css"
 
 async function KategoriIndhold({params}) {
   const {kategori} = await params;
@@ -23,11 +25,15 @@ async function KategoriIndhold({params}) {
   <>
   <h1>{kategori}</h1>
   <p>{events.length} muligheder for nye minder</p>
-  <ul>
-    {events.map((event) =>(
-      <li key={event.id}>{event.titel}</li>
-    ))}
+  <ul className={styles.grid}>
+    {events.map((event) => (
+      <li key={event.id}>
+        <EventCard event={event} />
+      </li>
+    )
+    )}
   </ul>
+
 
   </>
  ); 

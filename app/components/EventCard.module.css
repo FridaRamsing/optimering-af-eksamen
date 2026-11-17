@@ -1,0 +1,82 @@
+
+
+/* ===== Hele kortet ===== */
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+/* ===== Billedet og det, der ligger ovenpå ===== */
+.billedeBoks {
+  position: relative;
+  aspect-ratio: 330 / 186;
+}
+
+.billede {
+  object-fit: cover;
+}
+
+.kategori {
+  position: absolute;
+  top: var(--gap-8);
+  left: var(--gap-8);
+  padding: 2px var(--gap-8);
+  border-radius: 4px;
+  background: var(--color-bg-dark);
+  font-size: var(--fs-2xs);
+  text-transform: capitalize;
+}
+
+.dato {
+  position: absolute;
+  bottom: var(--gap-8);
+  left: var(--gap-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px var(--gap-8);
+  border-radius: 4px;
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.dag {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.maaned {
+  font-size: var(--fs-2xs);
+  text-transform: capitalize;
+}
+
+/* ===== Tekstdelen under billedet ===== */
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--gap-16);
+}
+
+.titel {
+  font-size: var(--fs-md);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sted {
+  font-size: var(--fs-xs);
+  color: var(--color-muted);
+}
+
+.pris {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  margin-top: var(--gap-8);
+}
