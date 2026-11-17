@@ -1,15 +1,10 @@
-import { Figtree, Frigtree } from "next/font/google";
+import { Figtree } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-const figtree = Figtree ({
+const figtree = Figtree({
   variable: "--font-figtree",
-  subsets: ["latin"],
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
