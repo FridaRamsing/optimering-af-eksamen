@@ -39,7 +39,15 @@ export default function Header() {
             alt="Søg"
             width={32}
             height={32}
+            className={styles.iconDefault}
           />
+          <Image
+          src="/assets/icons/søg-hover.svg"
+          alt="Søg"
+          width={32}
+          height={32}
+          className={styles.iconHover}
+        />
         </button>
         <Link href="/events" className={styles.iconLink}>
           <Image
@@ -47,7 +55,15 @@ export default function Header() {
           alt="Favoritter"
           width={32}
           height={32}
+          className={styles.iconDefault}
         />
+        <Image
+        src="/assets/icons/favorite-hover.svg"
+        alt="Favoritter"
+        width={32}
+        height={32}
+        className={styles.iconHover}
+      />
         </Link>
         <button type="button" className={styles.iconLink}>
           <Image
@@ -55,7 +71,15 @@ export default function Header() {
           alt="Bruger"
           width={32}
           height={32}
+          className={styles.iconDefault}
         />
+        <Image
+        src="/assets/icons/bruger-hover.svg"
+        alt="Bruger"
+        width={32}
+        height={32}
+        className={styles.iconHover}
+      />
         </button>
       </div>
     </header>
