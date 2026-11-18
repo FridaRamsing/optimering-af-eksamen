@@ -16,7 +16,7 @@ async function KategoriIndhold({ params }) {
   const { data: events, error } = await supabase
     .from("event")
     .select(
-      "id, titel, image_url, card_image_url, kategori, spillested, by, starts_at, pris_fra",
+      "id, titel, image_url, card_image_url, kategori, spillested, by, starts_at, pris_fra, ekstra_datoer",
     )
     .eq("kategori", kategori)
     .order("starts_at", { ascending: true });

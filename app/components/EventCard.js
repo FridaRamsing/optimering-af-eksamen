@@ -15,6 +15,9 @@ export default function EventCard({ event }) {
     .replace(".", "");
   // 1450 → "1.450"
   const pris = event.pris_fra.toLocaleString("da-DK");
+  // Fx "+ 1 dato" eller "+ 10 datoer"
+  const flereDatoerTekst =
+    event.ekstra_datoer === 1 ? "+ 1 dato" : `+ ${event.ekstra_datoer} datoer`;
 
   return (
     <article className={styles.card}>
@@ -28,10 +31,20 @@ export default function EventCard({ event }) {
         />
         <span className={styles.kategori}>{event.kategori}</span>
         <FavoritKnap titel={event.titel} />
-        <div className={styles.dato}>
-          <span className={styles.fra}>Fra</span>
-          <span className={styles.dag}>{dag}</span>
-          <span className={styles.maaned}>{maaned}</span>
+
+        {/* Datoboks + evt. ekstra kort bagved og "+ X datoer" */}
+        <div className={styles.datoStak}>
+          {event.ekstra_datoer > 0 && <span className={styles.datoBag} aria-hidden="true" />}
+
+          <div className={styles.dato}>
+            <span className={styles.fra}>Fra</span>
+            <span className={styles.dag}>{dag}</span>
+            <span className={styles.maaned}>{maaned}</span>
+          </div>
+
+          {event.ekstra_datoer > 0 && (
+            <span className={styles.flereDatoer}>{flereDatoerTekst}</span>
+          )}
         </div>
       </div>
 
