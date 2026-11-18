@@ -1,0 +1,102 @@
+/* Billetten: tre dele i én række */
+.billet {
+  display: grid;
+  grid-template-columns: 62px 1fr 116px; /* nummer | info (fylder resten) | QR + pris */
+  min-height: 132px;
+  border-radius: 8px;
+  background: var(--color-light); /* hvid billet */
+  color: var(--color-bg); /* mørk tekst */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* skygge, så billetten "løfter sig" */
+}
+
+/* Venstre: blå gradient med nummeret */
+.nummer {
+  display: grid;
+  place-items: center; /* "#1" i midten */
+  overflow: hidden; /* her og ikke på hele billetten – ellers forsvinder hullerne */
+  border-radius: 8px 0 0 8px; /* kun runde hjørner til venstre */
+  background: linear-gradient(180deg, #2a3fd6 0%, #1a1450 100%);
+  color: var(--color-text);
+  font-size: var(--fs-3xl);
+  font-weight: 700;
+}
+
+/* Midten – titel, info og detaljer under hinanden */
+.midte {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--gap-16);
+}
+
+/* "Anne Linnet - Julekoncert 2026" */
+.titel {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+/* Dato, tid og sted – lille og grå */
+.info {
+  font-size: var(--fs-2xs);
+  color: var(--color-border);
+}
+
+/* Område / Række / Plads – tre lige brede kolonner */
+.detaljer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: var(--gap-8);
+}
+
+/* Overskrifterne: små, grå og med STORE bogstaver */
+.detaljer dt {
+  font-size: 9px;
+  text-transform: uppercase; /* "Område" vises som "OMRÅDE" */
+  letter-spacing: 1px; /* lidt luft mellem bogstaverne */
+  color: var(--color-border);
+}
+
+/* Værdierne: "Parket", "E", "7" */
+.detaljer dd {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+/* Højre: QR og pris */
+.hoejre {
+  position: relative; /* så hullerne kan placeres i forhold til denne boks */
+  display: flex;
+  flex-direction: column; /* QR over pris */
+  align-items: center; /* centreret vandret */
+  justify-content: center; /* centreret lodret */
+  gap: var(--gap-8);
+  border-left: 2px dashed var(--color-muted); /* den stiplede "riv-af"-streg */
+}
+
+/* "Hullerne" øverst og nederst ved den stiplede streg */
+.hoejre::before,
+.hoejre::after {
+  content: ""; /* ::before/::after vises kun, hvis de har content */
+  position: absolute;
+  left: -9px; /* halvt ind over stregen */
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #141a3d; /* samme farve som kortet bagved */
+}
+
+/* Hullet øverst – halvt uden for billetten */
+.hoejre::before {
+  top: -8px;
+}
+
+/* Hullet nederst */
+.hoejre::after {
+  bottom: -8px;
+}
+
+/* "375 DKK" under QR-koden */
+.pris {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}

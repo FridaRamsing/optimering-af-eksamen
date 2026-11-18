@@ -1,0 +1,94 @@
+/* Den hvide bar under headeren */
+.bar {
+  display: flex; /* trinnene og timeren på én linje */
+  align-items: center; /* centreret lodret */
+  gap: var(--gap-32);
+  height: 56px;
+  padding: 0 var(--gap-48) 0 120px; /* ekstra luft til venstre, som i Figma */
+  background: var(--color-light); /* hvid */
+  color: var(--color-bg); /* mørk tekst på den hvide baggrund */
+}
+
+/* Listen med de 4 trin */
+.trin {
+  display: flex;
+  flex: 1; /* fylder al pladsen, så timeren skubbes ud til højre */
+  list-style: none; /* fjerner tallene, som <ol> ellers viser */
+}
+
+/* Ét trin = streg + cirkel + tekst */
+.punkt {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-8);
+  flex: 1; /* alle 4 trin er lige brede */
+  font-size: var(--fs-sm);
+}
+
+/* Stregen før hvert trin – grå som standard */
+.streg {
+  flex: 1; /* fylder pladsen, der er tilbage i trinnet */
+  height: 2px;
+  margin-right: var(--gap-8);
+  background: var(--color-border);
+}
+
+/* Den runde cirkel med tal eller flueben */
+.cirkel {
+  display: grid;
+  place-items: center; /* centrerer tallet/fluebenet */
+  flex-shrink: 0; /* cirklen må ikke blive klemt, når der er lidt plads */
+  width: 24px;
+  height: 24px;
+  border-radius: 50%; /* gør firkanten rund */
+  font-size: var(--fs-2xs);
+}
+
+/* Trinnets navn, fx "Betaling" */
+.navn {
+  white-space: nowrap; /* "Login/opret bruger" må ikke deles på to linjer */
+}
+
+/* Færdigt trin: blå streg og blå cirkel med flueben */
+.faerdig .streg,
+.faerdig .cirkel {
+  background: var(--color-primary);
+}
+.faerdig .cirkel {
+  color: var(--color-text);
+}
+
+/* Aktivt trin: blå streg, hvid cirkel med blå kant */
+.aktiv .streg {
+  background: var(--color-primary);
+}
+.aktiv .cirkel {
+  border: 1.5px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Ikke nået endnu: grå */
+.kommende .cirkel {
+  background: var(--color-muted);
+  color: var(--color-text);
+}
+
+/* Nedtællingen til højre */
+.timer {
+  font-size: 40px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums; /* tallene hopper ikke, når de skifter */
+}
+
+/* Mobil: skjul teksterne, så kun cirklerne og timeren er tilbage */
+@media (max-width: 800px) {
+  .bar {
+    padding: 0 var(--gap-16);
+  }
+  .navn {
+    display: none;
+  }
+  .timer {
+    font-size: var(--fs-2xl);
+  }
+}
