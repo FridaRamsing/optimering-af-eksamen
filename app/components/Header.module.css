@@ -6,7 +6,7 @@
   align-items: center; /* Centerer elementerne vertikalt i headeren */
   justify-content: space-between; /* Placer elementerne i headeren med plads imellem */
   background-color: var(--color-bg);
-  padding: 24px; /* Tilføjer padding til headeren */
+  padding: 24px 48px; /* Tilføjer padding til headeren */
   color: var(--color-text);
   border-bottom: 1px solid var(--color-surface); /* Tilføjer stroke til headeren */
 }
@@ -145,6 +145,8 @@
 .popularCards {
   display: flex;
   gap: 30px;
+  overflow-x: auto; /* Tilføjer horisontal scroll, hvis indholdet er bredere end containeren */
+  overflow-y: hidden; /* Skjuler vertikal scroll */
 }
 
 .popularCard {
