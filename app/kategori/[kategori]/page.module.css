@@ -1,8 +1,29 @@
 
 
+.indhold {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-24);
+  width: 100%;
+  max-width: 1512px;
+  margin: 0 auto;
+  padding: var(--gap-48);
+}
+
+.antal {
+  font-size: var(--fs-sm);
+  font-weight: var(--fx-semibold);
+}
+
+@media (max-width: 600px) {
+  .indhold {
+    padding: var(--gap-16);
+  }
+}
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--gap-24);
   list-style: none;
 }
@@ -10,7 +31,7 @@
 /* Tablet: 2 kolonner */
 @media (max-width: 1000px) {
   .grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

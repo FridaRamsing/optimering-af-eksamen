@@ -9,7 +9,7 @@ async function KategoriIndhold({params}) {
 
   const { data: events, error } = await supabase
   .from("event")
-  .select("id, titel, image_url, kategori, spillested, by, starts_at, pris_fra")
+  .select("id, titel, image_url,card_image_url, kategori, spillested, by, starts_at, pris_fra")
   .eq("kategori", kategori)
   .order("starts_at", { ascending: true });
 
@@ -22,21 +22,18 @@ async function KategoriIndhold({params}) {
   }
 
  return (
-  <>
-  <h1>{kategori}</h1>
-  <p>{events.length} muligheder for nye minder</p>
-  <ul className={styles.grid}>
-    {events.map((event) => (
-      <li key={event.id}>
-        <EventCard event={event} />
-      </li>
-    )
-    )}
-  </ul>
-
-
-  </>
- ); 
+  <div className={styles.indhold}>
+    <h1>{kategori}</h1>
+    <p className={styles.antal}>{events.length} muligheder for nye minder</p>
+    <ul className={styles.grid}>
+      {events.map((event) => (
+        <li key={event.id}>
+          <EventCard event={event} />
+        </li>
+      ))}
+    </ul>
+  </div>
+ );
 }
 
 export default function KategoriPage ({params}) {
