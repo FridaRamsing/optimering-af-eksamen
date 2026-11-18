@@ -1,0 +1,266 @@
+/* Ankeret for panelet, så det åbner lige under knappen */
+.wrapper {
+  position: relative;
+}
+
+/* ===== Filtrer-knap ===== */
+.filtrer {
+  position: relative; /* Ankeret for tallet i hjørnet */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-8);
+  width: 136px;
+  height: 56px;
+  padding: var(--gap-16);
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit; /* Knapper arver ikke fonten automatisk */
+  font-size: var(--fs-md);
+  font-weight: var(--fx-medium);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.filtrer:hover {
+  box-shadow: var(--lys-op-effekt);
+}
+
+/* Blå kant, når panelet er åbent, eller der er aktive filtre */
+.aktiv {
+  border-color: var(--color-primary);
+}
+
+/* Tallet i øverste højre hjørne */
+.antal {
+  position: absolute;
+  top: -11px;
+  right: -8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 4px;
+  border-radius: 20px;
+  background: var(--color-primary);
+  font-size: var(--fs-lg);
+  font-weight: var(--fx-regular);
+}
+
+/* ===== Panelet ===== */
+.panel {
+  position: absolute; /* Ligger ovenpå kortene i stedet for at skubbe dem ned */
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-32);
+  width: 442px;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto; /* Kan scrolles, hvis skærmen er lav */
+  padding: var(--gap-24) 28px 28px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  transform-origin: top left; /* Folder ud fra knappen */
+  animation: foldUd 0.2s ease-out;
+}
+
+/* Panelet toner ind og glider en smule ned, når det åbner */
+@keyframes foldUd {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Respektér brugere, der har slået animationer fra i styresystemet */
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    animation: none;
+  }
+}
+
+.panel:focus {
+  outline: none;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titel {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fx-semibold);
+}
+
+.luk {
+  display: flex;
+  padding: 4px;
+  border: none;
+  background: none;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.luk:hover {
+  opacity: 1;
+}
+
+.sektion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-16);
+}
+
+.label {
+  font-size: var(--fs-md);
+  font-weight: var(--fx-bold);
+}
+
+/* Tynd streg mellem sektionerne */
+.streg {
+  height: 1px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ===== Genre-knapper ===== */
+.genrer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.genre {
+  height: 44px;
+  padding: 9px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--fs-md);
+  font-weight: var(--fx-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.genre:hover {
+  box-shadow: var(--lys-op-effekt);
+}
+
+.valgt {
+  background: var(--color-primary);
+}
+
+/* ===== Dato og by ===== */
+.felt {
+  width: 100%;
+  height: 56px;
+  padding: 0 12px 0 20px;
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--fs-md);
+  font-weight: var(--fx-semibold);
+  color-scheme: dark; /* Browserens kalender og dropdown bliver mørke */
+  cursor: pointer;
+}
+
+.felt:focus-visible {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* Wrapper, så pilen kan ligge ovenpå select'en */
+.selectBoks {
+  position: relative;
+}
+
+/* Fjerner browserens egen pil, så Figmas pil kan bruges */
+.select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 52px;
+}
+
+.pil {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%) rotate(180deg);
+  pointer-events: none; /* Klik går igennem til select'en */
+}
+
+/* ===== Nulstil og Vis resultater ===== */
+.bund {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.nulstil {
+  border: none;
+  background: none;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--fs-md);
+  font-weight: var(--fx-medium);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.vis {
+  width: 160px;
+  padding: var(--gap-16);
+  border: none;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--fs-md);
+  font-weight: var(--fx-medium);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.vis:hover {
+  box-shadow: var(--lys-op-effekt);
+}
+
+.filtrer:focus-visible,
+.luk:focus-visible,
+.genre:focus-visible,
+.nulstil:focus-visible,
+.vis:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Mobil: panelet fylder hele skærmen */
+@media (max-width: 600px) {
+  .panel {
+    position: fixed;
+    inset: 0;
+    z-index: 1001; /* Over headeren (z-index 1000) */
+    width: auto;
+    max-height: none;
+    border-radius: 0;
+  }
+}

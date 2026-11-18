@@ -1,0 +1,142 @@
+.skyder {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-16);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.label {
+  font-size: var(--fs-md);
+  font-weight: var(--fx-bold);
+}
+
+.status {
+  font-size: var(--fs-sm);
+  font-weight: var(--fx-medium);
+  color: var(--color-muted);
+}
+
+/* ===== Skinnen ===== */
+.spor {
+  position: relative;
+  height: 24px;
+}
+
+/* Den grå skinne under det hele */
+.spor::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-border);
+}
+
+/* Den blå del mellem håndtagene. left/width sættes i JS */
+.valgt {
+  position: absolute;
+  top: 10px;
+  height: 4px;
+  background: var(--color-primary);
+}
+
+/* Begge inputs ligger oven i hinanden. Kun håndtagene kan klikkes,
+   ellers ville det øverste input blokere det nederste */
+.range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 24px;
+  margin: 0;
+  background: none;
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: none;
+}
+
+.range:focus-visible {
+  outline: none;
+}
+
+/* Chrome / Safari */
+.range::-webkit-slider-runnable-track {
+  height: 24px;
+  background: transparent;
+}
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border: 3px solid var(--color-primary);
+  border-radius: 50%;
+  background: var(--color-text);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.range:focus-visible::-webkit-slider-thumb {
+  box-shadow: var(--lys-op-effekt);
+}
+
+/* Firefox */
+.range::-moz-range-track {
+  height: 24px;
+  background: transparent;
+}
+
+.range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--color-primary);
+  border-radius: 50%;
+  background: var(--color-text);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.range:focus-visible::-moz-range-thumb {
+  box-shadow: var(--lys-op-effekt);
+}
+
+/* ===== Fra / Til ===== */
+.felter {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-8);
+}
+
+.felt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.feltLabel {
+  font-size: var(--fs-xs);
+  color: var(--color-muted);
+}
+
+.feltVaerdi {
+  font-size: var(--fs-md);
+  font-weight: var(--fx-semibold);
+}
+
+.streg {
+  font-size: var(--fs-md);
+  font-weight: var(--fx-medium);
+  color: var(--color-muted);
+}

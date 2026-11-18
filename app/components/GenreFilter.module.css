@@ -1,0 +1,65 @@
+/* Hele sektionen – streg i bunden som i Figma */
+.filter {
+  border-bottom: 1px solid var(--color-surface);
+}
+
+/* Samme bredde og luft som resten af siden, så alt flugter */
+.indhold {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-8);
+  max-width: 1512px;
+  margin: 0 auto;
+  padding: var(--gap-24) var(--gap-48);
+}
+
+.overskrift {
+  font-size: var(--fs-lg);
+  font-weight: var(--fx-semibold);
+  color: var(--color-muted);
+}
+
+/* Knapperne på én linje. Er der for mange, kan man scrolle vandret */
+.knapper {
+  display: flex;
+  gap: 10px;
+  padding: 14px 0; /* Plads til lys-op-effekten, så den ikke bliver skåret af */
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none; /* Skjuler scrollbaren */
+}
+
+.knap {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 9px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: var(--color-surface);
+  font-size: var(--fs-md);
+  font-weight: var(--fx-medium);
+  white-space: nowrap;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+/* Hover: lys-op-effekten fra Figma */
+.knap:hover {
+  box-shadow: var(--lys-op-effekt);
+}
+
+/* Den valgte genre er blå (Figma: Variant3) */
+.valgt {
+  background: var(--color-primary);
+}
+
+.knap:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .indhold {
+    padding: var(--gap-16);
+  }
+}

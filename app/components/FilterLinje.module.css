@@ -1,0 +1,39 @@
+.linje {
+  display: flex;
+  flex-wrap: wrap; /* Mærkerne går på ny linje på små skærme */
+  align-items: center;
+  gap: var(--gap-24);
+}
+
+/* Filtrer-knappen og panelet ligger i FilterPanel.module.css */
+
+/* ===== Aktive filter-mærker ===== */
+.maerker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-24);
+  list-style: none;
+}
+
+.maerke {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-8);
+  padding: 9px 16px;
+  border: 1px solid var(--color-surface);
+  border-radius: 20px;
+  background: var(--color-primary);
+  font-size: var(--fs-md);
+  font-weight: var(--fx-medium);
+  white-space: nowrap;
+  transition: box-shadow 0.2s ease;
+}
+
+.maerke:hover {
+  box-shadow: var(--lys-op-effekt);
+}
+
+.maerke:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
