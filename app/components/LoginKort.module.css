@@ -1,0 +1,245 @@
+/* ==============================
+   KORTET – samme mørkeblå stil som på betalingssiden
+   ============================== */
+.kort {
+  width: 100%;
+  max-width: 560px; /* bliver ikke bredere end i Figma, men kan blive smallere på mobil */
+  padding: var(--gap-48);
+  background: linear-gradient(180deg, #141a3d 0%, #1c1638 100%); /* blå → lilla */
+  border-radius: 24px;
+  box-shadow: var(--lys-stroke); /* Figma-effekten "Lys stroke" fra globals.css */
+}
+
+/* ==============================
+   FANERNE – "Log ind" / "Opret profil"
+   ============================== */
+.faner {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* to lige brede faner */
+  padding: 4px; /* luft mellem rammen og den hvide fane */
+  margin-bottom: var(--gap-32);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+/* Fælles for begge faner */
+.fane,
+.aktivFane {
+  height: 44px;
+  border: none; /* fjerner browserens standardkant */
+  border-radius: 8px;
+  font: inherit; /* knapper arver ikke fonten af sig selv */
+  font-size: var(--fs-md);
+  cursor: pointer;
+}
+
+/* Den fane, der IKKE er valgt – grå tekst, ingen baggrund */
+.fane {
+  background: transparent;
+  color: var(--color-muted);
+}
+
+/* Den valgte fane – hvid baggrund med mørk tekst */
+.aktivFane {
+  background: var(--color-light);
+  color: var(--color-bg);
+  font-weight: 600;
+}
+
+/* ==============================
+   FORMULAREN
+   ============================== */
+.formular {
+  display: flex;
+  flex-direction: column; /* alt under hinanden */
+  gap: var(--gap-16);
+}
+
+/* "Velkommen tilbage" / "Opret profil" */
+.overskrift {
+  font-size: var(--fs-3xl);
+  font-weight: 700;
+}
+
+/* Grå tekst under overskriften */
+.undertekst {
+  margin-bottom: var(--gap-8);
+  font-size: var(--fs-md);
+  color: var(--color-muted);
+}
+
+/* Label + felt under hinanden */
+.felt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-8);
+  font-size: var(--fs-md);
+}
+
+/* Felterne – her er de udfyldte (grå baggrund), ikke transparente som på betalingssiden */
+.felt input {
+  width: 100%;
+  height: 52px;
+  padding: 0 var(--gap-16);
+  background: var(--color-surface); /* #2c2c33 */
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text);
+  font: inherit; /* ellers bruger felterne ikke Figtree */
+}
+
+/* Chrome farver felter lyseblå, når den selv udfylder dem (autofill).
+   En stor indre skygge dækker farven, så feltet beholder sit mørke design. */
+.felt input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 100px var(--color-surface) inset;
+  -webkit-text-fill-color: var(--color-text);
+  caret-color: var(--color-text);
+}
+
+/* Eksempelteksten er grå */
+.felt input::placeholder {
+  color: var(--color-muted);
+}
+
+/* Blå ramme om det felt, man skriver i */
+.felt input:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+/* Hjælpetekst under feltet, fx "Mindst 8 tegn" */
+.felt small {
+  font-size: var(--fs-xs);
+  color: var(--color-muted);
+}
+
+/* Fornavn + efternavn ved siden af hinanden */
+.raekke {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-16);
+}
+
+/* Checkbox og tekst på én linje */
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-8);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+
+.checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary); /* blå flueben i stedet for browserens standard */
+}
+
+/* ==============================
+   KNAPPER
+   ============================== */
+
+/* Den blå hovedknap – "Log ind" / "Opret profil" */
+.knap {
+  height: 52px;
+  margin-top: var(--gap-8);
+  border: none;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+/* Mørk og ikke klikbar, indtil felterne er udfyldt (samme som Betal-knappen) */
+.knap:disabled {
+  background: #1a2c6b;
+  color: var(--color-light);
+  cursor: not-allowed;
+}
+
+/* "Log på med Passkey" – gennemsigtig med hvid kant */
+.knapKant {
+  height: 52px;
+  border: 1px solid var(--color-text);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+/* En knap, der ser ud som et link (understreget tekst) */
+.linkKnap {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* "Glemt adgangskode?" – lille og højrestillet */
+.glemt {
+  align-self: flex-end; /* skubbes ud til højre i flex-kolonnen */
+  margin-top: calc(var(--gap-8) * -1); /* lidt tættere på feltet over */
+  font-size: var(--fs-sm);
+  color: var(--color-muted);
+}
+
+/* ==============================
+   BESKEDER
+   ============================== */
+
+/* Fejl – rød */
+.fejl {
+  font-size: var(--fs-sm);
+  color: #ff6b6b;
+}
+
+/* Information – grå */
+.info {
+  font-size: var(--fs-sm);
+  color: var(--color-muted);
+}
+
+/* "—— eller ——" */
+.skille {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-16);
+  font-size: var(--fs-xs);
+  color: var(--color-muted);
+}
+
+/* Stregerne på hver side af "eller" */
+.skille::before,
+.skille::after {
+  content: ""; /* tom, men skal være der, for at stregen vises */
+  flex: 1; /* fylder pladsen på hver side */
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* "Ny her? Opret en profil på et øjeblik" – centreret nederst */
+.skift {
+  margin-top: var(--gap-8);
+  font-size: var(--fs-sm);
+  text-align: center;
+  color: var(--color-muted);
+}
+
+/* ==============================
+   MOBIL
+   ============================== */
+@media (max-width: 600px) {
+  .kort {
+    padding: var(--gap-32) var(--gap-16);
+  }
+
+  /* Fornavn og efternavn under hinanden */
+  .raekke {
+    grid-template-columns: 1fr;
+  }
+}

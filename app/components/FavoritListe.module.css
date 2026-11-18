@@ -1,0 +1,52 @@
+/* "3 favoritter" */
+.antal {
+  font-size: var(--fs-sm);
+  font-weight: var(--fx-semibold);
+}
+
+/* Grid med eventkort. Højre kolonne på profilsiden er smallere end hele skærmen,
+   så i stedet for et fast antal kolonner laves der så mange, som der er plads til
+   (hvert kort mindst 240px bredt). Det giver 3 på en stor skærm og 1 på mobil. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--gap-24);
+  list-style: none;
+}
+
+/* "Henter..." og fejl */
+.besked {
+  color: var(--color-muted);
+}
+
+/* Boksen, når man ikke er logget ind eller ikke har favoritter.
+   Samme Figma-stil som IngenResultater: "Space effekt" + "Lys stroke" */
+.boks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* venstrestillet, som resten af profilsiden */
+  gap: var(--gap-16);
+  max-width: 805px; /* samme bredde som billetterne på Mine billetter */
+  padding: var(--gap-40);
+  border-radius: 20px;
+  background: var(--space-effekt);
+  box-shadow: var(--lys-stroke);
+}
+
+.overskrift {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fx-bold);
+}
+
+.undertekst {
+  color: var(--color-muted);
+}
+
+/* Blå knap – samme som de andre primære knapper */
+.knap {
+  margin-top: var(--gap-8);
+  padding: 14px var(--gap-40);
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: var(--color-text);
+}

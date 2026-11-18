@@ -2,6 +2,7 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import MenuBar from "../components/MenuBar";
+import BrugerNavn from "../components/BrugerNavn";
 
 export default function MineBilletterPage() {
   return (
@@ -22,7 +23,10 @@ export default function MineBilletterPage() {
             />
             <div className={styles.velkommen}>
               <p className={styles.velkommenTekst}>Velkommen tilbage!</p>
-              <p className={styles.navn}>Maja</p>
+              {/* Fornavnet på den bruger, der er logget ind – hentes fra Supabase */}
+              <p className={styles.navn}>
+                <BrugerNavn />
+              </p>
             </div>
           </div>
 

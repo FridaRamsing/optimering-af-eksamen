@@ -1,0 +1,149 @@
+/* Layoutet er kopieret fra app/mine-billetter/page.module.css,
+   så de to profilsider ser ens ud. Ændrer I det ene sted, så ret også det andet. */
+
+/* ==============================
+   BAGGRUND – gradient-båndet øverst
+   ============================== */
+.baggrund {
+  position: relative; /* Båndet placeres i forhold til denne */
+}
+
+.baand {
+  position: absolute; /* Ligger "bag" indholdet og fylder ikke i layoutet */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--gap-48) + 243px); /* Slutter præcis ved profilkortets bund */
+  background: var(--space-effekt); /* Figma-stylen "Space effekt" */
+}
+
+/* ==============================
+   SIDEN – de to kolonner
+   ============================== */
+.side {
+  position: relative; /* Indholdet ligger ovenpå båndet */
+  display: flex; /* Venstre og højre kolonne ved siden af hinanden */
+  align-items: flex-start;
+  gap: var(--gap-48);
+  width: 100%;
+  max-width: 1420px;
+  margin: 0 auto; /* Centrerer indholdet */
+  padding: var(--gap-48) var(--gap-40) 120px;
+}
+
+/* ------------------------------
+   Venstre kolonne
+   ------------------------------ */
+.venstre {
+  width: 465px; /* Fast bredde fra Figma */
+  flex-shrink: 0; /* Må ikke blive klemt smallere */
+}
+
+/* Profilkortet – "Velkommen tilbage! [navn]" */
+.profilkort {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Indholdet sidder i bunden af kortet */
+  gap: var(--gap-24);
+  min-height: 243px;
+  padding: var(--gap-40);
+  border-radius: 12px 12px 0 0; /* Kun runde hjørner foroven */
+  background-color: rgba(217, 217, 217, 0.1); /* Lys, gennemsigtig */
+}
+
+.velkommen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-8);
+}
+
+.velkommenTekst {
+  font-size: var(--fs-xl);
+  color: var(--color-muted);
+}
+
+.navn {
+  font-size: var(--fs-2xl);
+}
+
+/* ------------------------------
+   Højre kolonne
+   ------------------------------ */
+.hoejre {
+  flex: 1; /* Fylder resten af pladsen */
+  min-width: 0; /* Lader griddet med kort blive smallere i stedet for at skubbe siden ud */
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-48);
+}
+
+/* Toppen – brødkrumme og overskrift, lige så høj som profilkortet */
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-48);
+  min-height: 243px;
+}
+
+/* "Forside/Mine favoritter" */
+.broedkrumme {
+  font-size: var(--fs-lg);
+  color: var(--color-muted);
+}
+
+/* Streg og overskrift */
+.overskrift {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-16);
+}
+
+/* Den korte hvide streg over overskriften */
+.streg {
+  width: 48px;
+  height: 5px;
+  background-color: var(--color-text);
+}
+
+/* "MINE FAVORITTER" */
+.titel {
+  font-size: var(--fs-3xl);
+  font-weight: var(--fx-black);
+  text-transform: uppercase;
+}
+
+/* ------------------------------
+   Kunstnerne
+   ------------------------------ */
+.sektion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-24);
+}
+
+/* "KUNSTNERE DU HAR LIKET" – samme stil som "Næste arrangement" */
+.sektionTitel {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fx-black);
+  text-transform: uppercase;
+}
+
+/* ==============================
+   TABLET OG MOBIL – kolonnerne under hinanden
+   ============================== */
+@media (max-width: 1000px) {
+  .side {
+    flex-direction: column;
+    padding: var(--gap-32) var(--gap-16) 80px;
+  }
+
+  .venstre {
+    width: 100%;
+  }
+
+  /* Toppen behøver ikke matche profilkortets højde, når de står under hinanden */
+  .top {
+    min-height: 0;
+    gap: var(--gap-24);
+  }
+}

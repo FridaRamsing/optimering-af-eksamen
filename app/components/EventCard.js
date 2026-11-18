@@ -6,7 +6,8 @@ import Image from "next/image";
 import FavoritKnap from "./FavoritKnap";
 import styles from "./EventCard.module.css";
 
-export default function EventCard({ event }) {
+// onFjernetFavorit: valgfri – bruges kun på favoritsiden (sendes videre til hjertet)
+export default function EventCard({ event, onFjernetFavorit }) {
   const dato = new Date(event.starts_at);
   const dag = dato.getDate();
   // "dec." → "dec"
@@ -30,7 +31,7 @@ export default function EventCard({ event }) {
           className={styles.billede}
         />
         <span className={styles.kategori}>{event.kategori}</span>
-        <FavoritKnap titel={event.titel} />
+        <FavoritKnap eventId={event.id} titel={event.titel} onFjernet={onFjernetFavorit} />
 
         {/* Datoboks + evt. ekstra kort bagved og "+ X datoer" */}
         <div className={styles.datoStak}>
