@@ -16,7 +16,7 @@ export default function EventCard({ event }) {
     <Link href={`/events/${event.id}`} className={styles.card}>
       <div className={styles.billedeBoks}>
         <Image
-          src={event.image_url}
+          src={event.card_image_url}
           alt={event.titel}
           fill
           sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 25vw"
