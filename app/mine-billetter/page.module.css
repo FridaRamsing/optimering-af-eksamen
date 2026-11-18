@@ -1,0 +1,158 @@
+/* ==============================
+   BAGGRUND – gradient-båndet øverst
+   ============================== */
+.baggrund {
+  position: relative; /* Båndet placeres i forhold til denne */
+}
+
+.baand {
+  position: absolute; /* Ligger "bag" indholdet og fylder ikke i layoutet */
+  top: 0;
+  left: 0;
+  width: 100%; /* Hele skærmens bredde */
+  height: calc(var(--gap-48) + 243px); /* Sidens luft i toppen + profilkortets højde – så båndet slutter præcis ved kortets bund, som i Figma */
+  background: var(--space-effekt); /* Figma-stylen "Space effekt" */
+}
+
+/* ==============================
+   SIDEN – de to kolonner
+   ============================== */
+.side {
+  position: relative; /* Gør at indholdet ligger ovenpå båndet */
+  display: flex; /* Venstre og højre kolonne ved siden af hinanden */
+  align-items: flex-start; /* Begge kolonner starter i toppen */
+  gap: var(--gap-48); /* Afstand mellem kolonnerne (63px i Figma → nærmeste variabel) */
+  width: 100%;
+  max-width: 1420px; /* 1340px indhold fra Figma + 40px padding i hver side */
+  margin: 0 auto; /* Centrerer indholdet på siden */
+  padding: var(--gap-48) var(--gap-40); /* Luft top/bund og venstre/højre */
+}
+
+/* ------------------------------
+   Venstre kolonne
+   ------------------------------ */
+.venstre {
+  width: 465px; /* Fast bredde fra Figma */
+  flex-shrink: 0; /* Må ikke blive klemt smallere */
+}
+
+/* Profilkortet – "Velkommen tilbage! Maja" */
+.profilkort {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Indholdet sidder i bunden af kortet */
+  gap: var(--gap-24); /* 22px i Figma → nærmeste variabel */
+  min-height: 243px; /* Højden fra Figma */
+  padding: var(--gap-40); /* 44px/40px i Figma → nærmeste variabel */
+  border-radius: 12px 12px 0 0; /* Kun runde hjørner foroven */
+  background-color: rgba(217, 217, 217, 0.1); /* Lys, gennemsigtig */
+}
+
+.velkommen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-8);
+}
+
+.velkommenTekst {
+  font-size: var(--fs-xl); /* 20px */
+  color: var(--color-muted); /* Grå */
+}
+
+.navn {
+  font-size: var(--fs-2xl); /* 24px */
+}
+
+/* ------------------------------
+   Højre kolonne
+   ------------------------------ */
+.hoejre {
+  flex: 1; /* Fylder resten af pladsen */
+  display: flex;
+  flex-direction: column; /* Toppen over, "Næste arrangement" under */
+  gap: var(--gap-48); /* Afstand fra båndets kant ned til "Næste arrangement" (48px i Figma) */
+}
+
+/* Toppen – brødkrumme, overskrift og faner */
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-48); /* 72px i Figma → nærmeste variabel */
+  min-height: 243px; /* Samme højde som profilkortet – så "Næste arrangement" starter under båndet */
+}
+
+/* Brødkrumme – "Forside/Mine billetter" */
+.broedkrumme {
+  font-size: var(--fs-lg);
+  color: var(--color-muted); /* Grå */
+}
+
+/* Streg, overskrift og faner */
+.overskrift {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-16);
+}
+
+.streg {
+  width: 48px;
+  height: 5px;
+  background-color: var(--color-text); /* Hvid */
+}
+
+.titel {
+  font-size: var(--fs-3xl); /* 32px */
+  font-weight: var(--fx-black); /* 900 – Black */
+  text-transform: uppercase; /* Store bogstaver */
+}
+
+/* Fanerne */
+.faner {
+  display: flex; /* Fanerne på én række */
+  gap: var(--gap-24);
+}
+
+.fane {
+  padding: var(--gap-8) 0; /* Luft over og under teksten */
+  border: none;
+  border-bottom: 1px solid var(--color-border); /* Grå streg under */
+  background: none; /* Fjerner knappens grå standard-baggrund */
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--fs-lg);
+  font-weight: var(--fx-semibold);
+  cursor: pointer;
+}
+
+/* Den valgte fane får hvid streg */
+.aktiv {
+  border-bottom-color: var(--color-text);
+}
+
+/* ------------------------------
+   Næste arrangement – billetterne
+   ------------------------------ */
+.naesteArrangement {
+  display: flex;
+  flex-direction: column; /* Overskrift og billetter under hinanden */
+  gap: var(--gap-24);
+}
+
+.sektionTitel {
+  font-size: var(--fs-2xl); /* 24px */
+  font-weight: var(--fx-black); /* 900 – Black */
+  text-transform: uppercase;
+}
+
+/* PLACEHOLDER – fjernes, når billet-komponenten er lavet */
+.billetPlaceholder {
+  width: 100%;
+  max-width: 805px; /* Billettens bredde fra Figma */
+  height: 264px; /* Billettens højde fra Figma */
+  border: 2px dashed var(--color-border); /* Stiplet kant = "her kommer noget" */
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Teksten midt i kassen */
+  color: var(--color-muted);
+}
