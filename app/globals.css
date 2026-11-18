@@ -11,6 +11,20 @@
   --color-text: #fefbfb;
   --color-primary: #024ddf;
 
+  /* Baggrund fra Figma (color style "Space effekt") */
+  --space-effekt:
+    linear-gradient(
+      180deg,
+      rgba(2, 77, 223, 0.15) 4%,
+      rgba(70, 45, 143, 0.25) 46%,
+      rgba(16, 31, 59, 0.5) 96%
+    ),
+    var(--color-bg-dark);
+
+  /* Effekter fra Figma (effect styles) */
+  --lys-op-effekt: 0 0 20px rgba(255, 242, 194, 1);
+  --lys-stroke: 0 0 20px rgba(255, 242, 194, 0.08);
+
   /*Fontstørrelse fra Figma*/
   --fs-2xs: 10px;
   --fs-xs: 12px;
