@@ -25,6 +25,10 @@
 .categoryItem {
   padding-bottom: 48px;
   margin-bottom: -48px; 
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-left: -12px;
+  margin-right: -12px;
 }
 
 .navigation a {
