@@ -6,6 +6,10 @@ import EventCard from "@/app/components/EventCard";
 import KategoriHero from "@/app/components/KategoriHero";
 import GenreFilter from "@/app/components/GenreFilter";
 import FilterLinje from "@/app/components/FilterLinje";
+import StjerneBaggrund from "@/app/components/StjerneBaggrund";
+import KategoriLoading from "@/app/components/KategoriLoading";
+import KategoriIngenResultater from "@/app/components/KategoriIngenResultater";
+import { kategoriGenrer } from "@/lib/genre";
 import styles from "./page.module.css";
 
 // Unikke værdier fra én kolonne, sorteret. Set fjerner dubletter: ["pop", "pop", "rap"] → ["pop", "rap"]
@@ -31,7 +35,10 @@ async function KategoriIndhold({ params, searchParams }) {
     .select("genre, by")
     .eq("kategori", kategori);
 
-  const genrer = unikke(valgData, "genre");
+  // Den faste liste først, derefter evt. genrer fra Supabase, som ikke står på listen
+  const genrer = [
+    ...new Set([...kategoriGenrer[kategori], ...unikke(valgData, "genre")]),
+  ];
   const byer = unikke(valgData, "by");
 
   // Hent events – filtrene tilføjes kun, hvis de er valgt
@@ -85,12 +92,15 @@ async function KategoriIndhold({ params, searchParams }) {
 
         {error && <p>Noget gik galt. Prøv igen senere.</p>}
 
-        {!error && events.length === 0 && (
-          <p>
-            {harFiltre
-              ? "Ingen events passer til dine filtre."
-              : "Der er ingen events i denne kategori lige nu."}
-          </p>
+        {/* Filtre valgt, men ingen events → Freias boks med "Ryd alle filtre" */}
+        {!error && events.length === 0 && harFiltre && (
+          <div className={styles.ingenResultater}>
+            <KategoriIngenResultater kategori={kategori} />
+          </div>
+        )}
+
+        {!error && events.length === 0 && !harFiltre && (
+          <p>Der er ingen events i denne kategori lige nu.</p>
         )}
 
         {!error && events.length > 0 && (
@@ -114,8 +124,10 @@ async function KategoriIndhold({ params, searchParams }) {
 
 export default function KategoriPage({ params, searchParams }) {
   return (
-    <main>
-      <Suspense fallback={<p>Indlæser events…</p>}>
+    <main className={styles.side}>
+      {/* Bevægende stjerner bag hele siden (men ikke header og footer) */}
+      <StjerneBaggrund />
+      <Suspense fallback={<KategoriLoading />}>
         <KategoriIndhold params={params} searchParams={searchParams} />
       </Suspense>
     </main>

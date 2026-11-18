@@ -22,6 +22,15 @@
   gap: 24px; /* Gap imellem navigationselementerne */
 }
 
+.categoryItem {
+  padding-bottom: 48px;
+  margin-bottom: -48px; 
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-left: -12px;
+  margin-right: -12px;
+}
+
 .navigation a {
   font-size: var(--fs-xl); /* Brug variabel for fontstørrelse */
   font-weight: var(--fx-regular); 
@@ -85,15 +94,7 @@
   min-height: 160px;
   padding: 24px 48px;
   background-color: var(--color-bg);
-}
-
-.dropdown::before {
-  content: "";
-  position: absolute;
-  top: -48px;
-  left: 0;
-  width: 100%;
-  height: 48px;
+  border-bottom: 1px solid var(--color-surface);
 }
 
 .categoryItem:hover .dropdown {
@@ -106,4 +107,93 @@
   font-size: var(--fs-3xl);
   font-weight: var(--fx-black);
   text-transform: uppercase; /* Gør teksten i dropdown-menuen store bogstaver */
+}
+
+.genreColumns {
+  display: grid; /* Brug grid layout til at arrangere genrerne i kolonner */
+  grid-template-columns: repeat(2, max-content); /* Opretter tre kolonner i dropdown-menuen */
+  gap: 20px; /* Gap imellem kolonnerne */
+}
+
+.genreSection {
+  display: flex;
+  flex-direction: column; /* Arrangerer genrerne i en kolonne */
+  gap: 16px; /* Gap imellem genrerne */
+}
+
+.genreSection h3 {
+  font-weight: var(--fx-black);
+}
+
+.genreList {
+  display: flex;
+  flex-direction: column; /* Arrangerer genrerne i en kolonne */
+  gap: 16px; /* Gap imellem genrerne */
+}
+
+.genreList p {
+  margin: 0;
+}
+
+.dropdownContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 100px;
+  margin-top: 40px;
+}
+
+/* dropdown sektioner styling */
+.popularCards {
+  display: flex;
+  gap: 30px;
+}
+
+.popularCard {
+  position: relative;
+  flex: 0 0 292px;
+  height: 183px;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.popularCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Tilføjer en overlay effekt til popularCard */
+.popularCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.popularCard h3 {
+  position: absolute;
+  z-index: 1;
+  left: 24px;
+  bottom: 24px;
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fx-black);
+}
+
+.popularSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dropdownContent p:hover {
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.popularCard:hover {
+  background-color: rgba(252, 242, 205, 0.9);
+  box-shadow: 0 0 16px 0 var(--color-gul, #fff2c2);
 }
