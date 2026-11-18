@@ -1,0 +1,139 @@
+/* ==============================
+   STJERNEHIMMEL – rammen
+   Ligger bag alt indhold i <main> (se .side i page.module.css)
+   ============================== */
+.himmel {
+  position: absolute;
+  inset: 0;
+  z-index: -1; /* Bag indholdet */
+  pointer-events: none; /* Må aldrig fange klik */
+  --stjerne: var(--color-text); /* Farven på prikkerne */
+}
+
+/* ==============================
+   ET LAG MED STJERNER
+   Hvert lag er en flise med 6 prikker, der gentages over hele siden.
+   Lagene har forskellige, "skæve" flisestørrelser, så mønstret ikke ses
+   ============================== */
+.lag {
+  position: absolute;
+  inset: -20px; /* Lidt større end rammen, så kanterne ikke ses, når laget vipper */
+  background-repeat: repeat;
+  animation-name: glimt; /* Samme animation som StjernerFooter */
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.lag1 {
+  background-size: 233px 233px;
+  background-image:
+    radial-gradient(circle at 6px 53px, var(--stjerne) 0.94px, transparent 1.54px),
+    radial-gradient(circle at 9px 212px, var(--stjerne) 1px, transparent 1.6px),
+    radial-gradient(circle at 118px 55px, var(--stjerne) 1.03px, transparent 1.63px),
+    radial-gradient(circle at 102px 145px, var(--stjerne) 1.18px, transparent 1.78px),
+    radial-gradient(circle at 171px 46px, var(--stjerne) 1.1px, transparent 1.7px),
+    radial-gradient(circle at 216px 162px, var(--stjerne) 0.8px, transparent 1.4px);
+  --drift: 2px;
+  animation-duration: 10s;
+  animation-delay: 0s;
+}
+
+.lag2 {
+  background-size: 307px 307px;
+  background-image:
+    radial-gradient(circle at 26px 110px, var(--stjerne) 1.11px, transparent 1.71px),
+    radial-gradient(circle at 56px 227px, var(--stjerne) 0.89px, transparent 1.49px),
+    radial-gradient(circle at 136px 119px, var(--stjerne) 0.76px, transparent 1.36px),
+    radial-gradient(circle at 126px 241px, var(--stjerne) 1.18px, transparent 1.78px),
+    radial-gradient(circle at 212px 60px, var(--stjerne) 1.28px, transparent 1.88px),
+    radial-gradient(circle at 258px 173px, var(--stjerne) 1.12px, transparent 1.72px);
+  --drift: 4px;
+  animation-duration: 11s;
+  animation-delay: -3s;
+}
+
+.lag3 {
+  background-size: 389px 389px;
+  background-image:
+    radial-gradient(circle at 119px 64px, var(--stjerne) 1.29px, transparent 1.89px),
+    radial-gradient(circle at 8px 331px, var(--stjerne) 1.23px, transparent 1.83px),
+    radial-gradient(circle at 247px 58px, var(--stjerne) 0.85px, transparent 1.45px),
+    radial-gradient(circle at 230px 374px, var(--stjerne) 1.19px, transparent 1.79px),
+    radial-gradient(circle at 383px 152px, var(--stjerne) 1.01px, transparent 1.61px),
+    radial-gradient(circle at 295px 313px, var(--stjerne) 0.76px, transparent 1.36px);
+  --drift: 6px;
+  animation-duration: 12s;
+  animation-delay: -7s;
+}
+
+.lag4 {
+  background-size: 457px 457px;
+  background-image:
+    radial-gradient(circle at 140px 186px, var(--stjerne) 0.96px, transparent 1.56px),
+    radial-gradient(circle at 129px 235px, var(--stjerne) 1.15px, transparent 1.75px),
+    radial-gradient(circle at 292px 125px, var(--stjerne) 1.16px, transparent 1.76px),
+    radial-gradient(circle at 230px 419px, var(--stjerne) 1.01px, transparent 1.61px),
+    radial-gradient(circle at 441px 222px, var(--stjerne) 1.01px, transparent 1.61px),
+    radial-gradient(circle at 425px 344px, var(--stjerne) 0.89px, transparent 1.49px);
+  --drift: 8px;
+  animation-duration: 13s;
+  animation-delay: -2s;
+}
+
+.lag5 {
+  background-size: 541px 541px;
+  background-image:
+    radial-gradient(circle at 14px 19px, var(--stjerne) 1.25px, transparent 1.85px),
+    radial-gradient(circle at 24px 367px, var(--stjerne) 1.08px, transparent 1.68px),
+    radial-gradient(circle at 250px 128px, var(--stjerne) 0.81px, transparent 1.41px),
+    radial-gradient(circle at 250px 322px, var(--stjerne) 1.09px, transparent 1.69px),
+    radial-gradient(circle at 459px 245px, var(--stjerne) 0.81px, transparent 1.41px),
+    radial-gradient(circle at 532px 533px, var(--stjerne) 1.21px, transparent 1.81px);
+  --drift: 10px;
+  animation-duration: 14s;
+  animation-delay: -9s;
+}
+
+.lag6 {
+  background-size: 613px 613px;
+  background-image:
+    radial-gradient(circle at 115px 115px, var(--stjerne) 1.27px, transparent 1.87px),
+    radial-gradient(circle at 130px 460px, var(--stjerne) 0.93px, transparent 1.53px),
+    radial-gradient(circle at 313px 82px, var(--stjerne) 1.33px, transparent 1.93px),
+    radial-gradient(circle at 320px 581px, var(--stjerne) 0.84px, transparent 1.44px),
+    radial-gradient(circle at 445px 289px, var(--stjerne) 1.16px, transparent 1.76px),
+    radial-gradient(circle at 470px 556px, var(--stjerne) 0.97px, transparent 1.57px);
+  --drift: 10px;
+  animation-duration: 12.5s;
+  animation-delay: -5s;
+}
+
+/* ==============================
+   ANIMATIONEN – blink og vip (kopieret fra StjernerFooter)
+   ============================== */
+@keyframes glimt {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(0, 0);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(var(--drift), calc(var(--drift) * -0.6));
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(calc(var(--drift) * -0.8), calc(var(--drift) * 0.4));
+  }
+  75% {
+    opacity: 0.9;
+    transform: translate(calc(var(--drift) * 0.3), calc(var(--drift) * 0.8));
+  }
+}
+
+/* Står stille for brugere, der har slået animationer fra i styresystemet */
+@media (prefers-reduced-motion: reduce) {
+  .lag {
+    animation: none;
+  }
+}

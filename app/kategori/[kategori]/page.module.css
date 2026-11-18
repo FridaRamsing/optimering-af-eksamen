@@ -1,4 +1,11 @@
-
+/* Hele siden (<main>) – ramme for stjernebaggrunden */
+.side {
+  position: relative; /* Ankeret for stjernerne */
+  isolation: isolate; /* Egen lagstak, så stjernerne (z-index: -1) ligger bag indholdet, men over body */
+  overflow: hidden; /* Skjuler stjernelagene, når de vipper ud over kanten */
+  min-height: 100vh; /* Fylder skærmen, også når der er få kort */
+  background: var(--color-bg); /* Sort baggrund bag stjernerne */
+}
 
 .indhold {
   display: flex;
