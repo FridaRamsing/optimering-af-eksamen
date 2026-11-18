@@ -1,0 +1,66 @@
+/* ==============================
+   BOKSEN – hele rammen
+   ============================== */
+.boks {
+  display: flex;
+  flex-direction: column; /* Tekster over, knap under */
+  align-items: center; /* Centreret vandret */
+  justify-content: center; /* Centreret lodret */
+  gap: var(--gap-48); /* Afstand fra teksterne ned til knappen */
+
+  width: 100%;
+  max-width: 880px; /* Bredden fra Figma – men må blive smallere */
+  min-height: 320px; /* Højden fra Figma – men må blive højere */
+  padding: var(--gap-8);
+  border-radius: 8px; /* Afrundede hjørner */
+
+  background: var(--space-effekt); /* Figma-stylen "Space effekt" */
+  box-shadow: var(--lys-stroke); /* Figma-effekten "Lys stroke (mere utydelig)" */
+}
+
+/* ==============================
+   TEKSTERNE – overskrift og undertekst
+   ============================== */
+.tekster {
+  display: flex;
+  flex-direction: column; /* Overskrift over, undertekst under */
+  gap: var(--gap-16); /* Afstand mellem de to tekster */
+  text-align: center; /* Teksten centreres på hver linje */
+}
+
+.overskrift {
+  font-size: var(--fs-3xl); /* 32px */
+  font-weight: var(--fx-extrabold); /* 800 – ExtraBold */
+}
+
+.undertekst {
+  font-size: var(--fs-lg); /* 18px */
+  font-weight: var(--fx-regular); /* 400 – Regular */
+}
+
+/* ==============================
+   KNAPPEN – "Ryd alle filtre"
+   ============================== */
+.knap {
+  width: 160px; /* Fast bredde fra Figma */
+  padding: var(--gap-16);
+  border: none; /* Fjerner browserens standard-kant */
+  border-radius: 8px;
+
+  background-color: var(--color-primary); /* Blå */
+  color: var(--color-text); /* Hvid tekst */
+  font-family: inherit; /* Brug Figtree som resten af siden */
+  font-size: var(--fs-md); /* 16px */
+  font-weight: var(--fx-medium); /* 500 – Medium */
+
+  cursor: pointer; /* Hånd-ikon, så man kan se, den kan klikkes */
+  transition:
+    background-color 0.2s,
+    color 0.2s; /* Farverne skifter blødt ved hover */
+}
+
+/* Når musen er over knappen – samme hover som knappen i headeren */
+.knap:hover {
+  background-color: var(--color-text); /* Hvid */
+  color: var(--color-primary); /* Blå tekst */
+}
