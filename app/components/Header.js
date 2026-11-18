@@ -2,10 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./Header.module.css";
 import BrugerLink from "./BrugerLink";
-import MusicDropdown from "./MusicDropdown";
-import SportDropdown from "./SportDropdown";
-import UnderholdningDropdown from "./UnderholdningDropdown";
-import OplevelseDropdown from "./OplevelseDropdown";
+import HeaderNavigation from "./HeaderNavigation";
 
 
 {/* Header komponenten, der indeholder navigationen og logoet */}
@@ -23,27 +20,7 @@ export default function Header() {
         </Link>
 
         {/* navigation elementer til de forskellige kategorier */}
-        <nav className={styles.navigation}>
-          <div className={styles.categoryItem}>
-            <Link href="/kategori/musik">Musik</Link>
-            <MusicDropdown />
-          </div>
-
-          <div className={styles.categoryItem}>
-          <Link href="/kategori/sport">Sport</Link>
-            <SportDropdown />
-          </div>
-
-          <div className={styles.categoryItem}>
-            <Link href="/kategori/underholdning">Underholdning</Link>
-            <UnderholdningDropdown />
-          </div>
-
-          <div className={styles.categoryItem}>
-            <Link href="/kategori/oplevelse">Oplevelse</Link>
-            <OplevelseDropdown />
-          </div>
-        </nav>
+        <HeaderNavigation />
       </div>
 
       {/* tilføjet ny div med klassen "actions" for at placere knappen til eventgeneratoren */}
