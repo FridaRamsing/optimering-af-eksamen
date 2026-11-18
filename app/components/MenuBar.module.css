@@ -1,0 +1,74 @@
+/* ==============================
+   MENUBAR – fold ud-menuen
+   ============================== */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-8); /* Afstand mellem de to lister */
+  padding-bottom: var(--gap-16);
+  border-radius: 0 0 12px 12px; /* Kun runde hjørner forneden */
+  background-color: var(--color-bg);
+}
+
+/* Fælles for alle menuens knapper */
+.foldUdKnap,
+.ekstraKnap {
+  display: flex;
+  align-items: center; /* Ikon og tekst på linje lodret */
+  border: none;
+  background: none;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--fs-md); /* 16px */
+  font-weight: var(--fx-semibold);
+  cursor: pointer;
+}
+
+/* Fold-ud-punkterne – "Mine billetter", "Min profil", "Mine indstillinger" */
+.foldUd {
+  list-style: none; /* Fjerner prikkerne */
+  padding: 0 var(--gap-24); /* Luft i siderne */
+}
+
+.foldUdKnap {
+  width: 100%; /* Fylder hele bredden, så pilen kan sidde helt ude til højre */
+  justify-content: space-between; /* Ikon + tekst til venstre, pil til højre */
+  padding: var(--gap-16) 0;
+  border-bottom: 1px solid var(--color-border); /* Grå streg under */
+}
+
+/* Pilen – drejer, når punktet er åbent */
+.pil {
+  transition: transform 0.2s; /* Drejer blødt */
+}
+
+.pilOp {
+  transform: rotate(180deg); /* Peger opad */
+}
+
+/* Underpunkterne, når et punkt er foldet ud */
+.underpunkter {
+  list-style: none;
+  border-bottom: 1px solid var(--color-border); /* Streg efter underpunkterne */
+}
+
+.underpunkter li {
+  padding: var(--gap-16) var(--gap-48); /* 46px i Figma → nærmeste variabel, så teksten flugter med overskriften */
+  font-size: var(--fs-md); /* 16px */
+}
+
+.ikonTekst {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-16); /* Afstand mellem ikon og tekst */
+}
+
+/* De to ekstra punkter – "Log ud" og "Spørgsmål?" */
+.ekstra {
+  list-style: none;
+}
+
+.ekstraKnap {
+  gap: var(--gap-8); /* Afstand mellem ikon og tekst */
+  padding: var(--gap-8) var(--gap-24);
+}
