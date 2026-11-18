@@ -1,0 +1,189 @@
+/* Det mørkeblå kort rundt om formularen */
+.kort {
+  display: flex;
+  flex-direction: column; /* alle felter under hinanden */
+  gap: var(--gap-16); /* samme afstand mellem alle dele */
+  padding: var(--gap-48) var(--gap-40);
+  background: linear-gradient(180deg, #141a3d 0%, #1c1638 100%); /* blå → lilla */
+  border-radius: 24px;
+  box-shadow: 0 0 40px rgba(2, 77, 223, 0.15); /* den svage glød */
+}
+
+/* Ikon + "Kortbetaling" på én linje */
+.overskrift {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-16);
+}
+
+.overskrift h2 {
+  font-size: var(--fs-3xl);
+  font-weight: 700;
+}
+
+/* "Alle felter er obligatoriske..." */
+.note {
+  margin-bottom: var(--gap-8);
+  font-size: var(--fs-sm);
+  color: var(--color-muted);
+}
+
+/* Label + felt + evt. hjælpetekst under hinanden */
+.felt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-8);
+  font-size: var(--fs-md);
+}
+
+/* Selve felterne – fælles udseende for alle inputs og dropdowns */
+.felt input,
+.felt select {
+  width: 100%; /* fylder hele kolonnen */
+  height: 56px;
+  padding: 0 var(--gap-16); /* luft til venstre og højre for teksten */
+  background: transparent; /* kortets baggrund skinner igennem */
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text);
+  font: inherit; /* ellers bruger felterne ikke Figtree */
+}
+
+/* Eksempelteksten (fx "1234 5678...") er grå, så den ikke ligner rigtig tekst */
+.felt input::placeholder {
+  color: var(--color-muted);
+}
+
+/* Blå ramme om det felt, man skriver i – vigtigt for dem, der bruger tastatur */
+.felt input:focus,
+.felt select:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px; /* lidt luft mellem feltet og den blå ramme */
+}
+
+/* Den lille kort-tegning til højre i nogle af felterne */
+/* (.felt .medIkon vinder over .felt input, fordi den har to klasser) */
+/* Tegningen er to baggrunde oven på hinanden: en grå stribe og et lyst rektangel */
+.felt .medIkon {
+  padding-right: 56px; /* så teksten ikke løber ind under kort-tegningen */
+  background-image: linear-gradient(var(--color-muted), var(--color-muted)),
+    linear-gradient(var(--color-light), var(--color-light));
+  background-repeat: no-repeat;
+  background-size: 30px 4px, 30px 20px;
+  background-position: right 16px top 22px, right 16px center;
+}
+
+/* select: egen pil, fordi browserens standardpil ikke passer til designet */
+.felt select {
+  appearance: none; /* fjerner browserens egen pil */
+  /* To små trekanter, der tilsammen danner en "v"-pil */
+  background-image: linear-gradient(45deg, transparent 50%, var(--color-text) 50%),
+    linear-gradient(135deg, var(--color-text) 50%, transparent 50%);
+  background-position: right 22px center, right 16px center;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+}
+
+/* Mørk baggrund i dropdown-listen – ellers bliver den hvid med hvid tekst */
+.felt select option {
+  background: var(--color-bg);
+}
+
+/* Hjælpeteksten under felterne */
+.felt small {
+  font-size: var(--fs-xs);
+  color: var(--color-muted);
+}
+
+/* Kortmærkerne */
+.maerker {
+  display: flex; /* mærkerne på én linje */
+  flex-wrap: wrap; /* ... men de må hoppe ned på næste linje, hvis der ikke er plads */
+  gap: var(--gap-8);
+  list-style: none;
+}
+
+/* Én "pill" – lille tekst med tynd ramme */
+.maerker li {
+  padding: 4px var(--gap-8);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: var(--fs-2xs);
+  color: var(--color-muted);
+}
+
+/* Rækker med to felter ved siden af hinanden */
+.raekke {
+  display: grid;
+  gap: var(--gap-16);
+}
+
+/* fr = "fraction" – en andel af pladsen. 1fr 1fr = halvdelen hver */
+.lige {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Gaden fylder 2/3, husnummeret 1/3 */
+.gade {
+  grid-template-columns: 2fr 1fr;
+}
+
+/* Postnummeret fylder 1/3, byen 2/3 */
+.postnr {
+  grid-template-columns: 1fr 2fr;
+}
+
+/* Ekstra afstand over "Navn på kort", som i Figma */
+.ekstraLuft {
+  margin-top: var(--gap-24);
+}
+
+/* "Faktureringsadresse" */
+.underoverskrift {
+  margin-top: var(--gap-24);
+  font-size: var(--fs-xl);
+  font-weight: 700;
+}
+
+/* Betal-knappen */
+.betal {
+  display: flex; /* låseikon og tekst ved siden af hinanden */
+  align-items: center;
+  justify-content: center; /* i midten af knappen */
+  gap: var(--gap-8);
+  height: 56px;
+  margin-top: var(--gap-16);
+  border: none; /* fjerner browserens standardkant */
+  border-radius: 8px;
+  background: var(--color-primary); /* blå, når den kan bruges */
+  color: var(--color-text);
+  font: inherit; /* knapper arver heller ikke fonten af sig selv */
+  cursor: pointer; /* hånd-markør, så man kan se den er klikbar */
+}
+
+/* Når knappen er disabled (ikke alle felter er udfyldt): mørk og ikke klikbar */
+.betal:disabled {
+  background: #1a2c6b;
+  color: var(--color-light);
+  cursor: not-allowed;
+}
+
+/* De to små linjer under knappen */
+.smaatekst {
+  font-size: var(--fs-xs);
+  line-height: 1.8; /* luft mellem de to linjer */
+  text-align: center;
+  color: var(--color-muted);
+}
+
+/* Mobil: felterne under hinanden */
+@media (max-width: 600px) {
+  .kort {
+    padding: var(--gap-32) var(--gap-16);
+  }
+  .lige,
+  .gade,
+  .postnr {
+    grid-template-columns: 1fr;
+  }
+}

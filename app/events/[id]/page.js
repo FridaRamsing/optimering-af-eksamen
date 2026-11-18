@@ -8,7 +8,8 @@ export default async function EventPage({ params }) {
   return (
     <main>
       <h1>Event: {id}</h1>
-      <Link href="/pladser">Køb billet</Link>
+      {/* Sender event-id'et med, så betalingssiden kan hente eventet fra Supabase */}
+      <Link href={`/pladser?event=${id}`}>Køb billet</Link>
     </main>
   );
 }

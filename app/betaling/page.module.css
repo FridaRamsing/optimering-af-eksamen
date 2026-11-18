@@ -1,0 +1,116 @@
+/* Hele indholdet – centreret med maks-bredde */
+.side {
+  width: 100%;
+  max-width: 1060px; /* designet er ca. 530 + 32 + 490 px bredt */
+  margin: 0 auto; /* centrerer indholdet */
+  padding: 64px var(--gap-16) 120px;
+}
+
+/* "Gennemfør ordren" */
+.titel {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: var(--gap-32);
+}
+
+/* Beskeder, når der mangler data eller noget går galt */
+.besked {
+  color: var(--color-muted);
+}
+
+.besked a {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+/* To kolonner ved siden af hinanden */
+.kolonner {
+  display: grid;
+  grid-template-columns: 530px 490px; /* bredderne fra Figma */
+  gap: var(--gap-32);
+  align-items: start; /* ellers bliver "Din ordre" lige så høj som venstre side */
+}
+
+/* Venstre kolonne – advarsel, formular og MobilePay under hinanden */
+.venstre {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Den gule advarselsboks */
+.advarsel {
+  display: flex;
+  gap: var(--gap-16);
+  align-items: center;
+  padding: var(--gap-24);
+  margin-bottom: var(--gap-32);
+  background: #3a2a14; /* mørk brun */
+  border: 1px solid #d49a3a; /* gylden kant */
+  border-radius: 16px;
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--color-muted); /* anden linje er grå */
+}
+
+/* Første linje er hvid og lidt fed */
+.advarsel strong {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* "—— eller betal med MobilePay ——" */
+.skille {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-16);
+  margin: var(--gap-32) 0;
+  font-size: var(--fs-xs);
+  color: var(--color-muted);
+}
+
+/* Stregerne på hver side af teksten */
+.skille::before,
+.skille::after {
+  content: ""; /* tom, men skal være der, for at stregen vises */
+  flex: 1; /* stregerne fylder pladsen på hver side af teksten */
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* MobilePay-kortet – samme mørkeblå stil som formularen */
+.mobilepay {
+  display: flex; /* logo, navn og knap på én linje */
+  align-items: center;
+  gap: var(--gap-16);
+  padding: var(--gap-32) var(--gap-40);
+  background: linear-gradient(180deg, #141a3d 0%, #1c1638 100%);
+  border-radius: 24px;
+  box-shadow: 0 0 40px rgba(2, 77, 223, 0.15);
+}
+
+.mobilepay h2 {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+}
+
+/* "Vælg"-knappen */
+.vaelg {
+  margin-left: auto; /* skubber knappen helt ud til højre */
+  padding: 12px 44px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+/* Mobil/tablet: én kolonne, og "Din ordre" kommer først */
+@media (max-width: 1100px) {
+  .kolonner {
+    grid-template-columns: 1fr;
+  }
+  .hoejre {
+    order: -1; /* flytter ordren op foran formularen */
+  }
+}

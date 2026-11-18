@@ -1,0 +1,103 @@
+/* Det mørkeblå kort */
+.kort {
+  padding: var(--gap-48) var(--gap-32) var(--gap-40); /* top | sider | bund */
+  background: linear-gradient(180deg, #141a3d 0%, #1c1638 100%); /* blå → lilla oppefra og ned */
+  border-radius: 24px;
+  box-shadow: 0 0 40px rgba(2, 77, 223, 0.15); /* svag blå glød rundt om */
+}
+
+/* "Din ordre" */
+.overskrift {
+  margin-bottom: var(--gap-16);
+  font-size: var(--fs-3xl);
+  font-weight: 700;
+}
+
+/* Billetterne under hinanden med luft imellem */
+.billetter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-16);
+}
+
+/* Tynd, lys streg mellem afsnittene */
+.antal,
+.linjer,
+.gebyr,
+.total {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* "2 billetter · giver adgang for 2 personer" */
+.antal {
+  margin-top: var(--gap-24);
+  padding: var(--gap-24) 0;
+  font-size: var(--fs-md);
+  color: var(--color-muted);
+}
+
+/* Salen – tre kasser side om side, centreret */
+.sal {
+  display: flex;
+  justify-content: center;
+  gap: var(--gap-8);
+  height: 196px;
+  padding: var(--gap-24) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: content-box; /* padding lægges oven i de 196px i stedet for at blive trukket fra */
+}
+
+/* Smal grå-brun kasse til venstre */
+.salVenstre {
+  width: 30px;
+  background: #5c5650;
+}
+
+/* Det blå område, hvor pladserne er */
+.salMidte {
+  position: relative; /* så pinnen kan placeres inde i kassen */
+  width: 168px;
+  background: #1a3caa;
+}
+
+/* Smal grålig-blå kasse til højre */
+.salHoejre {
+  width: 42px;
+  background: #45475a;
+}
+
+/* Pinnen, der viser hvor pladserne ligger */
+.pin {
+  position: absolute; /* placeres frit i forhold til .salMidte */
+  top: 80px;
+  left: 32px;
+}
+
+/* Prislinjer: tekst til venstre, pris til højre */
+.linjer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-24);
+  padding: var(--gap-24) 0;
+  list-style: none; /* ingen prikker foran linjerne */
+}
+
+.linjer li,
+.linje {
+  display: flex;
+  justify-content: space-between; /* første <span> til venstre, sidste til højre */
+  font-size: var(--fs-md);
+}
+
+/* Gebyr-linjen er grå */
+.gebyr {
+  padding: var(--gap-24) 0;
+  color: var(--color-muted);
+}
+
+/* Samlet pris – større og fed */
+.total {
+  padding-top: var(--gap-24);
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+}
