@@ -6,6 +6,7 @@ import EventCard from "@/app/components/EventCard";
 import KategoriHero from "@/app/components/KategoriHero";
 import GenreFilter from "@/app/components/GenreFilter";
 import FilterLinje from "@/app/components/FilterLinje";
+import StjerneBaggrund from "@/app/components/StjerneBaggrund";
 import styles from "./page.module.css";
 
 // Unikke værdier fra én kolonne, sorteret. Set fjerner dubletter: ["pop", "pop", "rap"] → ["pop", "rap"]
@@ -114,7 +115,9 @@ async function KategoriIndhold({ params, searchParams }) {
 
 export default function KategoriPage({ params, searchParams }) {
   return (
-    <main>
+    <main className={styles.side}>
+      {/* Bevægende stjerner bag hele siden (men ikke header og footer) */}
+      <StjerneBaggrund />
       <Suspense fallback={<p>Indlæser events…</p>}>
         <KategoriIndhold params={params} searchParams={searchParams} />
       </Suspense>
