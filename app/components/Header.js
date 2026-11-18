@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./Header.module.css";
 import MusicDropdown from "./MusicDropdown"; 
+import SportDropdown from "./SportDropdown";
 
 
 {/* Header komponenten, der indeholder navigationen og logoet */}
@@ -24,7 +25,12 @@ export default function Header() {
             <Link href="/kategori/musik">Musik</Link>
             <MusicDropdown /> 
           </div>
+
+          <div className={styles.categoryItem}>
           <Link href="/kategori/sport">Sport</Link>
+            <SportDropdown />
+          </div>
+          
           <Link href="/kategori/underholdning">Underholdning</Link>
           <Link href="/kategori/oplevelse">Oplevelse</Link>
         </nav>
