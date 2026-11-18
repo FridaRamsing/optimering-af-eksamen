@@ -3,7 +3,7 @@
   padding: var(--gap-48) var(--gap-32) var(--gap-40); /* top | sider | bund */
   background: linear-gradient(180deg, #141a3d 0%, #1c1638 100%); /* blå → lilla oppefra og ned */
   border-radius: 24px;
-  box-shadow: 0 0 40px rgba(2, 77, 223, 0.15); /* svag blå glød rundt om */
+  box-shadow: var(--lys-stroke); /* Figma-effekten "Lys stroke" fra globals.css */
 }
 
 /* "Din ordre" */

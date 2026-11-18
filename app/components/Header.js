@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Header.module.css";
-import MusicDropdown from "./MusicDropdown"; 
+import BrugerLink from "./BrugerLink";
+import MusicDropdown from "./MusicDropdown";
 import SportDropdown from "./SportDropdown";
 import UnderholdningDropdown from "./UnderholdningDropdown";
 import OplevelseDropdown from "./OplevelseDropdown";
@@ -25,19 +26,19 @@ export default function Header() {
         <nav className={styles.navigation}>
           <div className={styles.categoryItem}>
             <Link href="/kategori/musik">Musik</Link>
-            <MusicDropdown /> 
+            <MusicDropdown />
           </div>
 
           <div className={styles.categoryItem}>
           <Link href="/kategori/sport">Sport</Link>
             <SportDropdown />
           </div>
-          
+
           <div className={styles.categoryItem}>
             <Link href="/kategori/underholdning">Underholdning</Link>
             <UnderholdningDropdown />
           </div>
-          
+
           <div className={styles.categoryItem}>
             <Link href="/kategori/oplevelse">Oplevelse</Link>
             <OplevelseDropdown />
@@ -66,7 +67,8 @@ export default function Header() {
             className={styles.iconHover}
           />
         </button>
-        <Link href="/events" className={styles.iconLink}>
+        {/* Hjertet åbner favoritsiden med de kunstnere, man har liket */}
+        <Link href="/favoritter" className={styles.iconLink}>
           <Image
             src="/assets/icons/favorite.svg"
             alt="Favoritter"
@@ -82,22 +84,9 @@ export default function Header() {
             className={styles.iconHover}
           />
         </Link>
-        <button type="button" className={styles.iconLink}>
-          <Image
-            src="/assets/icons/bruger.svg"
-            alt="Bruger"
-            width={32}
-            height={32}
-            className={styles.iconDefault}
-          />
-          <Image
-            src="/assets/icons/bruger-hover.svg"
-            alt=""
-            width={32}
-            height={32}
-            className={styles.iconHover}
-          />
-        </button>
+        {/* Bruger-ikonet – går til profilen, hvis man er logget ind, ellers til login.
+            Egen komponent, fordi den skal køre i browseren for at se, om man er logget ind. */}
+        <BrugerLink />
       </div>
     </header>
   );

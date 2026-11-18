@@ -1,6 +1,9 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation"; // Sender brugeren til login efter log ud
 import Image from "next/image";
+import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 import styles from "./MenuBar.module.css";
 
 /* ==============================
@@ -17,6 +20,12 @@ const foldUdPunkter = [
       "Tidligere arrangementer",
       "Medlemsskaber",
     ],
+  },
+  {
+    // Et almindeligt link (ingen underpunkter) – går til favoritsiden
+    navn: "Mine favoritter",
+    ikon: "/assets/icons/favorite.svg",
+    link: "/favoritter",
   },
   {
     navn: "Min profil",
@@ -44,6 +53,15 @@ const ekstraPunkter = [
 export default function MenuBar({ startAaben }) {
   // Navnet på det punkt, der er foldet ud (null = intet er åbent)
   const [aaben, setAaben] = useState(startAaben);
+  const router = useRouter();
+
+  // Logger brugeren ud af Supabase og sender dem til login/opret-siden.
+  // replace (i stedet for push): tilbage-knappen fører ikke tilbage til profilen.
+  // Bruger-ikonet i headeren skifter selv tilbage til login (den lytter efter log ud).
+  async function logUd() {
+    await supabase.auth.signOut();
+    router.replace("/login");
+  }
 
   // Klikker man på det åbne punkt, lukkes det – ellers åbnes det nye
   function skiftPunkt(navn) {
@@ -54,6 +72,20 @@ export default function MenuBar({ startAaben }) {
     <nav className={styles.menu} aria-label="Profilmenu">
       <ul className={styles.foldUd}>
         {foldUdPunkter.map((punkt) => {
+          // Punkter med "link" er almindelige links uden pil og underpunkter
+          if (punkt.link) {
+            return (
+              <li key={punkt.navn}>
+                <Link href={punkt.link} className={styles.foldUdKnap}>
+                  <span className={styles.ikonTekst}>
+                    <Image src={punkt.ikon} alt="" width={32} height={32} />
+                    {punkt.navn}
+                  </span>
+                </Link>
+              </li>
+            );
+          }
+
           const erAaben = aaben === punkt.navn; // Er DETTE punkt det åbne?
 
           return (
@@ -93,7 +125,12 @@ export default function MenuBar({ startAaben }) {
       <ul className={styles.ekstra}>
         {ekstraPunkter.map((punkt) => (
           <li key={punkt.navn}>
-            <button type="button" className={styles.ekstraKnap}>
+            {/* Kun "Log ud" gør noget indtil videre – "Spørgsmål?" har ingen funktion endnu */}
+            <button
+              type="button"
+              className={styles.ekstraKnap}
+              onClick={punkt.navn === "Log ud" ? logUd : undefined}
+            >
               <Image src={punkt.ikon} alt="" width={32} height={32} />
               {punkt.navn}
             </button>

@@ -1,0 +1,8 @@
+/* Hele siden – kortet centreres vandret */
+.side {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 60vh; /* så footeren ikke hopper op, mens siden indlæser */
+  padding: 64px var(--gap-16) 120px; /* top | sider | bund */
+}
