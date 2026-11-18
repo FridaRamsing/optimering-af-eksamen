@@ -17,6 +17,13 @@
   padding: var(--gap-48);
 }
 
+/* Centrerer "ingen resultater"-boksen */
+.ingenResultater {
+  display: flex;
+  justify-content: center;
+  padding: var(--gap-48) 0;
+}
+
 .antal {
   font-size: var(--fs-sm);
   font-weight: var(--fx-semibold);
