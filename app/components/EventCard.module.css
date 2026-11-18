@@ -1,82 +1,186 @@
+/*frida*/
+/* Eventkort – værdier fra Figma-komponenten "Eventkort" */
 
-
-/* ===== Hele kortet ===== */
 .card {
+  position: relative; /* Ankeret for link-laget */
   display: flex;
   flex-direction: column;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
   background: var(--color-surface);
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
-/* ===== Billedet og det, der ligger ovenpå ===== */
+/* Hover: "Lys op effekt" fra Figma. focus-within = samme effekt med tastatur */
+.card:hover,
+.card:focus-within {
+  box-shadow: var(--lys-op-effekt);
+  transform: translateY(-4px); /* Ekstra effekt, ikke i Figma */
+}
+
+/* ===== Billede ===== */
 .billedeBoks {
   position: relative;
-  aspect-ratio: 330 / 186;
+  aspect-ratio: 330 / 186; /* Mål fra Figma, så alle billeder er lige høje */
+  overflow: hidden; /* Klipper billedet, når det zoomer, så det ikke stikker ud */
 }
 
 .billede {
   object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+/* Ekstra effekt, ikke i Figma */
+.card:hover .billede {
+  transform: scale(1.05);
+}
+
+/* Mørk skygge i bunden af billedet (Figma: "Skygge") */
+.billedeBoks::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+  pointer-events: none;
 }
 
 .kategori {
   position: absolute;
   top: var(--gap-8);
   left: var(--gap-8);
-  padding: 2px var(--gap-8);
-  border-radius: 4px;
-  background: var(--color-bg-dark);
-  font-size: var(--fs-2xs);
+  z-index: 1;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--color-surface);
+  font-size: var(--fs-xs);
+  font-weight: var(--fx-semibold);
   text-transform: capitalize;
 }
 
-.dato {
+/* ===== Datoboks ===== */
+/* Container til datoboks, ekstra kort og "+ X datoer". Placeres i billedets hjørne */
+.datoStak {
   position: absolute;
-  bottom: var(--gap-8);
   left: var(--gap-8);
+  bottom: var(--gap-8);
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gap-24);
+}
+
+.dato {
+  position: relative; /* Ligger over .datoBag, fordi den kommer efter i koden */
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4px var(--gap-8);
-  border-radius: 4px;
+  padding: 6px 10px;
+  border: 1px solid var(--color-light);
+  border-radius: 8px;
   background: var(--color-text);
-  color: var(--color-bg);
+}
+
+/* Det drejede kort bagved (kun ved flere datoer). Samme størrelse som .dato */
+.datoBag {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 48px;
+  height: 62px;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  background: #e9e6e6; /* Hvid med 8 % sort ovenpå (Figma) */
+  transform: translate(8px, -4px) rotate(12.5deg); /* Lidt til højre og op, og drejet */
+  transform-origin: center; /* Drejer om midten, så det ikke hænger nedad */
+
+}
+
+/* Pillen "+ X datoer" */
+.flereDatoer {
+  margin-bottom: 4px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--color-border);
+  font-size: var(--fs-xs);
+  font-weight: var(--fx-semibold);
+  white-space: nowrap;
+}
+
+
+.fra {
+  font-size: var(--fs-2xs);
+  font-weight: var(--fx-bold);
+  line-height: 12px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--color-border);
 }
 
 .dag {
   font-size: var(--fs-xl);
-  font-weight: 700;
-  line-height: 1;
+  font-weight: var(--fx-extrabold);
+  line-height: 22px;
+  color: var(--color-bg-dark);
 }
 
 .maaned {
   font-size: var(--fs-2xs);
+  font-weight: var(--fx-bold);
+  line-height: 14px;
+  letter-spacing: 0.8px;
   text-transform: capitalize;
+  color: var(--color-primary);
 }
 
-/* ===== Tekstdelen under billedet ===== */
+/* ===== Tekst ===== */
 .info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--gap-16);
   padding: var(--gap-16);
 }
 
+/* Lange titler slutter med "…" */
 .titel {
-  font-size: var(--fs-md);
-  font-weight: 700;
+  font-size: var(--fs-xl);
+  font-weight: var(--fx-bold);
+  line-height: 26px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+/* Stretched link: usynligt lag over hele kortet, så alt er klikbart */
+.link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1; /* Under hjertet (z-index 2) */
+}
+
+.link:focus-visible {
+  outline: none; /* Kortet lyser op i stedet (focus-within) */
+}
+
 .sted {
-  font-size: var(--fs-xs);
-  color: var(--color-muted);
+  font-size: var(--fs-md);
+  line-height: 20px;
+  color: var(--color-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pris {
-  font-size: var(--fs-xs);
-  font-weight: 600;
-  margin-top: var(--gap-8);
+  font-size: var(--fs-md);
+  font-weight: var(--fx-semibold);
 }

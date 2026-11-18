@@ -1,0 +1,109 @@
+.header {
+  display: flex; /* Brug flexbox til at arrangere elementerne på samme linje i headeren */
+  width: 100%;
+  position: relative; /* Gør headeren relativ for at kunne placere elementer absolut indenfor den */
+  z-index: 1000; /* Sørger for at headeren ligger over andre elementer */
+  align-items: center; /* Centerer elementerne vertikalt i headeren */
+  justify-content: space-between; /* Placer elementerne i headeren med plads imellem */
+  background-color: var(--color-bg);
+  padding: 24px; /* Tilføjer padding til headeren */
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-surface); /* Tilføjer stroke til headeren */
+}
+
+.leftSide {
+  display: flex; /* Brug flexbox til at arrangere logo og navigation */
+  align-items: center; /* Centerer logoet vertikalt */
+  gap: 40px; /* Gap imellem logo og navigation */
+}
+
+.navigation {
+  display: flex; /* Brug flexbox til at arrangere navigationselementerne */
+  gap: 24px; /* Gap imellem navigationselementerne */
+}
+
+.navigation a {
+  font-size: var(--fs-xl); /* Brug variabel for fontstørrelse */
+  font-weight: var(--fx-regular); 
+}
+
+.navigation a:hover {
+  font-weight: var(--fx-semibold);
+}
+
+/* Eventgenerator knap styling */
+.eventButton {
+  background-color: var(--color-primary);
+  padding: 8px 24px;
+  border-radius: 8px;
+  font-size: var(--fs-xl);
+}
+
+.eventButton:hover {
+  background-color: var(--color-text);
+  color: var(--color-primary);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.iconLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0px;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.iconHover {
+  display: none;
+}
+
+.iconLink:hover .iconDefault {
+  display: none;
+}
+
+.iconLink:hover .iconHover {
+  display: block;
+}
+
+.dropdown {
+  border-top: 1px solid var(--color-surface);
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  min-height: 160px;
+  padding: 24px 48px;
+  background-color: var(--color-bg);
+}
+
+.dropdown::before {
+  content: "";
+  position: absolute;
+  top: -48px;
+  left: 0;
+  width: 100%;
+  height: 48px;
+}
+
+.categoryItem:hover .dropdown {
+  display: block;
+}
+
+.dropdown h2 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--fs-3xl);
+  font-weight: var(--fx-black);
+  text-transform: uppercase; /* Gør teksten i dropdown-menuen store bogstaver */
+}

@@ -1,0 +1,43 @@
+/*frida*/
+
+.knap {
+  position: absolute;
+  top: var(--gap-8);
+  right: var(--gap-8);
+  z-index: 2; /* Over kortets link-lag, så hjertet kan klikkes */
+  display: grid;
+  padding: 6px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+/* Lægger begge hjerter i samme celle, altså oven i hinanden */
+.knap > * {
+  grid-area: 1 / 1;
+}
+
+.fyldt {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.knap:hover .fyldt,
+.valgt .fyldt {
+  opacity: 1;
+}
+
+.knap:hover {
+  transform: scale(1.1);
+}
+
+.knap:active {
+  transform: scale(0.95);
+}
+
+.knap:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

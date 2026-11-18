@@ -1,0 +1,35 @@
+/* ==============================
+   LOADING – hele indholdet
+   ============================== */
+.loading {
+  display: flex;
+  flex-direction: column; /* Overskrift, streg og tekst under hinanden */
+  align-items: center; /* Centreret vandret */
+  gap: var(--gap-16); /* Afstand mellem de tre dele */
+  width: 100%;
+  max-width: 800px; /* Bredden fra Figma */
+  margin: 0 auto; /* Centrerer hele komponenten på siden */
+  text-align: center;
+}
+
+/* ==============================
+   ANIMATIONEN – stjerne-stregen
+   ============================== */
+.animation {
+  width: 100%; /* Fylder .loading ud (maks. 800px) */
+  height: 44px; /* Højden fra Figma */
+}
+
+/* ==============================
+   TEKSTERNE
+   ============================== */
+.overskrift {
+  font-size: var(--fs-4xl); /* 40px */
+  font-weight: var(--fx-semibold); /* 600 – SemiBold */
+}
+
+.undertekst {
+  font-size: var(--fs-xl); /* 20px */
+  color: var(--color-muted); /* Grå */
+}
+
