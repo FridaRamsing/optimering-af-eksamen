@@ -31,6 +31,13 @@
   margin-right: -12px;
 }
 
+.searchItem {
+  padding-bottom: 48px;
+  margin-bottom: -48px;
+  padding-left: 12px;
+  margin-left: -12px;
+}
+
 .navigation a {
   font-size: var(--fs-xl); /* Brug variabel for fontstørrelse */
   font-weight: var(--fx-regular); 
@@ -199,6 +206,9 @@
 }
 
 /*Søg*/
+.searchHeading {
+  margin-bottom: 24px;
+}
 
 .searchPanel {
   position: absolute;
@@ -210,6 +220,7 @@
   background: var(--color-bg);
   color: var(--color-text);
   border-bottom: 1px solid var(--color-surface);
+  border-top: 1px solid var(--color-surface);
 }
 
 .searchPanel input:focus {
@@ -225,6 +236,11 @@
   border: 1px solid var(--color-primary);
   border-radius: 8px;
   font: inherit;
+}
+
+.searchPanel input::placeholder {
+  color: var(--color-muted);
+  opacity: 1;
 }
 
 .searchPanel ul {
@@ -243,7 +259,7 @@
 .artistResults h2 {
   margin-bottom: 16px;
   color: var(--color-muted);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-md);
   font-weight: var(--fx-regular);
   text-transform: uppercase;
 }
@@ -290,11 +306,157 @@
 }
 
 .artistInfo strong {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-md);
   font-weight: var(--fx-regular);
 }
 
 .artistInfo small {
+  color: var(--color-text);
+  font-size: var(--fs-md);
+}
+
+/* event resultater */
+.searchColumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.popularSearches {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.searchDivider {
+  width: 100%;
+  margin: 24px 0;
+  border: 0;
+  border-top: 1px solid var(--color-surface);
+}
+
+.allResultsButton {
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--color-primary);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.allResultsButton:hover {
+  box-shadow: var(--lys-op-effekt);
+}
+
+.searchActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.eventGeneratorButton {
+  padding: 12px 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.eventGeneratorButton:hover {
+  box-shadow: var(--lys-op-effekt);
+}
+
+.popularSearchActive {
+  background: var(--color-primary) !important;
+  border-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+.popularSearches > span {
+  margin-right: 4px;
+  color: var(--color-muted);
+  font-size: var(--fs-md);
+}
+
+.popularSearches button {
+  padding: 6px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--fs-md);
+  cursor: pointer;
+}
+
+.popularSearches button:hover {
+  box-shadow: var(--lys-op-effekt);
+}
+
+.eventResults {
+  margin-top: 0px;
+}
+
+.eventResults h2 {
+  margin-bottom: 16px;
+  color: var(--color-muted);
+  font-size: var(--fs-md);
+  font-weight: var(--fx-regular);
+  text-transform: uppercase;
+}
+
+.eventResults ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.eventResults li {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  align-items: center;
+  gap: 16px;
+}
+
+.eventPlaceholder {
+  display: block;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  background: #f6f6f6;
+  border-radius: 8px;
+}
+
+.eventInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.eventResults li:hover {
+  background: var(--color-border);
+}
+
+.eventResults li strong {
+  font-size: var(--fs-md);
+  font-weight: var(--fx-regular);
+}
+
+.eventResults li small {
   color: var(--color-light);
-  font-size: var(--fs-xs);
+  font-size: var(--fs-md);
 }
