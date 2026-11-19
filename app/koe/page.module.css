@@ -1,0 +1,70 @@
+/* ==============================
+   KØ-SIDEN – hele sektionen
+   ============================== */
+.koe {
+  position: relative; /* Så billedet (fill) placeres i forhold til sektionen */
+  height: calc(100dvh - 94px); /* Hele den synlige skærm minus headeren */
+  min-height: 560px; /* Bliver aldrig så lav, at teksten og buen støder sammen */
+  overflow: hidden; /* Skjuler alt, der stikker ud */
+  background: var(--color-bg-dark); /* Mørk farve, mens billedet loader */
+}
+
+/* ==============================
+   BAGGRUNDSBILLEDET
+   ============================== */
+.billede {
+  object-fit: cover; /* Fylder sektionen uden at blive mast */
+  object-position: bottom; /* Rykker billedet op */
+}
+
+/* ==============================
+   DEN MØRKE BUE – med stjernehimmel
+   En stor ellipse, hvor kun toppen ses (resten skjules af overflow på .koe)
+   ============================== */
+.bue {
+  position: absolute; /* Placeres i forhold til .koe */
+  top: 54%; /* Figma: 483px af 888px ≈ 54 % – følger med skærmens højde */
+  left: 50%; /* Venstre kant i midten af sektionen … */
+  transform: translateX(-50%); /* … og så rykket halvdelen af sin egen bredde tilbage = centreret */
+  width: 145%; /* Bredere end skærmen, så buen er flad og kanterne går ud af billedet */
+  aspect-ratio: 5 / 4; /* Højden følger bredden, så formen altid er den samme */
+  border-radius: 50%; /* Gør den firkantede boks til en ellipse */
+  background-color: var(--color-bg); /* Den mørke farve fra Figma */
+  box-shadow: 0 -4px 40px rgba(2, 77, 223, 0.45); /* Blåt skær langs kanten */
+  overflow: hidden; /* Stjernerne må ikke vises uden for buen */
+  isolation: isolate; /* Egen lagstak, så stjernerne (z-index: -1) ligger OVER buens baggrund */
+}
+
+/* ==============================
+   INDHOLD – tekst + progress-bar
+   Centreret inde i buen
+   ============================== */
+.indhold {
+  position: absolute; /* Placeres i forhold til .koe, ligesom buen */
+  top: 68%; /* Figma: (702px − 94px header) ÷ 888px ≈ 68 % */
+  left: 50%; /* Samme centrerings-trick som buen … */
+  transform: translateX(-50%); /* … rykket halvdelen af sin egen bredde tilbage */
+  z-index: 1; /* Ligger ovenpå billedet og buen */
+  display: flex;
+  flex-direction: column; /* Overskrift, ventetid og bar under hinanden */
+  align-items: center; /* Centreret vandret inde i boksen */
+  gap: var(--gap-16); /* 16px mellem elementerne, fra Figma */
+  padding: var(--gap-48); /* 48px luft rundt om, fra Figma */
+  text-align: center;
+}
+
+/* ==============================
+   TEKSTERNE
+   ============================== */
+.overskrift {
+  font-size: var(--fs-3xl); /* 32px */
+  font-weight: var(--fx-black); /* 900 – Black */
+  color: var(--color-text); /* Hvid */
+  text-transform: uppercase; /* STORE BOGSTAVER, som i Figma */
+}
+
+.ventetid {
+  font-size: var(--fs-xl); /* 20px */
+  font-weight: var(--fx-regular); /* 400 – Regular */
+  color: var(--color-muted); /* Grå */
+}

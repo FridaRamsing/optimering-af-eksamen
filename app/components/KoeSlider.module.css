@@ -1,0 +1,13 @@
+/* ==============================
+   SLIDER – stjernen der følger buen
+   Linjen i lottien skal ligge præcis på kanten af .bue i page.module.css
+   ============================== */
+.slider {
+  position: absolute; /* Placeres i forhold til .koe, ligesom buen */
+  top: 54%; /* Samme top som buen … */
+  left: 0; /* Linjen i lottien starter helt ude i venstre kant */
+  width: 103.3%; /* Lottien er 1562px, skærmen i Figma 1512px → 1562 ÷ 1512 */
+  aspect-ratio: 1562 / 372; /* Lottiens egne proportioner, så den ikke bliver mast */
+  transform: translateY(-37%); /* Rykker lottien op, så linjen ligger præcis på buens kant (justeret visuelt) */
+  pointer-events: none; /* Må aldrig fange klik */
+}
