@@ -1,0 +1,45 @@
+/* Billetterne under hinanden */
+.liste {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-32); /* luft, så "hullerne" i billetterne ikke rører hinanden */
+  max-width: 805px; /* billettens bredde fra Figma */
+  list-style: none; /* ingen prikker foran */
+}
+
+/* "Henter..." og fejl */
+.besked {
+  color: var(--color-muted);
+}
+
+/* Boksen, når man ikke er logget ind eller ikke har billetter.
+   Samme stil som på Mine favoritter: "Space effekt" + "Lys stroke" */
+.boks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* venstrestillet, som resten af profilsiden */
+  gap: var(--gap-16);
+  max-width: 805px;
+  padding: var(--gap-40);
+  border-radius: 20px;
+  background: var(--space-effekt);
+  box-shadow: var(--lys-stroke);
+}
+
+.overskrift {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fx-bold);
+}
+
+.undertekst {
+  color: var(--color-muted);
+}
+
+/* Blå knap – samme som de andre primære knapper */
+.knap {
+  margin-top: var(--gap-8);
+  padding: 14px var(--gap-40);
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: var(--color-text);
+}

@@ -1,0 +1,330 @@
+/* ==============================
+   HELE SIDEN
+   ============================== */
+.side {
+  position: relative; /* ankeret for stjerner, konfetti og Luk-knappen */
+  isolation: isolate; /* egen lagstak: stjernerne (z-index: -1) ligger bag indholdet, men over body */
+  overflow: hidden; /* konfetti og stjerner må ikke lave scrollbarer */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* alt centreres vandret */
+  min-height: calc(100vh - 100px); /* fylder skærmen under headeren */
+  padding: 200px var(--gap-16) 120px; /* top: skubber billetterne længere ned på skærmen */
+  /* Det svage lys bag billetterne + sidens mørke baggrund */
+  background:
+    radial-gradient(ellipse 50% 45% at 50% 45%, rgba(255, 255, 255, 0.09), transparent 70%),
+    var(--color-bg);
+}
+
+/* "Henter dine billetter..." / fejlbeskeder */
+.besked {
+  margin-top: var(--gap-48);
+  font-size: var(--fs-lg);
+  color: var(--color-muted);
+}
+
+.besked a {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+/* ==============================
+   LUK-KNAPPEN øverst til højre
+   ============================== */
+.luk {
+  position: absolute;
+  top: var(--gap-48);
+  right: var(--gap-48);
+  z-index: 20; /* over konfettien */
+  display: flex;
+  align-items: center;
+  gap: var(--gap-8);
+  padding: 8px 12px 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px; /* helt runde ender ("pille") */
+  color: var(--color-text);
+  font-size: var(--fs-md);
+  font-weight: var(--fx-semibold);
+}
+
+.luk:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ==============================
+   BILLETBUNKEN
+   Alle billetter ligger i samme grid-celle, så de ligger oven på hinanden
+   ============================== */
+.bunke {
+  position: relative; /* konfettien placeres ud fra bunkens midte */
+  display: grid;
+  z-index: 11; /* over konfettien – så konfettien ser ud til at komme bag billetterne fra */
+  width: min(805px, 100%); /* 805px som i designet, men aldrig bredere end skærmen */
+  /* zoom gør hele bunken 85% så stor – alt skaleres ens (billede, tekst, QR, huller),
+     så billetten ser præcis ens ud, bare mindre. Pladsen omkring bliver også mindre. */
+  zoom: 0.85;
+}
+
+/* Hver billet får sin "plads" i bunken */
+.billetPlads {
+  grid-area: 1 / 1; /* samme celle → oven på hinanden */
+  /* Springer ind: billetterne bagved kommer først, den forreste lander til sidst */
+  animation: springInd 1.1s cubic-bezier(0.2, 0.9, 0.3, 1.2) both; /* 1,1 sek. – tid nok til en hel omgang */
+  animation-delay: calc((var(--antal) - 1 - var(--nr)) * 0.2s);
+}
+
+/* Billet nr. 2 – skubbet op til højre og drejet, lidt mørkere */
+.billetPlads:nth-child(2) {
+  translate: 36px -84px;
+  rotate: 3deg;
+  filter: brightness(0.7);
+}
+
+/* Billet nr. 3 – skubbet op til venstre og drejet den anden vej */
+.billetPlads:nth-child(3) {
+  translate: -32px -60px;
+  rotate: -4deg;
+  filter: brightness(0.55);
+}
+
+/* "Skriger i hovedet på en": billetten starter lille og langt væk,
+   drejer en hel omgang rundt om sig selv, mens den flyver ud mod skærmen
+   (lidt for stor) og falder på plads.
+   Drejningen sker med "transform: rotate()", som lægges OVEN I "rotate"-egenskaben
+   ovenfor – så billet 2 og 3 ender stadig skævt, som i designet */
+@keyframes springInd {
+  0% {
+    scale: 0.15;
+    transform: rotate(-360deg); /* starter en hel omgang "bagud" */
+    opacity: 0;
+  }
+  55% {
+    scale: 1.12; /* lidt for stor – det er "spring"-effekten */
+    transform: rotate(0deg); /* omgangen er færdig, lige når den er størst */
+    opacity: 1;
+  }
+  75% {
+    scale: 0.97;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+/* ==============================
+   KONFETTI
+   ============================== */
+/* Laget dækker hele siden, så konfettien kan falde helt ned i bunden */
+.konfetti {
+  position: absolute;
+  inset: 0;
+  z-index: 10; /* over teksten og knapperne, men under billetterne (z-index: 11) */
+  overflow: hidden; /* stykker, der flyver ud til siden, må ikke lave scrollbar */
+  pointer-events: none; /* må aldrig fange klik på knapperne */
+  --start: 310px; /* hvor billetterne er: 200px padding + halvdelen af billetten */
+}
+
+/* Ét stykke konfetti – farve og bevægelse kommer fra page.js (--x, --hop, --varighed, --drej) */
+.stykke {
+  position: absolute;
+  left: 50%; /* midt på siden – lige der, hvor billetterne er */
+  top: var(--start);
+  /* To animationer på samme tid:
+     - konfetti: hoppet op og faldet ned (top, translate, rotate)
+     - svaev: svajer fra side til side og vender sig som et stykke papir (transform)
+     De bruger forskellige egenskaber, så de lægges oven i hinanden */
+  animation:
+    konfetti var(--varighed) both,
+    svaev var(--svaj-tid) ease-in-out infinite alternate;
+  animation-delay: var(--forsinkelse), var(--forsinkelse);
+}
+
+/* De tre former */
+.stribe {
+  width: 6px;
+  height: 16px;
+}
+
+.firkant {
+  width: 12px;
+  height: 12px;
+}
+
+.prik {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+/* To faser:
+   1) Skydes ud af billetterne og op (ease-out = hurtigt i starten, bremser op)
+   2) Daler roligt ned og ud i bunden af siden
+   "top" styrer op/ned, "translate" styrer venstre/højre, "rotate" drejningen.
+   100% i "top" = bunden af siden, fordi .konfetti dækker hele siden */
+@keyframes konfetti {
+  0% {
+    top: var(--start);
+    translate: 0 0;
+    rotate: 0deg;
+    scale: 0.2;
+    opacity: 0;
+    animation-timing-function: ease-out;
+  }
+  5% {
+    opacity: 1;
+  }
+  20% {
+    top: calc(var(--start) - var(--hop)); /* toppen af hoppet */
+    translate: calc(var(--x) * 0.6) 0; /* er nået det meste af vejen ud til siden */
+    scale: 1;
+    /* Herfra falder den – næsten jævn fart, så den daler roligt
+       i stedet for at styrte ned (som et let stykke papir) */
+    animation-timing-function: cubic-bezier(0.35, 0, 0.65, 1);
+  }
+  100% {
+    top: calc(100% + 20px); /* falder ud under bunden – overflow: hidden skjuler den */
+    translate: var(--x) 0;
+    rotate: var(--drej);
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+/* Svæve-effekten: stykket svajer frem og tilbage og vender sig om sig selv
+   (rotateY/rotateX), ligesom et let stykke papir i luften.
+   "alternate" kører animationen frem og tilbage igen og igen */
+@keyframes svaev {
+  from {
+    transform: translateX(calc(var(--svaj) * -1)) rotateY(0deg) rotateX(20deg);
+  }
+  to {
+    transform: translateX(var(--svaj)) rotateY(180deg) rotateX(-20deg);
+  }
+}
+
+/* ==============================
+   TEKSTEN OG KNAPPERNE under billetterne
+   ============================== */
+.tekst {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: var(--gap-32);
+  text-align: center;
+  /* Glider op, efter billetterne er landet */
+  animation: tekstInd 0.6s ease-out 1.3s both;
+}
+
+@keyframes tekstInd {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.duSkalTil {
+  font-size: var(--fs-2xl);
+}
+
+.titel {
+  margin-top: var(--gap-8);
+  font-size: var(--fs-4xl);
+  font-weight: var(--fx-extrabold);
+  line-height: 1.2;
+}
+
+.kvittering {
+  margin-top: var(--gap-40);
+  font-size: var(--fs-md);
+}
+
+.knapper {
+  display: flex;
+  gap: var(--gap-16);
+  margin-top: var(--gap-40);
+}
+
+/* Fælles for begge knapper */
+.knapBlaa,
+.knapKant {
+  padding: 16px 28px;
+  border-radius: 8px;
+  color: var(--color-text);
+  font: inherit;
+  font-weight: var(--fx-bold);
+  cursor: pointer;
+}
+
+/* "Se mine billetter" – blå */
+.knapBlaa {
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+}
+
+/* "Tilføj til Wallet" – kun hvid kant */
+.knapKant {
+  border: 1px solid var(--color-light);
+  background: transparent;
+}
+
+.knapBlaa:hover {
+  background: #1a5ff0;
+}
+
+.knapKant:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ==============================
+   TABLET
+   ============================== */
+@media (max-width: 860px) {
+  .titel {
+    font-size: var(--fs-3xl);
+  }
+}
+
+/* ==============================
+   MOBIL
+   ============================== */
+@media (max-width: 560px) {
+  .side {
+    padding-top: 120px;
+  }
+  .konfetti {
+    --start: 200px; /* billetterne ligger højere oppe på mobil */
+  }
+  .luk {
+    top: var(--gap-16);
+    right: var(--gap-16);
+  }
+  .titel {
+    font-size: var(--fs-2xl);
+  }
+  .knapper {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+/* ==============================
+   For brugere, der har slået animationer fra i styresystemet:
+   alt står stille på sin plads med det samme
+   ============================== */
+@media (prefers-reduced-motion: reduce) {
+  .billetPlads,
+  .tekst {
+    animation: none;
+  }
+  .stykke {
+    animation: none;
+    /* står stille rundt om billetterne i stedet for at falde */
+    top: calc(var(--start) - var(--hop));
+    translate: var(--x) 0;
+    rotate: var(--drej);
+  }
+}

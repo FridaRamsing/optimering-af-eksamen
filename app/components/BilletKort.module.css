@@ -1,0 +1,165 @@
+/* ==============================
+   BILLETKORT – bruges på bekræftelsessiden og Mine billetter
+   Tre kolonner: billede | indhold | afrivningsdel
+   ============================== */
+
+/* Rammen om billetten.
+   container-type gør, at billetten tilpasser sig sin EGEN bredde (container queries nederst)
+   i stedet for skærmens – så den virker både i fuld bredde og i en smal kolonne */
+.ramme {
+  container-type: inline-size;
+  width: 100%;
+}
+
+.billet {
+  display: grid;
+  grid-template-columns: 196px 1fr 190px;
+  height: 265px;
+  border-radius: 16px;
+  background: #fafafa; /* næsten hvid */
+  color: #121212; /* mørk tekst på den lyse billet */
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); /* skygge, så billetten "svæver" */
+}
+
+/* Billedet til venstre */
+.billede {
+  position: relative; /* <Image fill> fylder denne kasse */
+  overflow: hidden;
+  border-radius: 16px 0 0 16px; /* kun runde hjørner til venstre */
+}
+
+/* Den blå-lilla kant yderst til venstre */
+.billede::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0; /* top, (højre auto), bund, venstre */
+  z-index: 1; /* oven på billedet */
+  width: 20px;
+  background: linear-gradient(180deg, #024ddf, #4b2fa8);
+}
+
+.foto {
+  object-fit: cover; /* fylder kassen uden at blive mast */
+}
+
+/* Midten med titel og detaljer */
+.indhold {
+  display: flex;
+  flex-direction: column;
+  padding: var(--gap-48) var(--gap-32) var(--gap-32);
+}
+
+.billetTitel {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fx-bold);
+  line-height: 1.2;
+}
+
+/* "Tir 15. dec 2026 · 19:30 · ..." */
+.info {
+  margin-top: var(--gap-16);
+  font-size: var(--fs-md);
+  color: #555;
+}
+
+/* Område / Række / Plads – tre kolonner, skubbet ned i bunden */
+.detaljer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: auto; /* skubber detaljerne helt ned */
+}
+
+.detaljer dt {
+  font-size: var(--fs-xs);
+  font-weight: var(--fx-semibold);
+  letter-spacing: 0.1em; /* luft mellem bogstaverne, som i designet */
+  text-transform: uppercase;
+  color: #555;
+}
+
+.detaljer dd {
+  margin-top: 4px;
+  font-size: var(--fs-2xl);
+  font-weight: var(--fx-bold);
+}
+
+/* Afrivningsdelen med QR-kode og pris */
+.stub {
+  position: relative; /* ankeret for de to "huller" */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-16);
+  /* Den stiplede streg: en lille grå streg, der gentages lodret i venstre side */
+  background: linear-gradient(to bottom, #8a8a8a 50%, transparent 50%) left top / 2px 10px repeat-y;
+}
+
+/* De to halve "huller" øverst og nederst – cirkler i baggrundsfarven */
+.stub::before,
+.stub::after {
+  content: "";
+  position: absolute;
+  left: -16px; /* halvdelen af bredden → centreret på stregen */
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  /* Samme farve som baggrunden bag billetten, så det ligner huller.
+     Siden kan selv vælge farven med --hul-farve – ellers bruges sidens baggrundsfarve */
+  background: var(--hul-farve, var(--color-bg));
+}
+
+.stub::before {
+  top: -16px; /* halvt ude over toppen */
+}
+
+.stub::after {
+  bottom: -16px; /* halvt ude over bunden */
+}
+
+.pris {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fx-bold);
+}
+
+/* ==============================
+   SMAL BILLET (under 700px bred) – fx på tablet eller i en smal kolonne
+   @container måler .ramme, ikke skærmen
+   ============================== */
+@container (max-width: 700px) {
+  .billet {
+    grid-template-columns: 120px 1fr 130px;
+    height: auto;
+    min-height: 220px;
+  }
+  .indhold {
+    padding: var(--gap-24) var(--gap-16);
+  }
+  .billetTitel,
+  .detaljer dd {
+    font-size: var(--fs-xl);
+  }
+  .stub img {
+    width: 80px;
+    height: auto;
+  }
+  .pris {
+    font-size: var(--fs-lg);
+  }
+}
+
+/* ==============================
+   MEGET SMAL BILLET (under 480px) – fx på mobil
+   ============================== */
+@container (max-width: 480px) {
+  .billet {
+    grid-template-columns: 1fr 110px; /* billedet skjules – der er ikke plads */
+  }
+  .billede {
+    display: none;
+  }
+  .billetTitel,
+  .detaljer dd {
+    font-size: var(--fs-lg);
+  }
+}

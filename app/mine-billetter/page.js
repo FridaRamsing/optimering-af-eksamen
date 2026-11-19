@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import MenuBar from "../components/MenuBar";
 import BrugerNavn from "../components/BrugerNavn";
+import MineBilletterListe from "../components/MineBilletterListe";
 
 export default function MineBilletterPage() {
   return (
@@ -62,13 +63,12 @@ export default function MineBilletterPage() {
             </div>
           </div>
 
-          {/* Næste arrangement – billetterne kommer fra Supabase senere */}
+          {/* Næste arrangement – billetterne kommer fra Supabase */}
           <section className={styles.naesteArrangement}>
             <h2 className={styles.sektionTitel}>Næste arrangement</h2>
 
-            {/* PLACEHOLDER – udskiftes med <Billet /> i en senere branch */}
-            <div className={styles.billetPlaceholder}>Billet</div>
-            <div className={styles.billetPlaceholder}>Billet</div>
+            {/* Brugerens købte billetter – hentes fra Supabase (tabellen "billetter") */}
+            <MineBilletterListe />
           </section>
         </div>
       </div>
