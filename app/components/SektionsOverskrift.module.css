@@ -1,0 +1,26 @@
+
+.overskrift {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-16);
+    padding: 0 var(--gap-48);
+}
+
+.streg {
+    width: 48px;
+    height: 5px;
+    background: var(--color-text);
+}
+
+.titel {
+    font-size: clamp(28px, 4vw, var(--fs-4xl));
+    font-weight: var(--fx-extrabold);
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+    .overskrift {
+        padding: 0 var(--gap-16);
+    }
+}

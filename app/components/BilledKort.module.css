@@ -1,0 +1,44 @@
+
+
+.kort {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 330 / 227; /* Mål fra Figma */
+  border-radius: 12px;
+  overflow: hidden;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* Let mørk hinde over billedet (Figma: "skygge på cards") */
+.kort::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.billede {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.navn {
+  position: relative;
+  z-index: 1; /* Over den mørke hinde */
+  font-size: var(--fs-2xl);
+  font-weight: var(--fx-extrabold);
+}
+
+.kort:hover,
+.kort:focus-visible {
+  box-shadow: var(--lys-op-effekt);
+  transform: translateY(-4px);
+}
+
+.kort:hover .billede {
+  transform: scale(1.05);
+}

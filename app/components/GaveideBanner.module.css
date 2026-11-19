@@ -1,0 +1,64 @@
+
+
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-24);
+  min-height: 219px;
+  margin: 0 var(--gap-48);
+  padding: var(--gap-48);
+  border-radius: 12px;
+  background: var(--space-effekt);
+  box-shadow: 0 0 9.7px rgba(255, 242, 194, 0.08); /* Svagt lys om kanten (Figma) */
+}
+
+.tekster {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-16);
+}
+
+.titel {
+  font-size: var(--fs-3xl);
+  font-weight: var(--fx-black);
+  text-transform: uppercase;
+}
+
+.tekst {
+  font-size: var(--fs-xl);
+}
+
+.knap {
+  padding: var(--gap-16) var(--gap-24);
+  border-radius: 8px;
+  background: var(--color-primary);
+  font-size: var(--fs-2xl);
+  white-space: nowrap; /* Knapteksten må ikke knække over to linjer */
+  transition: filter 0.2s ease;
+}
+
+.knap:hover,
+.knap:focus-visible {
+  filter: brightness(1.2);
+}
+
+/* Mobil: tekst og knap under hinanden */
+@media (max-width: 800px) {
+  .banner {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 var(--gap-16);
+    padding: var(--gap-24);
+  }
+
+  .titel {
+    font-size: var(--fs-2xl);
+  }
+
+  .tekst,
+  .knap {
+    font-size: var(--fs-md);
+  }
+}

@@ -1,0 +1,73 @@
+
+
+
+
+/* Samme opsætning som kategorisiden, så stjernerne ligger bag indholdet */
+.side {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.sektioner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-48);
+  width: 100%;
+  max-width: 1512px;
+  margin: var(--gap-48) auto 0;
+  padding-bottom: 96px;
+}
+
+.sektion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-24);
+}
+
+/* Vandret række, der kan scrolles sidelæns */
+.raekke {
+  display: flex;
+  gap: var(--gap-32);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gap-48); /* Kortene snapper ved kanten af indholdet, ikke helt ude ved skærmkanten */
+  scrollbar-width: none; /* Skjuler scrollbaren – det afskårne kort viser, at man kan scrolle */
+  list-style: none;
+  /* overflow-x klipper også lodret, så hover-lyset og løftet ville blive skåret af.
+     Ekstra padding giver plads, og negativ margin fjerner afstanden igen */
+  padding: var(--gap-24) var(--gap-48);
+  margin-block: calc(var(--gap-24) * -1);
+}
+
+.raekke > li {
+  flex: 0 0 330px; /* Fast bredde fra Figma – kortene må ikke krympe */
+  min-width: 0; /* Ellers gør en lang titel kortet bredere i stedet for at slutte med "…" */
+  scroll-snap-align: start;
+}
+
+/* Holder pladsen, mens events hentes, så siden ikke hopper */
+.pladsholder {
+  height: 340px;
+}
+
+.fejl {
+  padding: 0 var(--gap-48);
+}
+
+@media (max-width: 600px) {
+  .raekke {
+    gap: var(--gap-16);
+    padding-inline: var(--gap-16);
+    scroll-padding-inline: var(--gap-16);
+  }
+
+  .raekke > li {
+    flex-basis: 80%; /* Næste kort kan stadig ses i kanten */
+  }
+
+  .fejl {
+    padding: 0 var(--gap-16);
+  }
+}
