@@ -205,3 +205,10 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* "Købet kunne ikke gennemføres" under Betal-knappen */
+.koebFejl {
+  color: #ff6b6b; /* samme røde som de andre fejl */
+  font-size: var(--fs-sm);
+  text-align: center;
+}

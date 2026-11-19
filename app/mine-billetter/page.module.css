@@ -144,15 +144,3 @@
   text-transform: uppercase;
 }
 
-/* PLACEHOLDER – fjernes, når billet-komponenten er lavet */
-.billetPlaceholder {
-  width: 100%;
-  max-width: 805px; /* Billettens bredde fra Figma */
-  height: 264px; /* Billettens højde fra Figma */
-  border: 2px dashed var(--color-border); /* Stiplet kant = "her kommer noget" */
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Teksten midt i kassen */
-  color: var(--color-muted);
-}

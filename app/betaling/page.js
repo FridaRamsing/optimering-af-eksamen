@@ -8,34 +8,13 @@ import Betalingsformular from "@/app/components/Betalingsformular";
 import Ordreoversigt from "@/app/components/Ordreoversigt";
 import MobilePayBoks from "@/app/components/MobilePayBoks";
 import StjerneBaggrund from "@/app/components/StjerneBaggrund"; // Blinkende stjerner bag kasserne
+import { lavInfo } from "@/lib/lavInfo"; // "Tir 15. dec 2026 · 19:30 · Spillested, By" – deles med bekræftelsessiden
 import styles from "./page.module.css";
 
 // Header og Footer kommer automatisk fra app/layout.js – de skal ikke importeres her.
 
 // Gebyr pr. billet (findes ikke i Supabase). 2 billetter = 50,80 kr. som i Figma.
 const GEBYR_PR_BILLET = 25.4;
-
-// Laver "Tir 15. dec 2026 · 19:30 · Sct. Catharinæ Kirke, Hjørring" ud fra eventet
-function lavInfo(event) {
-  const dato = new Date(event.starts_at);
-  // Dansk tid – ellers viser serveren måske UTC (en time forkert)
-  const tz = { timeZone: "Europe/Copenhagen" };
-
-  // Hver del for sig, så vi selv styrer punktummerne
-  const ugedag = dato.toLocaleDateString("da-DK", { ...tz, weekday: "short" }).replace(".", "");
-  const dag = dato.toLocaleDateString("da-DK", { ...tz, day: "numeric" }).replace(".", "");
-  const maaned = dato.toLocaleDateString("da-DK", { ...tz, month: "short" }).replace(".", "");
-  const aar = dato.toLocaleDateString("da-DK", { ...tz, year: "numeric" });
-  const tid = dato
-    .toLocaleTimeString("da-DK", { ...tz, hour: "2-digit", minute: "2-digit" })
-    .replace(".", ":");
-
-  // Tre bogstaver med stort forbogstav: "tirs" → "Tir"
-  const Ugedag = ugedag.charAt(0).toUpperCase() + ugedag.slice(1, 3);
-
-  // → "Tir 15. dec 2026 · 19:30 · Sct. Catharinæ Kirke, Hjørring"
-  return `${Ugedag} ${dag}. ${maaned} ${aar} · ${tid} · ${event.spillested}, ${event.by}`;
-}
 
 /* ==============================
    INDHOLDET – henter data, derfor inde i <Suspense>
@@ -121,7 +100,13 @@ async function BetalingIndhold({ searchParams }) {
         </div>
 
         {/* Kortformularen – får totalen, så betal-knappen viser det rigtige beløb */}
-        <Betalingsformular total={total} />
+        {/* videreTil: bekræftelsessiden får samme ordre med i URL'en, så den kan vise billetterne */}
+        <Betalingsformular
+          total={total}
+          eventId={event.id}
+          billetter={billetter}
+          videreTil={`/bekraeftelse?event=${event.id}&omraade=${encodeURIComponent(omraade)}&pladser=${pladser}`}
+        />
 
         {/* Stregerne på hver side laves med ::before og ::after i CSS */}
         <p className={styles.skille}>eller betal med MobilePay</p>

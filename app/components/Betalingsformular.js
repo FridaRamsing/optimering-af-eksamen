@@ -1,8 +1,9 @@
 "use client"; // Formularen husker, hvad brugeren skriver (useState), så den skal køre i browseren
 
-import { useState } from "react"; // Husker værdierne i felterne
+import { useState, useRef } from "react"; // useState husker værdierne i felterne, useRef husker gemningen
 import { useRouter } from "next/navigation"; // Sender brugeren videre til næste side
 import Image from "next/image"; // Next's billed-komponent (optimerer billederne)
+import { supabase } from "@/lib/supabase"; // Til at gemme de købte billetter
 import BehandlerKoeb from "./BehandlerKoeb"; // Loading-overlayet "Vi behandler dit køb"
 import styles from "./Betalingsformular.module.css";
 
@@ -29,7 +30,11 @@ function erUdloebet(udloeb) {
 }
 
 // total: prisen fra siden, så knappen viser det rigtige beløb
-export default function Betalingsformular({ total }) {
+// total:     prisen fra siden, så knappen viser det rigtige beløb
+// videreTil: hvor man sendes hen efter betalingen (bekræftelsessiden med ordren i URL'en)
+// eventId:   hvilket event billetterne er til
+// billetter: [{ omraade, raekke, plads, pris }, ...] – én pr. plads, gemmes i Supabase ved køb
+export default function Betalingsformular({ total, videreTil, eventId, billetter }) {
   const router = useRouter(); // Bruges i betal() til at skifte side
 
   // Ét objekt med alle felterne – alle starter tomme, undtagen land (Danmark)
@@ -110,13 +115,57 @@ export default function Betalingsformular({ total }) {
 
   // Om loading-overlayet vises (efter klik på Betal)
   const [behandler, setBehandler] = useState(false);
+  // Fejlbesked, hvis billetterne ikke kunne gemmes
+  const [koebFejl, setKoebFejl] = useState("");
+  // Selve gemningen i Supabase (et Promise). useRef, fordi den ikke skal vises på skærmen –
+  // vi skal bare kunne vente på den, når animationen er færdig
+  const gemning = useRef(null);
 
   // Kører, når formularen sendes (klik på Betal eller Enter i et felt)
-  function betal(e) {
+  async function betal(e) {
     e.preventDefault(); // Stopper browseren i at genindlæse siden
-    if (kanBetale) {
-      setBehandler(true); // Viser "Vi behandler dit køb" – siden skifter, når animationen er færdig
+    if (!kanBetale) return;
+    setKoebFejl("");
+
+    // Billetterne gemmes på brugeren – så man skal være logget ind
+    const { data } = await supabase.auth.getSession();
+    if (!data.session) {
+      // Til login med ordren i URL'en – login sender en tilbage hertil bagefter
+      const pladser = billetter.map((b) => `${b.raekke}-${b.plads}`).join(",");
+      const omraade = encodeURIComponent(billetter[0]?.omraade ?? "Parket");
+      router.push(`/login?event=${eventId}&omraade=${omraade}&pladser=${pladser}`);
+      return;
     }
+
+    // Gemmer én række pr. billet i tabellen "billetter".
+    // user_id sætter Supabase selv (default auth.uid()), og RLS tjekker, at det er brugeren selv.
+    // Vi venter IKKE her – gemningen kører, mens loading-animationen vises.
+    gemning.current = supabase.from("billetter").insert(
+      billetter.map((b) => ({
+        event_id: eventId,
+        omraade: b.omraade,
+        raekke: b.raekke,
+        plads: b.plads,
+        pris: b.pris,
+      }))
+    );
+
+    setBehandler(true); // Viser "Vi behandler dit køb"
+  }
+
+  // Kører, når loading-animationen er færdig
+  async function koebFaerdigt() {
+    // Venter på, at billetterne er gemt (er de allerede gemt, går det med det samme)
+    const { error } = await gemning.current;
+
+    if (error) {
+      console.error("Kunne ikke gemme billetterne:", error);
+      setBehandler(false); // Fjerner loading-overlayet igen
+      setKoebFejl("Købet kunne ikke gennemføres. Prøv igen.");
+      return;
+    }
+
+    router.push(videreTil); // Videre til bekræftelsen
   }
 
   // Prisen på dansk med komma og to decimaler: 800.8 → "800,80"
@@ -283,8 +332,15 @@ export default function Betalingsformular({ total }) {
         Dette er et simuleret køb, og der trækkes ingen penge.
       </p>
 
+      {/* Fejl ved gemning – role="alert" læses op af skærmlæsere med det samme */}
+      {koebFejl && (
+        <p className={styles.koebFejl} role="alert">
+          {koebFejl}
+        </p>
+      )}
+
       {/* Loading-overlayet. Når stjerne-animationen er færdig, går vi videre til bekræftelsen */}
-      {behandler && <BehandlerKoeb onFaerdig={() => router.push("/bekraeftelse")} />}
+      {behandler && <BehandlerKoeb onFaerdig={koebFaerdigt} />}
     </form>
   );
 }
