@@ -13,6 +13,7 @@
 .trin {
   display: flex;
   flex: 1; /* fylder al pladsen, så timeren skubbes ud til højre */
+  gap: 28px; /* luft fra et trins tekst til næste trins streg */
   list-style: none; /* fjerner tallene, som <ol> ellers viser */
 }
 
@@ -20,16 +21,16 @@
 .punkt {
   display: flex;
   align-items: center;
-  gap: var(--gap-8);
-  flex: 1; /* alle 4 trin er lige brede */
+  gap: 10px; /* 10px mellem streg og cirkel, og mellem cirkel og tekst */
+  flex: none; /* trinnet er kun så bredt som indholdet – så strækkes stregen ikke */
   font-size: var(--fs-sm);
 }
 
 /* Stregen før hvert trin – grå som standard */
 .streg {
-  flex: 1; /* fylder pladsen, der er tilbage i trinnet */
-  height: 2px;
-  margin-right: var(--gap-8);
+  flex: none; /* fast størrelse – alle streger er lige lange */
+  width: 135px;
+  height: 3px;
   background: var(--color-border);
 }
 
@@ -87,6 +88,9 @@
   }
   .navn {
     display: none;
+  }
+  .streg {
+    width: 40px; /* 135px er for bredt til en telefon */
   }
   .timer {
     font-size: var(--fs-2xl);

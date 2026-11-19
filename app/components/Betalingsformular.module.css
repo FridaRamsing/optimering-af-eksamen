@@ -61,16 +61,24 @@
   outline-offset: 1px; /* lidt luft mellem feltet og den blå ramme */
 }
 
-/* Den lille kort-tegning til højre i nogle af felterne */
+/* Det lille kort-ikon til højre i kortfelterne */
 /* (.felt .medIkon vinder over .felt input, fordi den har to klasser) */
-/* Tegningen er to baggrunde oven på hinanden: en grå stribe og et lyst rektangel */
 .felt .medIkon {
-  padding-right: 56px; /* så teksten ikke løber ind under kort-tegningen */
-  background-image: linear-gradient(var(--color-muted), var(--color-muted)),
-    linear-gradient(var(--color-light), var(--color-light));
+  padding-right: 56px; /* så teksten ikke løber ind under ikonet */
   background-repeat: no-repeat;
-  background-size: 30px 4px, 30px 20px;
-  background-position: right 16px top 22px, right 16px center;
+  background-size: 28px 20px; /* samme størrelse som SVG-filerne */
+  background-position: right 16px center; /* 16px fra højre kant, centreret lodret */
+}
+
+/* Hvert felt får sit eget ikon fra public/assets/icons */
+.felt .ikonKortnummer {
+  background-image: url("/assets/icons/16didgetcard.svg"); /* kort med 16 cifre */
+}
+.felt .ikonUdloeb {
+  background-image: url("/assets/icons/mmyycard.svg"); /* kort med MM/ÅÅ */
+}
+.felt .ikonCvc {
+  background-image: url("/assets/icons/3didget.svg"); /* bagsiden med de 3 cifre */
 }
 
 /* select: egen pil, fordi browserens standardpil ikke passer til designet */
@@ -93,6 +101,16 @@
 .felt small {
   font-size: var(--fs-xs);
   color: var(--color-muted);
+}
+
+/* Fejltekst under et felt, fx "Kortet er udløbet" (.felt .fejl vinder over .felt small) */
+.felt .fejl {
+  color: #ff6b6b; /* samme røde som fejlene på login-siden */
+}
+
+/* Rød kant på et felt med fejl – aria-invalid sættes i JavaScript */
+.felt input[aria-invalid="true"] {
+  border-color: #ff6b6b;
 }
 
 /* Kortmærkerne */
