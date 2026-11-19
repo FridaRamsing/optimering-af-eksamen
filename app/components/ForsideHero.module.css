@@ -1,0 +1,99 @@
+
+.hero {
+  --hero-hoejde: clamp(560px, 80vw, 864px); /* 864px i Figma, lavere på små skærme. Variabel, så .animation kan regne med den */
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  height: var(--hero-hoejde);
+  overflow: hidden;
+}
+
+.billede {
+  object-fit: cover;
+}
+
+/* "Hero overgang" fra Figma: mørk til venstre (bag teksten) og ned mod bunden */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(24, 24, 24, 0.75) 0%, rgba(24, 24, 24, 0) 55%),
+    linear-gradient(
+      180deg,
+      rgba(24, 24, 24, 0.2) 0%,
+      rgba(24, 24, 24, 0.15) 35%,
+      rgba(24, 24, 24, 0.75) 70%,
+      var(--color-bg) 100%
+    );
+}
+
+.indhold {
+  position: relative;
+  z-index: 1; /* Over gradienten */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Ellers bliver knappen lige så bred som teksten */
+  gap: var(--gap-24);
+  width: 100%;
+  max-width: 1512px;
+  margin: 0 auto;
+  padding: 0 var(--gap-48) 150px;
+}
+
+.streg {
+  width: 48px;
+  height: 5px;
+  background: var(--color-text);
+}
+
+.titel {
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: var(--fx-black);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.tekst {
+  font-size: clamp(var(--fs-md), 2vw, var(--fs-2xl));
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+.knap {
+  padding: var(--gap-16);
+  border-radius: 8px;
+  background: var(--color-primary);
+  font-size: var(--fs-md);
+  transition: filter 0.2s ease;
+}
+
+.knap:hover,
+.knap:focus-visible {
+  filter: brightness(1.2);
+}
+
+@media (max-width: 600px) {
+  .indhold {
+    padding: 0 var(--gap-16) var(--gap-48);
+  }
+}
+
+/* Lottie'en har mørke striber øverst og nederst (det synlige motiv er 1600 × 864 ud af 1600 × 1200).
+   Den gøres større end hero'en og centreres, så striberne ender uden for kanten og skjules */
+.animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100%, calc(var(--hero-hoejde) * 1.9));
+  height: auto; /* Lottie sætter selv height: 100% – den skal væk, så aspect-ratio bestemmer højden */
+  aspect-ratio: 4 / 3;
+}
+
+/* Brugere, der har slået animationer fra i styresystemet, ser kun stillbilledet */
+@media (prefers-reduced-motion: reduce) {
+  .animation {
+    display: none;
+  }
+}
