@@ -1,0 +1,35 @@
+.knap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.knap:hover {
+  transform: scale(1.1);
+}
+
+.knap:active {
+  transform: scale(0.95);
+}
+
+.knap:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Lille boble under knappen */
+.besked {
+  position: absolute;
+  top: calc(100% + var(--gap-8));
+  right: 0;
+  padding: 4px var(--gap-8);
+  border-radius: 4px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--fs-xs);
+  white-space: nowrap; /* Holder teksten på én linje */
+}

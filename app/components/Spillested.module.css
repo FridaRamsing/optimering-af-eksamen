@@ -1,0 +1,43 @@
+.kort {
+  position: relative;
+  height: 200px;
+  border-radius: 8px;
+  overflow: hidden; /* Billedet får også runde hjørner */
+}
+
+.kortBillede {
+  object-fit: cover;
+  filter: grayscale(0.3) brightness(0.9); /* Lidt dæmpet, så det passer til den mørke side */
+}
+
+/* Nålen + teksten midt på kortet */
+.kortLabel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #1b1b1b;
+  font-size: var(--fs-xs);
+  font-weight: var(--fx-semibold);
+  white-space: nowrap;
+}
+
+.kortLabel img {
+  filter: invert(1); /* Det hvide ikon bliver sort, så det kan ses på det lyse kort */
+}
+
+.navn {
+  margin: var(--gap-24) 0 4px;
+  font-size: var(--fs-md);
+  font-weight: var(--fx-medium);
+}
+
+.by {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: var(--fs-sm);
+}
