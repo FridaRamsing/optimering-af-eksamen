@@ -208,7 +208,7 @@ export default function Soegning() {
           <div className={styles.popularSearches}>
             <span>POPULÆRT:</span>
 
-            {["Comedy", "Gilli", "Roskilde Festival", "Tivoli", "Musicals"].map(
+            {["Koncert", "Gilli", "Anne Linnet", "Jul", "Hugorm"].map(
               (titel) => (
                 <button
                   className={
