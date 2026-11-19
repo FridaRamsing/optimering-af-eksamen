@@ -195,5 +195,106 @@
 
 .popularCard:hover {
   background-color: rgba(252, 242, 205, 0.9);
-  box-shadow: 0 0 16px 0 var(--color-gul, #fff2c2);
+  box-shadow: var(--lys-op-effekt);
+}
+
+/*Søg*/
+
+.searchPanel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  padding: 24px 48px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-surface);
+}
+
+.searchPanel input:focus {
+  outline: none;
+  box-shadow: var(--lys-op-effekt);
+}
+
+.searchPanel input {
+  width: 100%;
+  padding: 12px 16px;
+  color: var(--color-text);
+  background: var(--color-border);
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  font: inherit;
+}
+
+.searchPanel ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+  list-style: none;
+}
+
+.searchPanel li {
+  padding: 12px;
+}
+
+/*artist resultat*/
+.artistResults h2 {
+  margin-bottom: 16px;
+  color: var(--color-muted);
+  font-size: var(--fs-sm);
+  font-weight: var(--fx-regular);
+  text-transform: uppercase;
+}
+
+.artistResults ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.artistResults li {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+/* Artist card */
+.artistCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-radius: 8px;
+}
+
+.artistCard:hover {
+  background: var(--color-border);
+}
+
+.artistPlaceholder {
+  display: block;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  background: #f6f6f6;
+  border-radius: 8px;
+}
+
+.artistInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.artistInfo strong {
+  font-size: var(--fs-sm);
+  font-weight: var(--fx-regular);
+}
+
+.artistInfo small {
+  color: var(--color-light);
+  font-size: var(--fs-xs);
 }
