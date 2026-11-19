@@ -12,7 +12,8 @@ import styles from "./FavoritKnap.module.css";
 
 // eventId: hvilket event hjertet hører til (gemmes i tabellen "likes")
 // onFjernet: valgfri – kaldes, når et like fjernes (bruges på favoritsiden til at fjerne kortet)
-export default function FavoritKnap({ eventId, titel, onFjernet }) {
+// className: valgfri – ekstra styling udefra (bruges i EventHero)
+export default function FavoritKnap({ eventId, titel, onFjernet, className }) {
   const router = useRouter();
 
   // Om hjertet er valgt
@@ -65,7 +66,7 @@ export default function FavoritKnap({ eventId, titel, onFjernet }) {
   return (
     <button
       type="button"
-      className={`${styles.knap} ${erFavorit ? styles.valgt : ""}`}
+      className={`${styles.knap} ${erFavorit ? styles.valgt : ""} ${className ?? ""}`}
       onClick={skift}
       aria-pressed={erFavorit}
       aria-label={`Gem ${titel} som favorit`}

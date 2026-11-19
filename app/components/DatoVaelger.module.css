@@ -1,0 +1,157 @@
+.liste {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-8);
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* Skjult for øjet, men læses af skærmlæsere */
+.skjult {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Samme kolonner i alle rækker, så de flugter: radio, dag, tid, pris, venteliste */
+.raekke {
+  display: grid;
+  grid-template-columns: 20px 1fr 1fr 1fr auto;
+  align-items: center;
+  gap: var(--gap-16);
+  min-height: 48px;
+  padding: 0 var(--gap-16);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: var(--color-bg-dark);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+
+.raekke:hover {
+  background: var(--color-surface);
+}
+
+.valgt {
+  border-color: var(--color-primary);
+  background: var(--color-surface);
+}
+
+/* Tastatur-fokus på radioknappen → hele rækken får en ring */
+.raekke:has(.radio:focus-visible) {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.radio {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--color-primary);
+}
+
+.dag {
+  font-weight: var(--fx-medium);
+}
+
+.pris {
+  grid-column: 4 / 6; /* Fylder også pladsen, hvor Venteliste ellers står */
+  font-weight: var(--fx-medium);
+}
+
+.udsolgt {
+  color: var(--color-muted);
+  cursor: default;
+}
+
+.udsolgt:hover {
+  background: var(--color-bg-dark);
+}
+
+.udsolgt .radio {
+  visibility: hidden; /* Holder pladsen, så kolonnerne flugter */
+}
+
+.udsolgtTekst {
+  color: #e5484d;
+}
+
+.venteliste {
+  padding: 6px 10px;
+  border: 1px solid var(--color-text);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--fs-xs);
+  cursor: pointer;
+}
+
+.knapRaekke {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--gap-24);
+}
+
+.koebKnap {
+  min-width: 260px;
+  padding: 12px var(--gap-24);
+  border: none;
+  border-radius: 6px;
+  background: var(--color-primary);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: var(--fx-semibold);
+  cursor: pointer;
+}
+
+.inaktiv {
+  background: var(--color-surface);
+  color: var(--color-muted);
+}
+
+.koebKnap:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+.fejl {
+  margin-bottom: var(--gap-16);
+  padding: 12px var(--gap-16);
+  border: 1px solid #e5484d;
+  border-radius: 6px;
+  background: rgba(229, 72, 77, 0.15);
+  font-size: var(--fs-sm);
+}
+
+.fejl p {
+  margin: 4px 0 0;
+  font-size: var(--fs-xs);
+  color: var(--color-muted);
+}
+
+@media (max-width: 600px) {
+  .raekke {
+    grid-template-columns: 20px 1fr auto;
+    padding: var(--gap-8) var(--gap-16);
+  }
+
+  .pris,
+  .udsolgtTekst {
+    grid-column: 3;
+  }
+
+  .venteliste {
+    grid-column: 2 / 4;
+    justify-self: end;
+  }
+
+  .koebKnap {
+    width: 100%;
+  }
+}

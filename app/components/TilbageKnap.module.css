@@ -1,0 +1,33 @@
+.knap {
+  position: absolute;
+  top: var(--gap-24);
+  left: var(--gap-40);
+  z-index: 1; /* Over gradienten i .baggrund::after */
+  display: flex;
+  align-items: center;
+  gap: var(--gap-8);
+  padding: var(--gap-8) var(--gap-16);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--fs-xs);
+  cursor: pointer;
+}
+
+.knap:hover {
+  background: var(--color-surface);
+}
+
+.knap:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 800px) {
+  .knap {
+    top: var(--gap-16);
+    left: var(--gap-16);
+  }
+}

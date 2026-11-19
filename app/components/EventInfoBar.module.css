@@ -1,0 +1,49 @@
+.bar {
+  display: grid;
+  /* Altid fire pladser, så felterne står samme sted, selvom nogle mangler */
+  grid-template-columns: repeat(4, 1fr);
+  margin: var(--gap-24) var(--gap-48) 0;
+  padding: 12px 0;
+  border: 1px solid var(--color-surface);
+  border-radius: 8px;
+}
+
+.punkt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px var(--gap-40);
+}
+
+/* Lodret streg mellem felterne – ikke før det første */
+.punkt + .punkt {
+  border-left: 1px solid var(--color-surface);
+}
+
+.label {
+  font-size: var(--fs-2xs);
+  color: var(--color-muted);
+}
+
+.vaerdi {
+  margin: 0;
+  font-size: var(--fs-xs);
+  font-weight: var(--fx-medium);
+}
+
+@media (max-width: 800px) {
+  .bar {
+    grid-template-columns: 1fr 1fr;
+    row-gap: var(--gap-8);
+    margin: var(--gap-16) var(--gap-16) 0;
+  }
+
+  .punkt {
+    padding: 4px var(--gap-16);
+  }
+
+  /* To kolonner på mobil, så stregerne giver ikke mening */
+  .punkt + .punkt {
+    border-left: none;
+  }
+}

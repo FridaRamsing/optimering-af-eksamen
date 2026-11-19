@@ -1,0 +1,55 @@
+.kolonner {
+  display: grid;
+  grid-template-columns: 500px 1fr;
+  gap: 116px;
+  margin: var(--gap-24) var(--gap-48) 0;
+  padding-bottom: var(--gap-32);
+  border-bottom: 1px solid var(--color-surface);
+}
+
+.tekst {
+  color: var(--color-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+}
+
+.spillested {
+  margin-top: 64px; /* Afstanden mellem Om eventet og Spillested i Figma */
+}
+
+/* Kolonnerne under hinanden – datolisten skal bruge plads */
+@media (max-width: 1000px) {
+  .kolonner {
+    grid-template-columns: 1fr;
+    gap: var(--gap-48);
+    margin: var(--gap-24) var(--gap-16) 0;
+  }
+}
+
+.andre {
+  margin: var(--gap-48) var(--gap-48) var(--gap-48);
+}
+
+/* 4 kort ved siden af hinanden – færre pr. række, når skærmen bliver smallere */
+.kortListe {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--gap-32);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kortListe > li {
+  min-width: 0; /* Lange titler slutter med "…" i stedet for at gøre kortet bredere */
+}
+
+@media (max-width: 1000px) {
+  .andre {
+    margin-inline: var(--gap-16);
+  }
+
+  .kortListe {
+    gap: var(--gap-16);
+  }
+}
