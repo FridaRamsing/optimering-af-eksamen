@@ -1,0 +1,8 @@
+/* ==============================
+   PROGRESS-BAREN – blå linje-lottie
+   ============================== */
+.bar {
+  width: 320px; /* Bredden fra Figma */
+  max-width: 100%; /* Bliver smallere på små skærme i stedet for at stikke ud */
+  height: 16px; /* Højden */
+}
