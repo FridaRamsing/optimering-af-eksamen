@@ -6,6 +6,8 @@ import { supabase } from "@/lib/supabase"; // Forbindelsen til databasen (bruger
 import Trinlinje from "@/app/components/Trinlinje";
 import Betalingsformular from "@/app/components/Betalingsformular";
 import Ordreoversigt from "@/app/components/Ordreoversigt";
+import MobilePayBoks from "@/app/components/MobilePayBoks";
+import StjerneBaggrund from "@/app/components/StjerneBaggrund"; // Blinkende stjerner bag kasserne
 import styles from "./page.module.css";
 
 // Header og Footer kommer automatisk fra app/layout.js – de skal ikke importeres her.
@@ -124,14 +126,8 @@ async function BetalingIndhold({ searchParams }) {
         {/* Stregerne på hver side laves med ::before og ::after i CSS */}
         <p className={styles.skille}>eller betal med MobilePay</p>
 
-        {/* MobilePay – knappen gør ikke noget endnu (kun design) */}
-        <div className={styles.mobilepay}>
-          <Image src="/assets/icons/mobilePaylogo.svg" alt="" width={48} height={48} />
-          <h2>MobilePay</h2>
-          <button type="button" className={styles.vaelg}>
-            Vælg
-          </button>
-        </div>
+        {/* MobilePay – egen komponent, fordi "Vælg" åbner et overlay (kræver useState) */}
+        <MobilePayBoks />
       </div>
 
       {/* ===== HØJRE KOLONNE – ordreoversigten med billetter og priser ===== */}
@@ -155,13 +151,19 @@ export default function BetalingPage({ searchParams }) {
       {/* Trin 3 = Betaling */}
       <Trinlinje aktivtTrin={3} />
 
-      <main className={styles.side}>
-        <h1 className={styles.titel}>Gennemfør ordren</h1>
+      {/* Ramme i fuld bredde, så stjernerne fylder hele skærmen – ikke kun de 1060px i midten */}
+      <div className={styles.stjerneOmraade}>
+        {/* Stjernehimlen ligger bag kort- og ordrekasserne (z-index: -1) */}
+        <StjerneBaggrund />
 
-        <Suspense fallback={<p className={styles.besked}>Indlæser din ordre...</p>}>
-          <BetalingIndhold searchParams={searchParams} />
-        </Suspense>
-      </main>
+        <main className={styles.side}>
+          <h1 className={styles.titel}>Gennemfør ordren</h1>
+
+          <Suspense fallback={<p className={styles.besked}>Indlæser din ordre...</p>}>
+            <BetalingIndhold searchParams={searchParams} />
+          </Suspense>
+        </main>
+      </div>
     </>
   );
 }

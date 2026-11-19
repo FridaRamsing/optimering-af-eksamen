@@ -1,0 +1,13 @@
+/* Dækker hele skærmen – men ligger UNDER headeren (header har z-index: 1000),
+   så logo og menu stadig kan ses, som i designet */
+.overlay {
+  position: fixed; /* bliver stående, selvom siden bagved er længere */
+  inset: 0; /* top, højre, bund og venstre = 0 → hele skærmen */
+  z-index: 999;
+  display: flex;
+  align-items: center; /* indholdet midt på skærmen lodret */
+  justify-content: center; /* ... og vandret */
+  padding: 0 var(--gap-16); /* luft i siderne på mobil */
+  background: var(--color-bg); /* sidens baggrundsfarve, 100% dækkende – intet skinner igennem */
+  overflow: hidden; /* stjernerne må ikke lave scrollbarer */
+}

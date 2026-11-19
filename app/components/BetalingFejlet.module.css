@@ -1,0 +1,81 @@
+/* Selve boksen – <dialog> centreres automatisk af browseren */
+.dialog {
+  width: min(830px, calc(100% - 32px)); /* 830px, men aldrig bredere end skærmen */
+  margin: auto; /* centrerer vandret og lodret */
+  padding: var(--gap-48) var(--gap-48) var(--gap-40); /* top | sider | bund */
+  border: none; /* fjerner browserens standardramme */
+  border-radius: 24px;
+  background: linear-gradient(180deg, #141a3d 0%, #1c1638 100%); /* blå → lilla, som de andre kasser */
+  box-shadow: var(--lys-stroke); /* Figma-effekten "Lys stroke" fra globals.css */
+  color: var(--color-text);
+  text-align: center;
+  font-family: inherit; /* <dialog> arver ellers ikke Figtree */
+}
+
+/* Den mørke, slørede baggrund bag boksen */
+.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+/* "Betalingen gik ikke igennem" */
+.titel {
+  font-size: var(--fs-3xl);
+  font-weight: var(--fx-bold);
+}
+
+/* Den grå forklaring */
+.tekst {
+  margin-top: var(--gap-24);
+  font-size: var(--fs-lg);
+  color: var(--color-muted);
+}
+
+/* Knapperne: to lige brede kolonner */
+.knapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-24);
+  margin-top: var(--gap-48);
+}
+
+/* Fælles for begge knapper */
+.proevIgen,
+.andenMetode {
+  height: 56px;
+  border-radius: 8px;
+  color: var(--color-text);
+  font: inherit;
+  font-weight: var(--fx-semibold);
+  cursor: pointer;
+}
+
+/* "Prøv igen" – blå hovedknap */
+.proevIgen {
+  border: none;
+  background: var(--color-primary);
+}
+
+/* "Vælg en anden metode" – grå knap med tynd kant */
+.andenMetode {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--color-surface);
+}
+
+/* Tydelig ramme, når man bruger tastatur */
+.proevIgen:focus-visible,
+.andenMetode:focus-visible {
+  outline: 2px solid var(--color-light);
+  outline-offset: 2px;
+}
+
+/* Mobil: knapperne under hinanden */
+@media (max-width: 600px) {
+  .dialog {
+    padding: var(--gap-32) var(--gap-24);
+  }
+  .knapper {
+    grid-template-columns: 1fr;
+    gap: var(--gap-16);
+  }
+}
