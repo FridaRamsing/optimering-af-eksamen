@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "./Header.module.css";
 import BrugerLink from "./BrugerLink";
 import HeaderNavigation from "./HeaderNavigation";
+import Soegning from "./Soegning";
 
 
 {/* Header komponenten, der indeholder navigationen og logoet */}
@@ -28,22 +29,9 @@ export default function Header() {
         <Link href="/eventgenerator" className={styles.eventButton}>
           Eventgenerator
         </Link>
-        <button type="button" className={styles.iconLink}>
-          <Image
-            src="/assets/icons/søg.svg"
-            alt="Søg"
-            width={32}
-            height={32}
-            className={styles.iconDefault}
-          />
-          <Image
-            src="/assets/icons/søg-hover.svg"
-            alt=""
-            width={32}
-            height={32}
-            className={styles.iconHover}
-          />
-        </button>
+
+        <Soegning />
+
         {/* Hjertet åbner favoritsiden med de kunstnere, man har liket */}
         <Link href="/favoritter" className={styles.iconLink}>
           <Image
