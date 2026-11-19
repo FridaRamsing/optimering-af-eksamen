@@ -80,7 +80,7 @@
 
 .kolonneTitel {
   font-size: var(--fs-xl);
-  font-weight: 700; /* Bold */
+  font-weight: var(--fx-bold); /* 700 – Bold */
   min-height: 48px; /* Alle overskrifter lige høje, så listerne starter ens */
 }
 
@@ -119,7 +119,7 @@
   align-items: center; /* Centreret lodret */
   gap: var(--gap-32); /* Afstand mellem teksterne */
   font-size: var(--fs-md);
-  font-weight: 800; /* ExtraBold – gælder alle tre tekster */
+  font-weight: var(--fx-extrabold); /* 800 – ExtraBold, gælder alle tre tekster */
 }
 
 /* ==============================

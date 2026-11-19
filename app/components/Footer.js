@@ -1,6 +1,7 @@
 import styles from "./Footer.module.css";
 import Image from "next/image";
 import StjernerFooter from "./StjernerFooter";
+import Link from "next/link";
 
 /* ==============================
    DATA – teksterne og ikonerne i footeren
@@ -78,12 +79,15 @@ export default function Footer() {
         <div className={styles.indhold}>
           {/* ----- Venstre side ----- */}
           <div className={styles.venstre}>
-            <Image
-              src="/assets/icons/ticketmaster-logo.svg"
-              alt="Ticketmaster"
-              width={180}
-              height={25}
-            />
+            {/* Logoet er det eneste i footeren, man kan klikke på – det fører til forsiden */}
+            <Link href="/">
+              <Image
+                src="/assets/icons/ticketmaster-logo.svg"
+                alt="Ticketmaster – gå til forsiden"
+                width={180}
+                height={25}
+              />
+            </Link>
 
             {/* Følg os – ét ikon pr. objekt i "sociale" */}
             <div className={styles.gruppe}>
