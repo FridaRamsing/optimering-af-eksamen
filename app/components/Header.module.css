@@ -1,3 +1,4 @@
+	/* Placér logo og navigation til venstre og knapperne til højre. Headeren fungerer også som reference for panelerne nedenunder. */
 .header {
   display: flex; /* Brug flexbox til at arrangere elementerne på samme linje i headeren */
   width: 100%;
@@ -11,6 +12,7 @@
   border-bottom: 1px solid var(--color-surface); /* Tilføjer stroke til headeren */
 }
 
+/* Saml logo og navigation i én række, og giv navigationspunkterne fast afstand. */
 .leftSide {
   display: flex; /* Brug flexbox til at arrangere logo og navigation */
   align-items: center; /* Centerer logoet vertikalt */
@@ -22,6 +24,7 @@
   gap: 24px; /* Gap imellem navigationselementerne */
 }
 
+/* Udvid området, musen kan bevæge sig i, så panelet forbliver åbent på vej fra menupunktet ned til panelet. Den negative margin opvejer den ekstra padding i layoutet. */
 .categoryItem {
   padding-bottom: 48px;
   margin-bottom: -48px; 
@@ -43,6 +46,7 @@
   font-weight: var(--fx-regular); 
 }
 
+/* Gør linkteksten tykkere, når musen holdes over linket. */
 .navigation a:hover {
   font-weight: var(--fx-semibold);
 }
@@ -55,11 +59,13 @@
   font-size: var(--fs-xl);
 }
 
+/* Giv Eventgenerator-knappen en fremhævet baggrund, og skift farverne ved hover. */
 .eventButton:hover {
   background-color: var(--color-text);
   color: var(--color-primary);
 }
 
+/* Saml knapperne til højre, og centrér hvert ikon i et klikområde på 32 × 32 px. */
 .actions {
   display: flex;
   align-items: center;
@@ -79,6 +85,7 @@
   cursor: pointer;
 }
 
+	/* Skjul hover-ikonet som standard. Når musen holdes over knappen eller linket, vises det i stedet for standardikonet. */
 .iconHover {
   display: none;
 }
@@ -91,6 +98,7 @@
   display: block;
 }
 
+	/* Skjul dropdown-menuen som standard, og placér den lige under headeren i fuld bredde. top: 100% svarer til headerens højde. */
 .dropdown {
   border-top: 1px solid var(--color-surface);
   display: none;
@@ -104,6 +112,7 @@
   border-bottom: 1px solid var(--color-surface);
 }
 
+/* Vis menuen, når musen er over kategorien, så længe menuen ikke er markeret som lukket. */
 .categoryItem:hover:not([data-menu-dismissed="true"]) .dropdown {
   display: block;
 }
@@ -116,12 +125,14 @@
   text-transform: uppercase; /* Gør teksten i dropdown-menuen store bogstaver */
 }
 
+/* Vis genrerne i to kolonner, hvor hver kolonne tilpasser sig sit bredeste indhold. */
 .genreColumns {
   display: grid; /* Brug grid layout til at arrangere genrerne i kolonner */
-  grid-template-columns: repeat(2, max-content); /* Opretter tre kolonner i dropdown-menuen */
+  grid-template-columns: repeat(2, max-content); /* Opretter to kolonner i dropdown-menuen */
   gap: 20px; /* Gap imellem kolonnerne */
 }
 
+/* Placér overskriften over genrelisten, og vis genrerne lodret med fast afstand. */
 .genreSection {
   display: flex;
   flex-direction: column; /* Arrangerer genrerne i en kolonne */
@@ -142,6 +153,7 @@
   margin: 0;
 }
 
+/* Placér dropdownens indholdssektioner ved siden af hinanden, og flugt dem i toppen. */
 .dropdownContent {
   display: flex;
   align-items: flex-start;
@@ -149,7 +161,7 @@
   margin-top: 40px;
 }
 
-/* dropdown sektioner styling */
+/* Vis kortene i en vandret række med fast kortbredde. Rækken kan rulles til siden, hvis kortene fylder mere end den tilgængelige plads. */
 .popularCards {
   display: flex;
   gap: 30px;
@@ -166,13 +178,14 @@
   cursor: pointer;
 }
 
+/* Fyld kortet med billedet. Beskær billedet efter behov, så det beholder sine proportioner. */
 .popularCard img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* Tilføjer en overlay effekt til popularCard */
+/* Læg et halvgennemsigtigt mørkt lag over billedet, så kortets titel er lettere at læse. */
 .popularCard::after {
   content: "";
   position: absolute;
@@ -180,6 +193,7 @@
   background: rgba(0, 0, 0, 0.35);
 }
 
+/* Placér titlen nederst til venstre på kortet, og brug z-index til at vise den oven på det mørke lag. */
 .popularCard h3 {
   position: absolute;
   z-index: 1;
@@ -212,6 +226,7 @@
   margin-bottom: 24px;
 }
 
+	/* Placér søgepanelet i fuld bredde lige under headeren. Panelet vises, når søgekomponenten åbner det. */
 .searchPanel {
   position: absolute;
   top: 100%;
@@ -225,11 +240,13 @@
   border-top: 1px solid var(--color-surface);
 }
 
+/* Erstat browserens standardomrids med en lysende skygge, når søgefeltet har fokus. */
 .searchPanel input:focus {
   outline: none;
   box-shadow: var(--lys-op-effekt);
 }
 
+	/* Vis søgeikonet som baggrund til venstre, og giv teksten ekstra plads med padding. */
 .searchPanel input {
   width: 100%;
   padding: 12px 16px 12px 46px;
@@ -240,6 +257,7 @@
   font: inherit;
 }
 
+/* Placér søgefeltet og Luk-knappen på samme række. Søgefeltet bruger den ledige plads og kan krympe ved behov. */
 .searchFieldRow {
   display: flex;
   align-items: center;
@@ -270,6 +288,7 @@
   padding-right: 48px;
 }
 
+/* Placér ryd-knappen inde i højre side af søgefeltet, og centrér den lodret. Tekstfeltets højre padding giver plads til knappen. */
 .searchField > button {
   position: absolute;
   top: 50%;
@@ -324,7 +343,7 @@
   border-radius: 8px;
 }
 
-/* Artist card */
+/* Placér resultatets billede og tekst ved siden af hinanden, og fremhæv rækken, når musen holdes over den. */
 .artistCard {
   display: flex;
   align-items: center;
@@ -336,6 +355,7 @@
   background: var(--color-border);
 }
 
+/* Brug et felt på 44 × 44 px til billedet, og behold samme plads, hvis billedet mangler. */
 .artistPlaceholder {
   display: block;
   flex: 0 0 44px;
@@ -346,6 +366,7 @@
   object-fit: cover;
 }
 
+/* Vis navnet øverst og de tilhørende oplysninger på linjen nedenunder. */
 .artistInfo {
   display: flex;
   flex-direction: column;
@@ -362,7 +383,7 @@
   font-size: var(--fs-md);
 }
 
-/* event resultater */
+/* Fordel søgeresultaterne i tre lige brede kolonner til kunstnere, events og spillesteder. */
 .searchColumns {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -370,6 +391,7 @@
   margin-top: 24px;
 }
 
+/* Lad søgeforslagene fortsætte på næste linje ved pladsmangel, og fremhæv det valgte forslag med primærfarven. */
 .popularSearches {
   display: flex;
   align-items: center;
@@ -378,6 +400,7 @@
   margin-top: 24px;
 }
 
+/* Adskil søgeforslagene fra knapperne med en vandret linje. Knapperne kan fortsætte på næste linje ved pladsmangel. */
 .searchDivider {
   width: 100%;
   margin: 24px 0;
@@ -385,6 +408,7 @@
   border-top: 1px solid var(--color-surface);
 }
 
+/* Fremhæv knappen til alle resultater med en fyldt baggrund, og vis Eventgenerator-knappen med en kant. Begge får en lysende skygge ved hover. */
 .allResultsButton {
   padding: 12px 24px;
   border: 0;
@@ -448,6 +472,7 @@
   box-shadow: var(--lys-op-effekt);
 }
 
+/* Brug samme listevisning til events og spillesteder, med et billede eller en pladsholder ved siden af oplysningerne. */
 .eventResults {
   margin-top: 0px;
 }
