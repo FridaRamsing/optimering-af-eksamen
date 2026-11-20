@@ -1,0 +1,86 @@
+.spots {
+  position: absolute;
+  inset: 0;
+  container-type: size; /* Gør det muligt at bruge cqw/cqh herinde */
+  pointer-events: none;
+}
+
+/* "Mørk Overlay" fra Figma */
+.moerke {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 18, 18, 0.64);
+}
+
+/* En lys kopi af billedet – masken bestemmer, hvor den kan ses */
+.belyst {
+  position: absolute;
+  inset: 0;
+  /* Oval: helt synlig ind til 56 %, derefter blød kant ud til 100 % (samme som Figmas maske) */
+  mask-image: radial-gradient(closest-side, black 56%, transparent);
+  mask-repeat: no-repeat;
+}
+
+.billede {
+  object-fit: cover; /* Samme beskæring som hero-billedet, så kopierne passer præcist ovenpå */
+}
+
+.venstre {
+  animation: spotVenstre 5s ease-in-out 0.5s both;
+}
+
+.hoejre {
+  animation: spotHoejre 5s ease-in-out 0.5s both;
+}
+
+/* Tallene er Figmas px omregnet: x ÷ 1512 → cqw, y ÷ 546 → cqh */
+@keyframes spotVenstre {
+  0%,
+  15% {
+    /* Default */
+    mask-position: 14cqw 24cqh;
+    mask-size: 21cqw 51cqh;
+  }
+  40% {
+    /* Variant 2 – glider op mod midten */
+    mask-position: 39cqw -6cqh;
+    mask-size: 21cqw 51cqh;
+  }
+  65% {
+    /* Variant 3 – vokser */
+    mask-position: 51cqw 27cqh;
+    mask-size: 33cqw 82cqh;
+  }
+  100% {
+    /* Variant 4 – så stor, at hele billedet er tændt */
+    mask-position: -23cqw -115cqh;
+    mask-size: 146cqw 330cqh;
+  }
+}
+
+@keyframes spotHoejre {
+  0%,
+  15% {
+    mask-position: 68cqw 27cqh;
+    mask-size: 21cqw 51cqh;
+  }
+  40% {
+    mask-position: 14cqw 38cqh;
+    mask-size: 21cqw 51cqh;
+  }
+  65% {
+    mask-position: 0cqw -6cqh;
+    mask-size: 33cqw 82cqh;
+  }
+  100% {
+    mask-position: -23cqw -115cqh;
+    mask-size: 146cqw 330cqh;
+  }
+}
+
+/* Uden animation: vis bare det tændte billede (= sidste variant) */
+@media (prefers-reduced-motion: reduce) {
+  .spots {
+    display: none;
+  }
+}

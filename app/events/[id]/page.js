@@ -40,7 +40,7 @@ async function AndreEvents({ event }) {
 
   return (
     <section aria-labelledby="andre-events" className={styles.andre}>
-      <SektionOverskrift id="andre-events">Fans har også kigget på</SektionOverskrift>
+      <SektionOverskrift id="andre-events" className={styles.overskrift}>Fans har også kigget på</SektionOverskrift>
       <ul className={styles.kortListe}>
         {andre.map((andet) => (
           <li key={andet.id}>
@@ -91,19 +91,19 @@ async function EventIndhold({ params }) {
       <div className={styles.kolonner}>
         <div>
           <section aria-labelledby="om-eventet">
-            <SektionOverskrift id="om-eventet">Om eventet</SektionOverskrift>
+            <SektionOverskrift id="om-eventet" className={styles.overskrift}>Om eventet</SektionOverskrift>
             <p className={styles.tekst}>{event.beskrivelse}</p>
             <EventInfoPanel event={event} datoTekst={datoTekst} />
           </section>
 
           <section aria-labelledby="spillested" className={styles.spillested}>
-            <SektionOverskrift id="spillested">Spillested</SektionOverskrift>
+            <SektionOverskrift id="spillested" className={styles.overskrift}>Spillested</SektionOverskrift>
             <Spillested event={event} />
           </section>
         </div>
 
         <section id="datoer" aria-labelledby="datoer-titel">
-          <SektionOverskrift id="datoer-titel">Datoer</SektionOverskrift>
+          <SektionOverskrift id="datoer-titel" className={styles.overskrift}>Datoer</SektionOverskrift>
           <DatoVaelger eventId={event.id} datoer={datoer} />
         </section>
       </div>

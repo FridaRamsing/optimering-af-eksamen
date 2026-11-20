@@ -20,7 +20,8 @@
 /* Samme kolonner i alle rækker, så de flugter: radio, dag, tid, pris, venteliste */
 .raekke {
   display: grid;
-  grid-template-columns: 20px 1fr 1fr 1fr auto;
+  /* Fast bredde til Venteliste – med "auto" blev kolonnerne smallere i den udsolgte række */
+  grid-template-columns: 20px 1fr 1fr 1fr 120px;
   align-items: center;
   gap: var(--gap-16);
   min-height: 48px;
