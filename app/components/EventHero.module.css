@@ -100,7 +100,7 @@
   gap: var(--gap-8);
 }
 
-.heroKnap {
+.knapper .heroKnap {
   position: static; /* Overskriver absolute fra kortet */
   width: 44px;
   height: 44px;
