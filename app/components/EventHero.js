@@ -5,6 +5,7 @@ import FavoritKnap from "./FavoritKnap";
 import TilbageKnap from "./TilbageKnap";
 import DelKnap from "./DelKnap";
 import styles from "./EventHero.module.css";
+import Spotlys from "./Spotlys";
 
 export default function EventHero({ event, datoTekst }) {
   const pris = event.pris_fra.toLocaleString("da-DK");
@@ -20,6 +21,7 @@ export default function EventHero({ event, datoTekst }) {
           sizes="100vw"
           className={styles.baggrundBillede}
         />
+        <Spotlys billede={event.hero_image_url} />
         <TilbageKnap />
       </div>
 

@@ -7,6 +7,14 @@
   border-bottom: 1px solid var(--color-surface);
 }
 
+/* Siden har allerede margin i siderne, så overskriftens egen padding (fra forsiden) fjernes.
+   To klasser foran, så den vinder over komponentens CSS */
+.kolonner .overskrift,
+.andre .overskrift {
+  padding: 0;
+  margin-bottom: var(--gap-24);
+}
+
 .tekst {
   color: var(--color-muted);
   font-size: var(--fs-sm);
