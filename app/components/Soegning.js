@@ -22,7 +22,7 @@ export default function Soegning() {
 
     const { data, error } = await supabase
       .from("event")
-      .select("kunstner")
+      .select("kunstner, detalje_image_url")
       .not("kunstner", "is", null)
       .ilike("kunstner", `%${tekst}%`);
 
@@ -31,11 +31,19 @@ export default function Soegning() {
       return;
     }
 
-    const unikkeNavne = [
-      ...new Set((data ?? []).map((raekke) => raekke.kunstner).filter(Boolean)),
-    ];
+   const unikkeKunstnere = new Map();
 
-    setKunstnere(unikkeNavne);
+   for (const raekke of data ?? []) {
+     if (!raekke.kunstner) continue;
+
+     const gemtKunstner = unikkeKunstnere.get(raekke.kunstner);
+
+     if (!gemtKunstner?.detalje_image_url) {
+       unikkeKunstnere.set(raekke.kunstner, raekke);
+     }
+   }
+
+   setKunstnere([...unikkeKunstnere.values()]);
   }
 
   async function hentEvents(tekst) {
@@ -46,7 +54,7 @@ export default function Soegning() {
 
     const { data, error } = await supabase
       .from("event")
-      .select("id, titel, card_image_url, starts_at, spillested, by")
+      .select("id, titel, detalje_image_url, starts_at, spillested, by")
       .ilike("titel", `%${tekst}%`)
       .order("starts_at", { ascending: true })
       .limit(3);
@@ -56,6 +64,7 @@ export default function Soegning() {
       return;
     }
 
+    console.table(data);
     setEventResultater(data ?? []);
   }
 
@@ -67,7 +76,7 @@ export default function Soegning() {
 
     const { data, error } = await supabase
       .from("event")
-      .select("spillested, by")
+      .select("spillested, by, detalje_image_url")
       .not("spillested", "is", null)
       .ilike("spillested", `%${tekst}%`);
 
@@ -114,27 +123,45 @@ export default function Soegning() {
                 } resultater`
               : "Søg efter kunstnere, events og spillesteder"}
           </h2>
-          {(event) => {
-            if (event.key === "Enter") {
-              event.currentTarget.blur();
-            }
-          }}
-          <input
-            value={soegeord}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                event.currentTarget.blur();
-              }
-            }}
-            onChange={(event) => {
-              const tekst = event.target.value;
-              setSoegeord(tekst);
-              hentKunstnere(tekst);
-              hentEvents(tekst);
-              hentSpillesteder(tekst);
-            }}
-            placeholder="Søg efter en kunstner"
-          />
+
+          <div className={styles.searchFieldRow}>
+            <div className={styles.searchField}>
+              <input
+                value={soegeord}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.currentTarget.blur();
+                  }
+                }}
+                onChange={(event) => {
+                  const tekst = event.target.value;
+                  setSoegeord(tekst);
+                  hentKunstnere(tekst);
+                  hentEvents(tekst);
+                  hentSpillesteder(tekst);
+                }}
+                placeholder="Søg efter en kunstner"
+              />
+
+                <button
+                  type="button"
+                  aria-label="Ryd søgning"
+                  onClick={() => {
+                    setSoegeord("");
+                    setKunstnere([]);
+                    setEventResultater([]);
+                    setSpillesteder([]);
+                    setValgtSoegeforslag("");
+                  }}
+                >
+                  ×
+                </button>
+      
+            </div>
+            <button type="button" onClick={() => setAaben(false)}>
+              Luk
+            </button>
+          </div>
 
           <div className={styles.searchColumns}>
             <section className={styles.artistResults}>
@@ -144,12 +171,22 @@ export default function Soegning() {
               <ul>
                 {kunstnere.map((kunstner) => (
                   <li className={styles.artistCard} key={kunstner}>
-                    <span
-                      className={styles.artistPlaceholder}
-                      aria-hidden="true"
-                    />
+                    {kunstner.detalje_image_url ? (
+                      <Image
+                        src={kunstner.detalje_image_url}
+                        alt=""
+                        width={44}
+                        height={44}
+                        className={styles.artistPlaceholder}
+                      />
+                    ) : (
+                      <span
+                        className={styles.artistPlaceholder}
+                        aria-hidden="true"
+                      />
+                    )}
                     <span className={styles.artistInfo}>
-                      <strong>{kunstner}</strong>
+                      <strong>{kunstner.kunstner}</strong>
                       <small>Kunstner</small>
                     </span>
                   </li>
@@ -165,10 +202,20 @@ export default function Soegning() {
               <ul>
                 {eventResultater.map((event) => (
                   <li key={event.id}>
-                    <span
-                      className={styles.eventPlaceholder}
-                      aria-hidden="true"
-                    />
+                    {event.detalje_image_url ? (
+                      <Image
+                        src={event.detalje_image_url}
+                        alt=""
+                        width={44}
+                        height={44}
+                        className={styles.eventPlaceholder}
+                      />
+                    ) : (
+                      <span
+                        className={styles.eventPlaceholder}
+                        aria-hidden="true"
+                      />
+                    )}
                     <span className={styles.eventInfo}>
                       <strong>{event.titel}</strong>
                       <small>
@@ -192,10 +239,20 @@ export default function Soegning() {
               <ul>
                 {spillesteder.map((sted) => (
                   <li key={`${sted.spillested}-${sted.by}`}>
-                    <span
-                      className={styles.eventPlaceholder}
-                      aria-hidden="true"
-                    />
+                    {sted.detalje_image_url ? (
+                      <Image
+                        src={sted.detalje_image_url}
+                        alt=""
+                        width={44}
+                        height={44}
+                        className={styles.eventPlaceholder}
+                      />
+                    ) : (
+                      <span
+                        className={styles.eventPlaceholder}
+                        aria-hidden="true"
+                      />
+                    )}
                     <span className={styles.eventInfo}>
                       <strong>{sted.spillested}</strong>
                       <small>{sted.by}</small>
@@ -235,9 +292,24 @@ export default function Soegning() {
           </div>
           <hr className={styles.searchDivider} />
           <div className={styles.searchActions}>
-            <button type="button" className={styles.allResultsButton}>
-              Se alle resultater
-            </button>
+            <Link
+              href="/kategori/musik"
+              className={styles.allResultsButton}
+              style={{
+                backgroundColor:
+                  kunstnere.length +
+                    eventResultater.length +
+                    spillesteder.length ===
+                  0
+                    ? "var(--color-border)"
+                    : undefined,
+              }}
+              onClick={() => setAaben(false)}
+            >
+              Se{" "}
+              {kunstnere.length + eventResultater.length + spillesteder.length}{" "}
+              resultater
+            </Link>
 
             <Link
               href="/eventgenerator"
