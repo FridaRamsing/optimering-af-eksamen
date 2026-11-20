@@ -1,6 +1,6 @@
 "use client"; // Kortet husker valgt fane og felter (useState), så det skal køre i browseren
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Sender brugeren videre efter login
 import { supabase } from "@/lib/supabase"; // Supabase har indbygget login (Auth)
 import styles from "./LoginKort.module.css";
@@ -32,7 +32,9 @@ function fejlTekst(error) {
 }
 
 // videreTil: hvor brugeren sendes hen efter login (forsiden eller betalingen)
-export default function LoginKort({ videreTil }) {
+// indlejret: true = kortet ligger inde i en anden boks (KoebLogin) og skal ikke have sin egen baggrund
+// springOverHvisLoggetInd: true = er man allerede logget ind, sendes man videre med det samme
+export default function LoginKort({ videreTil, indlejret = false, springOverHvisLoggetInd = false }) {
   const router = useRouter();
 
   // Hvilken fane er valgt: "login" eller "opret"
@@ -46,6 +48,15 @@ export default function LoginKort({ videreTil }) {
 
   // true, mens vi venter på svar fra Supabase – så kan man ikke klikke to gange
   const [venter, setVenter] = useState(false);
+
+  // I købsflowet: er man allerede logget ind, skal man ikke se login – videre til betalingen.
+  // router.replace (ikke push), så tilbage-knappen ikke sender en tilbage til login igen
+  useEffect(() => {
+    if (!springOverHvisLoggetInd) return;
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) router.replace(videreTil);
+    });
+  }, [springOverHvisLoggetInd, videreTil, router]);
 
   // Opdaterer det felt, der skrives i.
   // Checkboxe har "checked" (true/false) i stedet for "value".
@@ -142,7 +153,8 @@ export default function LoginKort({ videreTil }) {
   }
 
   return (
-    <section className={styles.kort}>
+    // Indlejret: uden baggrund og kant (boksen udenom har dem i forvejen)
+    <section className={indlejret ? styles.indlejret : styles.kort}>
       {/* ===== FANERNE =====
           type="button": ellers ville knapperne sende formularen.
           aria-pressed: fortæller skærmlæsere, hvilken fane der er valgt. */}

@@ -10,6 +10,11 @@
   box-shadow: var(--lys-stroke); /* Figma-effekten "Lys stroke" fra globals.css */
 }
 
+/* Når kortet ligger inde i en anden boks (fx KoebLogin): ingen egen baggrund, kant eller luft */
+.indlejret {
+  width: 100%;
+}
+
 /* ==============================
    FANERNE – "Log ind" / "Opret profil"
    ============================== */

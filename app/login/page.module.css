@@ -6,3 +6,10 @@
   min-height: 60vh; /* så footeren ikke hopper op, mens siden indlæser */
   padding: 64px var(--gap-16) 120px; /* top | sider | bund */
 }
+
+/* Købsflowet: stjernehimmel bag boksen, og boksen er bredere end det almindelige login */
+.koeb {
+  position: relative; /* ankeret for stjernebaggrunden */
+  isolation: isolate; /* egen lagstak: stjernerne (z-index: -1) ligger bag boksen, men over body */
+  overflow: hidden;
+}

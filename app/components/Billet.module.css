@@ -82,7 +82,9 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #141a3d; /* samme farve som kortet bagved */
+  /* Samme farve som kassen bagved, så det ligner huller.
+     --hul-farve kan sættes af den side, billetten bruges på – ellers mørkeblå (Din ordre) */
+  background: var(--hul-farve, #141a3d);
 }
 
 /* Hullet øverst – halvt uden for billetten */
@@ -93,6 +95,14 @@
 /* Hullet nederst */
 .hoejre::after {
   bottom: -8px;
+}
+
+/* "PRIS" – lille grå overskrift (bruges i stedet for QR-koden) */
+.prisLabel {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-border);
 }
 
 /* "375 DKK" under QR-koden */
