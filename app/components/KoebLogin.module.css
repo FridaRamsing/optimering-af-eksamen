@@ -1,0 +1,140 @@
+/* ==============================
+   BOKSEN – samme mørkeblå stil som de andre kasser i købsflowet
+   ============================== */
+.boks {
+  display: grid;
+  grid-template-columns: 447px 1fr; /* login | Din ordre */
+  gap: var(--gap-48);
+  width: 100%;
+  max-width: 1056px;
+  padding: var(--gap-48) 56px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #141a3d 0%, #1c1638 100%); /* blå → lilla */
+  box-shadow: var(--lys-stroke); /* Figma-effekten "Lys stroke" fra globals.css */
+}
+
+/* ==============================
+   DIN ORDRE
+   ============================== */
+.ordre {
+  display: flex;
+  flex-direction: column;
+  padding-right: var(--gap-48);
+  border-right: 1px solid rgba(255, 255, 255, 0.08); /* den tynde lodrette streg i designet */
+}
+
+.overskrift {
+  font-size: var(--fs-3xl);
+  font-weight: var(--fx-bold);
+}
+
+/* Billetbunken – billetterne ligger oven på hinanden i samme grid-celle */
+.bunke {
+  display: grid;
+  margin: 40px 0 var(--gap-40); /* luft over til de grå billetter, der stikker op */
+}
+
+/* Én lille billet: indhold | pris */
+.miniBillet {
+  grid-area: 1 / 1; /* samme celle → oven på hinanden */
+  position: relative;
+  z-index: 1; /* forrest */
+  display: grid;
+  grid-template-columns: 1fr 78px;
+  min-height: 64px;
+  border-left: 6px solid var(--color-primary); /* den blå kant til venstre */
+  border-radius: 8px;
+  background: #fafafa;
+  color: #121212;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Den grå billet bagved – skubbet op til højre og drejet lidt */
+.bagved {
+  z-index: 0;
+  translate: 10px -24px;
+  rotate: -3deg;
+  background: #9a9a9a;
+  box-shadow: none;
+}
+
+.miniIndhold {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px var(--gap-16);
+}
+
+.miniTitel {
+  font-size: var(--fs-md);
+  font-weight: var(--fx-bold);
+}
+
+.miniInfo {
+  font-size: var(--fs-2xs);
+  color: #555;
+}
+
+/* Prisen i afrivningsdelen – stiplet streg til venstre */
+.miniPris {
+  position: relative; /* ankeret for hullerne */
+  display: grid;
+  place-items: center;
+  border-left: 2px dashed #8a8a8a;
+  font-size: var(--fs-xs);
+  font-weight: var(--fx-bold);
+}
+
+/* De to små "huller" øverst og nederst ved stregen */
+.miniPris::before,
+.miniPris::after {
+  content: "";
+  position: absolute;
+  left: -7px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #18183a; /* boksens farve, så det ligner huller */
+}
+
+.miniPris::before {
+  top: -6px;
+}
+
+.miniPris::after {
+  bottom: -6px;
+}
+
+/* "2 billetter ........ I alt 750 DKK" mellem to tynde streger */
+.linje {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--gap-24) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: var(--fs-sm);
+}
+
+/* "Dine pladser er reserveret ..." */
+.note {
+  margin-top: var(--gap-24);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+/* ==============================
+   TABLET OG MOBIL: Din ordre over login
+   ============================== */
+@media (max-width: 960px) {
+  .boks {
+    grid-template-columns: 1fr;
+    padding: var(--gap-32) var(--gap-24);
+  }
+  .ordre {
+    order: -1; /* ordren først, så man kan se, hvad man køber */
+    padding-right: 0;
+    border-right: none;
+  }
+}

@@ -8,6 +8,7 @@ import Betalingsformular from "@/app/components/Betalingsformular";
 import Ordreoversigt from "@/app/components/Ordreoversigt";
 import MobilePayBoks from "@/app/components/MobilePayBoks";
 import StjerneBaggrund from "@/app/components/StjerneBaggrund"; // Blinkende stjerner bag kasserne
+import { DATO_FELTER, laesPladser, medValgtDato, ordreParametre } from "@/lib/ordre"; // Læser ordren fra URL'en
 import { lavInfo } from "@/lib/lavInfo"; // "Tir 15. dec 2026 · 19:30 · Spillested, By" – deles med bekræftelsessiden
 import styles from "./page.module.css";
 
@@ -19,12 +20,12 @@ const GEBYR_PR_BILLET = 25.4;
 /* ==============================
    INDHOLDET – henter data, derfor inde i <Suspense>
    URL'en bestemmer hvad der købes, fx:
-   /betaling?event=12&omraade=Parket&pladser=E-7,E-8
+   /betaling?event=8&omraade=Gulv&pladser=E-7,E-8&dato=1
    ============================== */
 async function BetalingIndhold({ searchParams }) {
   // searchParams er det efter "?" i URL'en. Det er et Promise, så vi skal bruge await.
-  // event: eventId omdøber "event" til "eventId". = "Parket" er standardværdien, hvis den mangler.
-  const { event: eventId, omraade = "Parket", pladser = "" } = await searchParams;
+  // event: eventId omdøber "event" til "eventId". = "Gulv" er standardværdien, hvis den mangler.
+  const { event: eventId, omraade = "Gulv", pladser = "", dato: datoId } = await searchParams;
 
   // Ingen event i URL'en → intet at betale for
   if (!eventId) {
@@ -40,25 +41,23 @@ async function BetalingIndhold({ searchParams }) {
   // .select(...)    → kun de kolonner, vi skal bruge
   // .eq("id", ...)  → kun rækken med det id, der står i URL'en
   // .single()       → giver ét objekt i stedet for en liste
-  const { data: event, error } = await supabase
+  // DATO_FELTER henter også eventets datoer (event_dato), så vi kan finde den valgte
+  const { data: eventData, error } = await supabase
     .from("event")
-    .select("id, titel, spillested, by, starts_at, pris_fra")
+    .select(`id, titel, spillested, by, starts_at, pris_fra, ${DATO_FELTER}`)
     .eq("id", eventId)
     .single();
 
   // Fejl fra Supabase eller et id, der ikke findes
-  if (error || !event) {
+  if (error || !eventData) {
     return <p className={styles.besked}>Noget gik galt. Prøv igen senere.</p>;
   }
 
+  // Eventet med den dato og pris, man valgte på pladssiden
+  const event = medValgtDato(eventData, datoId);
+
   // "E-7,E-8" → [{ raekke: "E", plads: "7" }, { raekke: "E", plads: "8" }]
-  const valgtePladser = pladser
-    .split(",") // "E-7,E-8" → ["E-7", "E-8"]
-    .filter(Boolean) // fjerner tomme tekster, fx hvis pladser er ""
-    .map((p) => {
-      const [raekke, plads] = p.split("-"); // "E-7" → ["E", "7"]
-      return { raekke, plads };
-    });
+  const valgtePladser = laesPladser(pladser);
 
   // Event fundet, men ingen pladser i URL'en
   if (valgtePladser.length === 0) {
@@ -104,8 +103,10 @@ async function BetalingIndhold({ searchParams }) {
         <Betalingsformular
           total={total}
           eventId={event.id}
+          datoId={datoId}
           billetter={billetter}
-          videreTil={`/bekraeftelse?event=${event.id}&omraade=${encodeURIComponent(omraade)}&pladser=${pladser}`}
+          videreTil={`/bekraeftelse?${ordreParametre({ eventId: event.id, omraade, pladser, datoId })}`}
+          loginTil={`/login?${ordreParametre({ eventId: event.id, omraade, pladser, datoId })}`}
         />
 
         {/* Stregerne på hver side laves med ::before og ::after i CSS */}

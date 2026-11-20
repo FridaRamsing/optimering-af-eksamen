@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase"; // Forbindelsen til databasen
+import { DATO_FELTER, laesPladser, medValgtDato } from "@/lib/ordre"; // Læser ordren fra URL'en
 import BilletKort from "@/app/components/BilletKort"; // Selve billetten – genbruges på Mine billetter
 import StjerneBaggrund from "@/app/components/StjerneBaggrund"; // Blinkende stjerner bag det hele
 import styles from "./page.module.css";
@@ -53,10 +54,10 @@ const KONFETTI = Array.from({ length: 150 }, (_, i) => ({
 /* ==============================
    INDHOLDET – læser URL'en og henter eventet, derfor inde i <Suspense>
    URL'en kommer fra betalingssiden, fx:
-   /bekraeftelse?event=8&omraade=Parket&pladser=E-7,E-8
+   /bekraeftelse?event=8&omraade=Gulv&pladser=E-7,E-8&dato=1
    ============================== */
 async function BekraeftelseIndhold({ searchParams }) {
-  const { event: eventId, omraade = "Parket", pladser = "" } = await searchParams;
+  const { event: eventId, omraade = "Gulv", pladser = "", dato: datoId } = await searchParams;
 
   // Ingen ordre i URL'en (fx hvis man skriver /bekraeftelse direkte)
   if (!eventId) {
@@ -68,24 +69,21 @@ async function BekraeftelseIndhold({ searchParams }) {
   }
 
   // Henter eventet fra Supabase – samme måde som på betalingssiden
-  const { data: event, error } = await supabase
+  const { data: eventData, error } = await supabase
     .from("event")
-    .select("id, titel, spillested, by, starts_at, pris_fra, image_url, card_image_url")
+    .select(`id, titel, spillested, by, starts_at, pris_fra, image_url, card_image_url, ${DATO_FELTER}`)
     .eq("id", eventId)
     .single();
 
-  if (error || !event) {
+  if (error || !eventData) {
     return <p className={styles.besked}>Noget gik galt. Prøv igen senere.</p>;
   }
 
-  // "E-7,E-8" → [{ raekke: "E", plads: "7" }, { raekke: "E", plads: "8" }]
-  const billetter = pladser
-    .split(",")
-    .filter(Boolean)
-    .map((p) => {
-      const [raekke, plads] = p.split("-");
-      return { omraade, raekke, plads };
-    });
+  // Eventet med den dato og pris, man valgte på pladssiden
+  const event = medValgtDato(eventData, datoId);
+
+  // De valgte pladser – hver billet får område, række, plads og den betalte pris
+  const billetter = laesPladser(pladser).map((p) => ({ ...p, omraade, pris: event.pris_fra }));
 
   // Højst 3 billetter i bunken – ellers bliver den for høj
   const bunke = billetter.slice(0, 3);

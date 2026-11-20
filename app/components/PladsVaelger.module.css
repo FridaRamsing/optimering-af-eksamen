@@ -1,0 +1,320 @@
+/* ==============================
+   LAYOUT: salen til venstre, "Dit valg" til højre
+   ============================== */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 490px; /* "Dit valg" er 490px som i designet */
+  gap: 74px;
+  align-items: start;
+}
+
+/* ==============================
+   SALSPLANEN – Scene | Gulv | Balkon
+   ============================== */
+.salsplan {
+  display: grid;
+  grid-template-columns: 100px 1fr 140px; /* scenen smal, gulvet bredt, balkonen mellem */
+  gap: 26px;
+  height: 654px;
+}
+
+/* Fælles for de tre kasser */
+.omraade {
+  display: grid;
+  place-items: center; /* teksten midt i kassen */
+  border: none;
+  border-radius: 8px;
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--fs-lg);
+  font-weight: var(--fx-semibold);
+  letter-spacing: 0.15em; /* luft mellem bogstaverne, som i designet */
+  text-transform: uppercase;
+}
+
+.scene {
+  background: #5c5650; /* grå-brun – samme farve som i ordreoversigten */
+}
+
+.gulv {
+  background: var(--color-primary); /* blå */
+}
+
+/* Balkonen er udsolgt – grå, og musen viser, at den ikke kan klikkes */
+.balkon {
+  background: #45475a; /* grålig */
+  cursor: not-allowed;
+}
+
+/* Kun Gulv kan klikkes */
+.gulv {
+  cursor: pointer;
+  transition: filter 0.2s; /* blød overgang ved hover */
+}
+
+.gulv:hover {
+  filter: brightness(1.15); /* lidt lysere, når musen er over */
+}
+
+/* Tekst, der kun er til skærmlæsere – usynlig på skærmen, men bliver læst op */
+.skjult {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Tydelig ramme for tastatur-brugere */
+.gulv:focus-visible,
+.plads:focus-visible,
+.fjern:focus-visible {
+  outline: 2px solid var(--color-light);
+  outline-offset: 3px;
+}
+
+/* ==============================
+   ÅBENT OMRÅDE – kassen bliver mørk og viser pladserne
+   ============================== */
+.aabent {
+  /* Gitter med lige så mange kolonner, som der er pladser pr. række (--kolonner sættes i JS) */
+  grid-template-columns: repeat(var(--kolonner), 1fr);
+  place-items: center; /* hver plads i midten af sin celle */
+  align-content: space-evenly; /* rækkerne fordeles jævnt i hele højden */
+  padding: var(--gap-24) var(--gap-16);
+  background: var(--color-surface); /* mørk i stedet for blå */
+  animation: aabn 0.3s ease-out; /* blød overgang fra farvet kasse til pladser */
+}
+
+@keyframes aabn {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Én plads – en rund knap */
+.plads {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 50%; /* rund */
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.plads:hover:not(:disabled) {
+  transform: scale(1.2); /* lidt større, når musen er over */
+}
+
+/* Optagne pladser kan ikke klikkes */
+.plads:disabled {
+  cursor: not-allowed;
+}
+
+/* ==============================
+   FARVERNE – bruges både på pladserne og i forklaringen
+   ============================== */
+.ledig {
+  background: #f5f5f5; /* hvid */
+}
+
+.valgt {
+  background: #25a12c; /* grøn */
+  /* Lys, varm glød rundt om – samme farve som --lys-stroke (betalingskasserne),
+     men kraftigere, så den kan ses på en lille plads.
+     0 0 = ingen forskydning · 18px = hvor blød gløden er · 6px = hvor langt den rækker ud */
+  box-shadow: 0 0 18px 6px rgba(255, 242, 194, 0.5);
+}
+
+.optaget {
+  background: var(--color-border); /* grå */
+}
+
+/* ==============================
+   FORKLARINGEN under salen
+   ============================== */
+.forklaring {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* må hoppe ned på næste linje på små skærme */
+  gap: var(--gap-24) var(--gap-40);
+  margin-top: var(--gap-24);
+  list-style: none;
+  font-size: var(--fs-md);
+}
+
+.forklaring li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Den runde prik foran hver forklaring */
+.prik {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+/* ==============================
+   DIT VALG – kassen til højre
+   ============================== */
+.ditValg {
+  display: flex;
+  flex-direction: column;
+  height: 654px; /* samme højde som salen */
+  padding: var(--gap-24) 22px;
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: var(--lys-stroke); /* Figma-effekten "Lys stroke" fra globals.css */
+}
+
+.ditValgTitel {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fx-black);
+  text-transform: uppercase;
+}
+
+/* "Ingen billetter valgt" */
+.ingen {
+  margin-top: var(--gap-16);
+  font-size: var(--fs-lg);
+  color: var(--color-muted);
+}
+
+/* Listen med billetter – kan scrolles, hvis der er mange */
+.valgListe {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-16);
+  margin-top: var(--gap-24);
+  padding: 8px 4px; /* så "hullerne" og skyggen ikke bliver skåret af, når listen scroller */
+  overflow-y: auto;
+  list-style: none;
+  /* Hullerne i billetterne skal have kassens farve (se Billet.module.css) */
+  --hul-farve: var(--color-surface);
+}
+
+/* Én billet – ankeret for ×-knappen */
+.valgPunkt {
+  position: relative;
+  /* Billetten glider ind, når man vælger en plads */
+  animation: billetInd 0.3s ease-out;
+}
+
+@keyframes billetInd {
+  from {
+    opacity: 0;
+    translate: 0 -8px;
+  }
+}
+
+/* × – fjern pladsen. Sidder i billettens øverste højre hjørne */
+.fjern {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-border);
+  color: var(--color-text);
+  font-size: var(--fs-md);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.fjern:hover {
+  background: #ff6b6b; /* rød, så det er tydeligt, at den fjerner */
+}
+
+/* Beskeder, fx "højst 8 billetter" */
+.besked {
+  margin-top: var(--gap-16);
+  font-size: var(--fs-sm);
+  color: #f5c26b; /* gul – en advarsel, ikke en fejl */
+}
+
+/* Bunden skubbes helt ned i kassen */
+.bund {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-24);
+  margin-top: auto;
+}
+
+.total {
+  font-size: var(--fs-xl);
+}
+
+/* Knappen: grå og død, indtil man har valgt pladser */
+.knap {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-border); /* grå */
+  color: var(--color-text);
+  font: inherit;
+  font-weight: var(--fx-bold);
+  text-align: center;
+}
+
+.knap:disabled {
+  cursor: not-allowed;
+}
+
+/* "Gå til betaling" – blå, når der er valgt pladser */
+.knapAktiv {
+  background: var(--color-primary);
+  cursor: pointer;
+}
+
+.knapAktiv:hover {
+  background: #1a5ff0;
+}
+
+/* ==============================
+   TABLET: "Dit valg" under salen
+   ============================== */
+@media (max-width: 1200px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: var(--gap-40);
+  }
+  .ditValg {
+    height: auto;
+    min-height: 300px;
+  }
+}
+
+/* ==============================
+   MOBIL: mindre sal og mindre pladser
+   ============================== */
+@media (max-width: 700px) {
+  .salsplan {
+    grid-template-columns: 56px 1fr 80px;
+    gap: 12px;
+    height: 360px;
+  }
+  .omraade {
+    font-size: var(--fs-sm);
+    letter-spacing: 0.08em;
+  }
+  /* Scene og Balkon er smalle – teksten drejes, så den kan være der */
+  .scene,
+  .balkon {
+    writing-mode: vertical-rl;
+  }
+  .plads {
+    width: 18px;
+    height: 18px;
+  }
+  .aabent {
+    padding: var(--gap-8) 4px;
+  }
+}

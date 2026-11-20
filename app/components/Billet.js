@@ -4,7 +4,8 @@ import styles from "./Billet.module.css";
 // Én billet i "Din ordre". Alle oplysningerne kommer som props fra arrayet i siden.
 // { nr, titel, ... } pakker props ud, så vi kan skrive "titel" i stedet for "props.titel".
 // Ingen "use client" – billetten viser kun data og har ingen state.
-export default function Billet({ nr, titel, info, omraade, raekke, plads, pris }) {
+// visQr: true = QR-kode over prisen (Din ordre). false = "PRIS" over prisen (Dit valg på pladssiden)
+export default function Billet({ nr, titel, info, omraade, raekke, plads, pris, visQr = true }) {
   return (
     // <article>, fordi billetten er en selvstændig ting, der giver mening alene
     <article className={styles.billet}>
@@ -37,7 +38,12 @@ export default function Billet({ nr, titel, info, omraade, raekke, plads, pris }
       {/* Højre: QR-kode og pris – adskilt af en stiplet streg med "huller".
           QR-koden er pynt (alt=""), fordi den ikke er en rigtig, scanbar kode. */}
       <div className={styles.hoejre}>
-        <Image src="/assets/icons/qr.svg" alt="" width={56} height={56} />
+        {/* Enten QR-koden eller den lille "PRIS"-overskrift */}
+        {visQr ? (
+          <Image src="/assets/icons/qr.svg" alt="" width={56} height={56} />
+        ) : (
+          <p className={styles.prisLabel}>Pris</p>
+        )}
         <p className={styles.pris}>{pris} DKK</p>
       </div>
     </article>

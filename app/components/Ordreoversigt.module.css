@@ -60,17 +60,17 @@
   background: #1a3caa;
 }
 
-/* Smal grålig-blå kasse til højre */
+/* Smal grålig-blå kasse til højre (balkonen) */
 .salHoejre {
+  position: relative; /* så pinnen også kan stå her, hvis pladserne er på balkonen */
   width: 42px;
   background: #45475a;
 }
 
-/* Pinnen, der viser hvor pladserne ligger */
+/* Pinnen, der viser hvor pladserne ligger.
+   left og top sættes i Ordreoversigt.js ud fra de valgte pladser */
 .pin {
-  position: absolute; /* placeres frit i forhold til .salMidte */
-  top: 80px;
-  left: 32px;
+  position: absolute; /* placeres frit i forhold til området (.salMidte eller .salHoejre) */
 }
 
 /* Prislinjer: tekst til venstre, pris til højre */

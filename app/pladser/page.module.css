@@ -1,0 +1,57 @@
+/* ==============================
+   HELE SIDEN
+   ============================== */
+.side {
+  position: relative; /* ankeret for stjernebaggrunden */
+  isolation: isolate; /* egen lagstak: stjernerne (z-index: -1) ligger bag indholdet, men over body */
+  overflow: hidden; /* stjernerne må ikke lave scrollbarer */
+  min-height: calc(100vh - 100px); /* fylder skærmen under headeren */
+}
+
+/* Indholdet – samme luft i siderne som headeren (48px) */
+.indhold {
+  max-width: 1512px;
+  margin: 0 auto;
+  padding: var(--gap-48) var(--gap-48) 64px; /* top | sider | bund */
+}
+
+/* "EVENTNAVN · DATO · SPILLESTED" */
+.titel {
+  font-size: var(--fs-3xl); /* 32px */
+  font-weight: var(--fx-black); /* 900 */
+  text-transform: uppercase; /* store bogstaver, som i designet */
+}
+
+/* "Klik for at vælge et område ..." */
+.undertekst {
+  margin-top: var(--gap-8);
+  margin-bottom: var(--gap-24);
+  font-size: var(--fs-lg);
+  color: var(--color-muted);
+}
+
+/* "Henter salen..." og fejlbeskeder */
+.besked {
+  font-size: var(--fs-lg);
+  color: var(--color-muted);
+}
+
+.besked a {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+/* ==============================
+   MOBIL
+   ============================== */
+@media (max-width: 700px) {
+  .indhold {
+    padding: var(--gap-24) var(--gap-16) var(--gap-48);
+  }
+  .titel {
+    font-size: var(--fs-xl);
+  }
+  .undertekst {
+    font-size: var(--fs-md);
+  }
+}

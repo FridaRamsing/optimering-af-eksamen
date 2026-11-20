@@ -33,8 +33,10 @@ function erUdloebet(udloeb) {
 // total:     prisen fra siden, så knappen viser det rigtige beløb
 // videreTil: hvor man sendes hen efter betalingen (bekræftelsessiden med ordren i URL'en)
 // eventId:   hvilket event billetterne er til
+// datoId:    hvilken dato (event_dato) – gemmes, så pladsen kun er optaget på den dato
 // billetter: [{ omraade, raekke, plads, pris }, ...] – én pr. plads, gemmes i Supabase ved køb
-export default function Betalingsformular({ total, videreTil, eventId, billetter }) {
+// loginTil:  login-siden med samme ordre i URL'en – hvis man ikke er logget ind, når man betaler
+export default function Betalingsformular({ total, videreTil, eventId, datoId, billetter, loginTil }) {
   const router = useRouter(); // Bruges i betal() til at skifte side
 
   // Ét objekt med alle felterne – alle starter tomme, undtagen land (Danmark)
@@ -130,10 +132,8 @@ export default function Betalingsformular({ total, videreTil, eventId, billetter
     // Billetterne gemmes på brugeren – så man skal være logget ind
     const { data } = await supabase.auth.getSession();
     if (!data.session) {
-      // Til login med ordren i URL'en – login sender en tilbage hertil bagefter
-      const pladser = billetter.map((b) => `${b.raekke}-${b.plads}`).join(",");
-      const omraade = encodeURIComponent(billetter[0]?.omraade ?? "Parket");
-      router.push(`/login?event=${eventId}&omraade=${omraade}&pladser=${pladser}`);
+      // Til login med samme ordre (pladser og dato) – login sender en tilbage hertil bagefter
+      router.push(loginTil);
       return;
     }
 
@@ -143,6 +143,7 @@ export default function Betalingsformular({ total, videreTil, eventId, billetter
     gemning.current = supabase.from("billetter").insert(
       billetter.map((b) => ({
         event_id: eventId,
+        dato_id: datoId ? Number(datoId) : null, // "16" fra URL'en → 16
         omraade: b.omraade,
         raekke: b.raekke,
         plads: b.plads,
@@ -161,7 +162,12 @@ export default function Betalingsformular({ total, videreTil, eventId, billetter
     if (error) {
       console.error("Kunne ikke gemme billetterne:", error);
       setBehandler(false); // Fjerner loading-overlayet igen
-      setKoebFejl("Købet kunne ikke gennemføres. Prøv igen.");
+      // 23505 = Postgres-koden for "findes allerede" (vores unikke indeks på pladserne)
+      setKoebFejl(
+        error.code === "23505"
+          ? "En af dine pladser er lige blevet købt af en anden. Gå tilbage og vælg en ny plads."
+          : "Købet kunne ikke gennemføres. Prøv igen."
+      );
       return;
     }
 
