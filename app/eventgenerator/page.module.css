@@ -1,0 +1,45 @@
+
+/* Samme ramme som kategorisiden, så stjernerne ligger bag indholdet */
+.side {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+/* Centrerer kortet */
+.formularBoks {
+  display: flex;
+  justify-content: center;
+  padding: var(--gap-48) var(--gap-16) 120px;
+}
+
+/*luft rundt om resultaterne - det er det smme som på kategorisiden*/
+.indhold {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-24);
+    max-width: 1512px;
+    margin: 0 aut0;
+    padding: var(--gap-48);
+}
+
+/* 4 kort pr. række*/
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--gap-24);
+    list-style: none;
+}
+
+/*tablet så er det 2 kort pr. række og mindre luft imellem */
+@media (max-width: 600px) {
+    .indhold {
+        padding: var(--gap-16);
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
