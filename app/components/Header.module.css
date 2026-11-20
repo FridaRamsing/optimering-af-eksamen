@@ -153,6 +153,8 @@
 .popularCards {
   display: flex;
   gap: 30px;
+  overflow-x: auto;
+  padding-block: 24px;
 }
 
 .popularCard {
@@ -230,12 +232,56 @@
 
 .searchPanel input {
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px 16px 12px 46px;
   color: var(--color-text);
-  background: var(--color-border);
+  background: var(--color-border) url("/assets/icons/s%C3%B8g.svg") no-repeat left 16px center / 18px;
   border: 1px solid var(--color-primary);
   border-radius: 8px;
   font: inherit;
+}
+
+.searchFieldRow {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.searchFieldRow input {
+  min-width: 0;
+}
+
+.searchFieldRow > button {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  background: transparent;
+  border: 0;
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.searchField {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.searchField input {
+  padding-right: 48px;
+}
+
+.searchField > button {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .searchPanel input::placeholder {
@@ -297,6 +343,7 @@
   height: 44px;
   background: #f6f6f6;
   border-radius: 8px;
+  object-fit: cover;
 }
 
 .artistInfo {
@@ -439,6 +486,7 @@
   height: 44px;
   background: #f6f6f6;
   border-radius: 8px;
+  object-fit: cover;
 }
 
 .eventInfo {
