@@ -167,6 +167,9 @@
   gap: 30px;
   overflow-x: auto;
   padding-block: 24px;
+  /* Giv skyggen plads i siderne, og bevar kortenes flugt med overskriften. */
+  padding-inline: 24px;
+  margin-inline: -24px;
 }
 
 .popularCard {
