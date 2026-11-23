@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dynamic User Interface – Ticketmaster Redesign
 
-## Getting Started
+Et eksamensprojekt udviklet som en del af faget **Dynamic User Interface**.
 
-First, run the development server:
+Projektet tager udgangspunkt i Ticketmaster og undersøger, hvordan en eksisterende digital platform kan gøres mere personlig, inspirerende og mindeværdig gennem UX-design, motion og microinteractions – uden at gå på kompromis med brugervenligheden.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Dette er et studieprojekt og er ikke tilknyttet eller godkendt af Ticketmaster.**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Projektets formål
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Ticketmaster giver brugerne mulighed for at finde og købe billetter til forskellige events. Men hvad gør man, hvis man gerne vil finde en oplevelse i gave og ikke ved, hvad man skal søge efter?
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Vi har derfor arbejdet med at forbedre oplevelsen af at opdage events med fokus på inspiration, personalisering og overblik.
 
-## Learn More
+Vores mål er at gøre processen mere engagerende og intuitiv, samtidig med at brugeren nemt kan finde en relevant oplevelse.
 
-To learn more about Next.js, take a look at the following resources:
+## Funktioner
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Projektet indeholder blandt andet:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Eventgenerator:** Hjælper brugeren med at finde relevante oplevelser ud fra præferencer.
+- **Filtrering:** Gør det muligt at indsnævre eventudvalget.
+- **Eventdetaljer:** Præsenterer information om de enkelte oplevelser.
+- **Motion og microinteractions:** Understøtter feedback og oplevelsen af produktet.
+- **Responsive design:** Tilpasning til forskellige skærmstørrelser, hvor det er implementeret.
 
-## Deploy on Vercel
+## Teknologier
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- React
+- Next.js / Vite
+- JavaScript / TypeScript
+- CSS / Tailwind CSS
+- Supabase
+- Figma
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Links
+
+- **Live hjemmeside:** [https://fridaramsing.github.io/ticketmaster-eksamen/](https://fridaramsing.github.io/ticketmaster-eksamen/)
+- **Figma:** [https://www.figma.com/design/q0GnVL1XLK5nhabhdnHT0z/Dynamic-User-Interface](https://www.figma.com/design/q0GnVL1XLK5nhabhdnHT0z/Dynamic-User-Interface)
+- **GitHub:** [https://github.com/FridaRamsing/ticketmaster-eksamen](https://github.com/FridaRamsing/ticketmaster-eksamen)
+
+## Projektgruppe
+
+- Nanna Bay
+- Frida Ramsing
+- Freia Krog
+- Mia Poder
+
+## Credits
+
+Projektet er udarbejdet til undervisnings- og eksamensformål. Ticketmaster-navnet og eventuelle tilhørende varemærker tilhører deres respektive ejere.
