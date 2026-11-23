@@ -1,5 +1,8 @@
+"use client";
 import { Suspense } from "react"; // Viser "Indlæser..." mens data hentes
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useHent } from "@/lib/useHent";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase"; // Forbindelsen til databasen (bruger .env.local)
 // @/ betyder "fra roden af projektet" (sat op i jsconfig.json)
@@ -22,19 +25,10 @@ const GEBYR_PR_BILLET = 25.4;
    URL'en bestemmer hvad der købes, fx:
    /betaling?event=8&omraade=Gulv&pladser=E-7,E-8&dato=1
    ============================== */
-async function BetalingIndhold({ searchParams }) {
-  // searchParams er det efter "?" i URL'en. Det er et Promise, så vi skal bruge await.
+function BetalingIndhold() {
+  // useSearchParams er det efter "?" i URL'en.
   // event: eventId omdøber "event" til "eventId". = "Gulv" er standardværdien, hvis den mangler.
-  const { event: eventId, omraade = "Gulv", pladser = "", dato: datoId } = await searchParams;
-
-  // Ingen event i URL'en → intet at betale for
-  if (!eventId) {
-    return (
-      <p className={styles.besked}>
-        Du har ikke valgt nogen billetter. <Link href="/events">Find et event</Link>
-      </p>
-    );
-  }
+  const { event: eventId, omraade = "Gulv", pladser = "", dato: datoId } = Object.fromEntries(useSearchParams());
 
   // Henter eventet fra Supabase:
   // .from("event")  → tabellen
@@ -42,11 +36,29 @@ async function BetalingIndhold({ searchParams }) {
   // .eq("id", ...)  → kun rækken med det id, der står i URL'en
   // .single()       → giver ét objekt i stedet for en liste
   // DATO_FELTER henter også eventets datoer (event_dato), så vi kan finde den valgte
-  const { data: eventData, error } = await supabase
-    .from("event")
-    .select(`id, titel, spillested, by, starts_at, pris_fra, ${DATO_FELTER}`)
-    .eq("id", eventId)
-    .single();
+  const svar = useHent(
+    () =>
+      eventId
+        ? supabase
+            .from("event")
+            .select(`id, titel, spillested, by, starts_at, pris_fra, ${DATO_FELTER}`)
+            .eq("id", eventId)
+            .single()
+        : { data: null },
+    eventId,
+  );
+
+  // Ingen event i URL'en → intet at betale for
+  if (!eventId) {
+    return (
+      <p className={styles.besked}>
+        Du har ikke valgt nogen billetter. <Link href="/">Find et event</Link>
+      </p>
+    );
+  }
+
+  if (!svar) return <p className={styles.besked}>Indlæser din ordre...</p>;
+  const { data: eventData, error } = svar;
 
   // Fejl fra Supabase eller et id, der ikke findes
   if (error || !eventData) {
@@ -126,11 +138,10 @@ async function BetalingIndhold({ searchParams }) {
 
 /* ==============================
    SIDEN
-   Selve siden henter ingen data – den viser rammen (trinlinje + titel) med det samme
-   og sender searchParams videre til BetalingIndhold inde i <Suspense>.
-   Det kræves, fordi cacheComponents er slået til i next.config.mjs.
+   Selve siden henter ingen data – den viser rammen (trinlinje + titel) med det samme.
+   BetalingIndhold ligger i <Suspense>, fordi useSearchParams kræver det ved statisk build.
    ============================== */
-export default function BetalingPage({ searchParams }) {
+export default function BetalingPage() {
   return (
     // Fragment (<> </>): trinlinjen og <main> ligger ved siden af hinanden
     <>
@@ -146,7 +157,7 @@ export default function BetalingPage({ searchParams }) {
           <h1 className={styles.titel}>Gennemfør ordren</h1>
 
           <Suspense fallback={<p className={styles.besked}>Indlæser din ordre...</p>}>
-            <BetalingIndhold searchParams={searchParams} />
+            <BetalingIndhold />
           </Suspense>
         </main>
       </div>

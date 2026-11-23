@@ -254,7 +254,7 @@
   width: 100%;
   padding: 12px 16px 12px 46px;
   color: var(--color-text);
-  background: var(--color-border) url("/assets/icons/s%C3%B8g.svg") no-repeat left 16px center / 18px;
+  background: var(--color-border) url("../../public/assets/icons/søg.svg") no-repeat left 16px center / 18px;
   border: 1px solid var(--color-primary);
   border-radius: 8px;
   font: inherit;

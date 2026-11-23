@@ -1,5 +1,8 @@
+"use client";
 import { Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useHent } from "@/lib/useHent";
 import { supabase } from "@/lib/supabase"; // Forbindelsen til databasen
 import StjerneBaggrund from "@/app/components/StjerneBaggrund"; // Blinkende stjerner bag salen
 import PladsVaelger from "@/app/components/PladsVaelger"; // Salsplanen, pladserne og "Dit valg"
@@ -28,8 +31,22 @@ function kortDato(starts_at) {
    - event: id i tabellen "event"
    - dato:  id i tabellen "event_dato" (den dato, man har valgt)
    ============================== */
-async function PladserIndhold({ searchParams }) {
-  const { event: eventId, dato: datoId } = await searchParams;
+function PladserIndhold() {
+  const { event: eventId, dato: datoId } = Object.fromEntries(useSearchParams());
+
+  // Henter eventet OG dets datoer i ét kald.
+  // "event_dato(...)" virker, fordi event_dato.event_id peger på event.id
+  const svar = useHent(
+    () =>
+      eventId
+        ? supabase
+            .from("event")
+            .select("id, titel, spillested, by, starts_at, pris_fra, event_dato(id, starts_at, pris, udsolgt)")
+            .eq("id", eventId)
+            .maybeSingle() // giver null i stedet for en fejl, hvis id'et ikke findes
+        : { data: null },
+    eventId,
+  );
 
   // Intet event i URL'en → tilbage til forsiden
   if (!eventId) {
@@ -40,13 +57,8 @@ async function PladserIndhold({ searchParams }) {
     );
   }
 
-  // Henter eventet OG dets datoer i ét kald.
-  // "event_dato(...)" virker, fordi event_dato.event_id peger på event.id
-  const { data: event, error } = await supabase
-    .from("event")
-    .select("id, titel, spillested, by, starts_at, pris_fra, event_dato(id, starts_at, pris, udsolgt)")
-    .eq("id", eventId)
-    .maybeSingle(); // giver null i stedet for en fejl, hvis id'et ikke findes
+  if (!svar) return <p className={styles.besked}>Henter salen...</p>;
+  const { data: event, error } = svar;
 
   if (error || !event) {
     return <p className={styles.besked}>Noget gik galt. Prøv igen senere.</p>;
@@ -85,16 +97,16 @@ async function PladserIndhold({ searchParams }) {
 /* ==============================
    SIDEN
    ============================== */
-export default function PladserPage({ searchParams }) {
+export default function PladserPage() {
   return (
     <main className={styles.side}>
       {/* Stjernehimlen bag salsplanen (z-index: -1) */}
       <StjerneBaggrund />
 
       <div className={styles.indhold}>
-        {/* searchParams læses inde i Suspense pga. cacheComponents i next.config */}
+        {/* useSearchParams kræver Suspense ved statisk build */}
         <Suspense fallback={<p className={styles.besked}>Henter salen...</p>}>
-          <PladserIndhold searchParams={searchParams} />
+          <PladserIndhold />
         </Suspense>
       </div>
     </main>

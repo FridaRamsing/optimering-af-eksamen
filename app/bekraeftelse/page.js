@@ -1,5 +1,8 @@
+"use client";
 import { Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useHent } from "@/lib/useHent";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase"; // Forbindelsen til databasen
 import { DATO_FELTER, laesPladser, medValgtDato } from "@/lib/ordre"; // Læser ordren fra URL'en
@@ -11,7 +14,7 @@ import styles from "./page.module.css";
 
 /* ==============================
    KONFETTI
-   Alle stykkerne laves her på serveren, én gang.
+   Alle stykkerne laves her, én gang.
    Hvert stykke får sin egen retning, hop-højde, faldtid, farve, form,
    drejning og forsinkelse, som sendes til CSS som "custom properties" (--x, --hop osv.).
    Selve bevægelsen sker i CSS (@keyframes konfetti i page.module.css).
@@ -56,8 +59,21 @@ const KONFETTI = Array.from({ length: 150 }, (_, i) => ({
    URL'en kommer fra betalingssiden, fx:
    /bekraeftelse?event=8&omraade=Gulv&pladser=E-7,E-8&dato=1
    ============================== */
-async function BekraeftelseIndhold({ searchParams }) {
-  const { event: eventId, omraade = "Gulv", pladser = "", dato: datoId } = await searchParams;
+function BekraeftelseIndhold() {
+  const { event: eventId, omraade = "Gulv", pladser = "", dato: datoId } = Object.fromEntries(useSearchParams());
+
+  // Henter eventet fra Supabase – samme måde som på betalingssiden
+  const svar = useHent(
+    () =>
+      eventId
+        ? supabase
+            .from("event")
+            .select(`id, titel, spillested, by, starts_at, pris_fra, image_url, card_image_url, ${DATO_FELTER}`)
+            .eq("id", eventId)
+            .single()
+        : { data: null },
+    eventId,
+  );
 
   // Ingen ordre i URL'en (fx hvis man skriver /bekraeftelse direkte)
   if (!eventId) {
@@ -68,12 +84,8 @@ async function BekraeftelseIndhold({ searchParams }) {
     );
   }
 
-  // Henter eventet fra Supabase – samme måde som på betalingssiden
-  const { data: eventData, error } = await supabase
-    .from("event")
-    .select(`id, titel, spillested, by, starts_at, pris_fra, image_url, card_image_url, ${DATO_FELTER}`)
-    .eq("id", eventId)
-    .single();
+  if (!svar) return <p className={styles.besked}>Henter dine billetter...</p>;
+  const { data: eventData, error } = svar;
 
   if (error || !eventData) {
     return <p className={styles.besked}>Noget gik galt. Prøv igen senere.</p>;
@@ -151,7 +163,7 @@ async function BekraeftelseIndhold({ searchParams }) {
 /* ==============================
    SIDEN
    ============================== */
-export default function BekraeftelsePage({ searchParams }) {
+export default function BekraeftelsePage() {
   return (
     <main className={styles.side}>
       {/* Stjernehimlen bag alt indholdet (z-index: -1) */}
@@ -164,7 +176,7 @@ export default function BekraeftelsePage({ searchParams }) {
       </Link>
 
       <Suspense fallback={<p className={styles.besked}>Henter dine billetter...</p>}>
-        <BekraeftelseIndhold searchParams={searchParams} />
+        <BekraeftelseIndhold />
       </Suspense>
     </main>
   );
