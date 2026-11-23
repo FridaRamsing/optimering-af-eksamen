@@ -7,6 +7,7 @@ import StjerneBaggrund from "@/app/components/StjerneBaggrund";
 import { PopulaereEvents, KommendeEvents } from "./ForsideEvents";
 import styles from "./page.module.css";
 
+// Forsiden: rammen er statisk, mens eventrækkerne hentes i browseren (ForsideEvents.js)
 export default function Forside() {
   return (
     <main className={styles.side}>
@@ -14,6 +15,7 @@ export default function Forside() {
       <ForsideHero />
 
       <div className={styles.sektioner}>
+        {/* aria-labelledby kobler sektionen til sin overskrift for skærmlæsere */}
         <section className={styles.sektion} aria-labelledby="populaere">
           <SektionOverskrift id="populaere">
             Populære søgninger
@@ -21,6 +23,7 @@ export default function Forside() {
           <PopulaereEvents />
         </section>
 
+        {/* Byer og kategorier er faste kort fra lib/forside.js */}
         <section className={styles.sektion} aria-labelledby="byer">
           <SektionOverskrift id="byer">Events i din by</SektionOverskrift>
           <ul className={styles.raekke}>

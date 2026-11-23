@@ -3,6 +3,7 @@
 import Link from "next/link";
 import styles from "./GaveideBanner.module.css";
 
+// Banner på forsiden, der sender brugeren videre til eventgeneratoren
 export default function GaveideBanner() {
     return (
         <section className={styles.banner} aria-labelledby="gaveide">

@@ -8,6 +8,7 @@ import styles from "./page.module.css";
 const kortFelter =
   "id, titel, card_image_url, kategori, spillested, by, starts_at, pris_fra, ekstra_datoer";
 
+// Fælles visning: pladsholder under hentning, fejlbesked eller eventkort
 function EventRaekke({ svar }) {
   if (!svar) return <div className={styles.pladsholder} />;
 

@@ -8,6 +8,7 @@ import styles from "./BilledKort.module.css";
 export default function BilledKort({ navn, billede, href }) {
     return (
         <Link href={href} className={styles.kort}>
+            {/* fill: billedet fylder hele kortet */}
             <Image
                 src={billede}
                 alt=""

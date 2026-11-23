@@ -25,6 +25,7 @@ export default function GenreFilter({ kategori, genrer, filtre }) {
             </Link>
           </li>
 
+          {/* scroll={false}: siden hopper ikke til toppen, når man vælger en genre */}
           {genrer.map((genre) => (
             <li key={genre}>
               <Link

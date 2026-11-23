@@ -24,14 +24,17 @@
   color: var(--color-text);
 }
 
+/* [open] er sat, når dialogen er åben, og så kører animationen */
 .panel[open] {
   animation: indFraVenstre 0.25s ease-out;
 }
 
+/* ::backdrop er det mørke lag bag dialogen */
 .panel::backdrop {
   background: rgba(0, 0, 0, 0.6);
 }
 
+/* Kun "from": animationen slutter på panelets normale plads */
 @keyframes indFraVenstre {
   from {
     transform: translateX(-100%);
@@ -77,6 +80,7 @@
   cursor: pointer;
 }
 
+/* flex: 1 fylder pladsen mellem top og bund */
 .indhold {
   flex: 1;
   overflow-y: auto;
@@ -163,6 +167,7 @@
   list-style: none;
 }
 
+/* Tre kolonner: tid, prik og tekst */
 .tidsplan li {
   display: grid;
   grid-template-columns: 70px 24px 1fr;

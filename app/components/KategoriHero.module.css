@@ -1,5 +1,6 @@
 
 
+/* position: relative, fordi billedet bruger fill og placeres inde i heroen */
 .hero {
   position: relative;
   display: flex;
@@ -26,6 +27,7 @@
   );
 }
 
+/* z-index: teksten ligger over gradienten */
 .indhold {
   position: relative;
   z-index: 1;
@@ -47,6 +49,7 @@
   color: var(--color-text);
 }
 
+/* clamp: skriften skalerer med skærmen mellem 40px og --fs-5xl */
 .titel {
   font-size: clamp(40px, 8vw, var(--fs-5xl));
   font-weight: var(--fx-black);
@@ -59,6 +62,7 @@
   font-size: var(--fs-md);
 }
 
+/* Mobil: lavere hero og mindre luft */
 @media (max-width: 600px) {
   .hero {
     min-height: 320px;

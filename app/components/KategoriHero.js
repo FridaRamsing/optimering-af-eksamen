@@ -6,10 +6,12 @@ import { kategoriInfo } from "@/lib/kategorier";
 import styles from "./KategoriHero.module.css";
 
 export default function KategoriHero({ kategori }) {
+  // Finder titel, tekst og billede til den aktuelle kategori
   const info = kategoriInfo[kategori];
 
   return (
     <section className={styles.hero}>
+      {/* Billedet vises kun, hvis kategorien har et */}
       {info.billede && (
         <Image
           src={info.billede}
@@ -22,6 +24,7 @@ export default function KategoriHero({ kategori }) {
       )}
 
       <div className={styles.indhold}>
+        {/* Brødkrumme: aria-current fortæller skærmlæsere, hvilken side man er på */}
         <nav aria-label="Brødkrumme" className={styles.brodkrumme}>
           <Link href="/">Forside</Link>
           <span aria-hidden="true"> / </span>

@@ -33,12 +33,14 @@
   font-weight: var(--fx-extrabold);
 }
 
+/* Hover og tastatur-fokus: kortet løfter sig og lyser */
 .kort:hover,
 .kort:focus-visible {
   box-shadow: var(--lys-op-effekt);
   transform: translateY(-4px);
 }
 
+/* Billedet zoomer ind, og overflow: hidden på kortet klipper kanten */
 .kort:hover .billede {
   transform: scale(1.05);
 }

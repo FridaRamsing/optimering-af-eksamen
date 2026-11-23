@@ -1,20 +1,24 @@
 name: Deploy til GitHub Pages
 
+# Kører, når der kommer nyt på main, eller når man starter den manuelt
 on:
   push:
     branches: [main]
   workflow_dispatch: # Giver en knap under Actions, fx efter nye events i Supabase
 
+# Tilladelser til at lægge siden på GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Kun ét deploy ad gangen. Et nyt afbryder det gamle
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
+  # Job 1: henter koden og bygger den statiske side til out-mappen
   build:
     runs-on: ubuntu-latest
     steps:
@@ -23,17 +27,21 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      # Installerer præcis de pakker, der står i package-lock.json
       - run: npm ci
       - run: npm run build
+        # Supabase-oplysninger fra secrets, fordi .env.local ikke ligger på GitHub
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
       # GitHub Pages leder efter 404.html i roden
       - run: cp out/404/index.html out/404.html
+      # Pakker out-mappen, så den kan lægges online
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
 
+  # Job 2: lægger den færdige side online, når buildet er færdigt
   deploy:
     needs: build
     runs-on: ubuntu-latest

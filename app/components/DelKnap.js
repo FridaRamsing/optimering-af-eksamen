@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import styles from "./DelKnap.module.css";
 
+// Knap, der deler linket til det event, man står på
 export default function DelKnap({ titel, className }) {
   const [kopieret, setKopieret] = useState(false);
 
@@ -21,6 +22,7 @@ export default function DelKnap({ titel, className }) {
     }
 
     await navigator.clipboard.writeText(url);
+    // Viser "Link kopieret" i 2 sekunder
     setKopieret(true);
     setTimeout(() => setKopieret(false), 2000);
   }
