@@ -72,13 +72,13 @@
 
 /* Hvert felt får sit eget ikon fra public/assets/icons */
 .felt .ikonKortnummer {
-  background-image: url("/assets/icons/16didgetcard.svg"); /* kort med 16 cifre */
+  background-image: url("../../public/assets/icons/16didgetcard.svg"); /* kort med 16 cifre */
 }
 .felt .ikonUdloeb {
-  background-image: url("/assets/icons/mmyycard.svg"); /* kort med MM/ÅÅ */
+  background-image: url("../../public/assets/icons/mmyycard.svg"); /* kort med MM/ÅÅ */
 }
 .felt .ikonCvc {
-  background-image: url("/assets/icons/3didget.svg"); /* bagsiden med de 3 cifre */
+  background-image: url("../../public/assets/icons/3didget.svg"); /* bagsiden med de 3 cifre */
 }
 
 /* select: egen pil, fordi browserens standardpil ikke passer til designet */

@@ -1,4 +1,7 @@
+"use client";
 import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { useHent } from "@/lib/useHent";
 import { supabase } from "@/lib/supabase";
 import { kategoriInfo } from "@/lib/kategorier";
 import { koenNavn, ALDER_MIN, ALDER_MAX } from "@/lib/maalgruppe";
@@ -21,9 +24,9 @@ const kategoriMuligheder = Object.entries(kategoriInfo).map(([vaerdi, info]) => 
   tekst: info.titel,
 }));
 
-// Selve indholdet. Den er "async", fordi den skal vente på URL'en og på Supabase
-async function GeneratorIndhold({ searchParams }) {
-  const { alder, koen, kategori, pris, dato, by, sort } = await searchParams;
+// Læser URL'en og viser enten formularen eller resultaterne
+function GeneratorIndhold() {
+  const { alder, koen, kategori, pris, dato, by, sort } = Object.fromEntries(useSearchParams());
   const alderTal = parseInt(alder); // "25" → 25
 
   // Mangler alder eller køn, eller er de ugyldige → vis formularen
@@ -35,6 +38,20 @@ async function GeneratorIndhold({ searchParams }) {
     );
   }
 
+  return (
+    <GeneratorResultater
+      alderTal={alderTal}
+      koen={koen}
+      kategori={kategori}
+      pris={pris}
+      dato={dato}
+      by={by}
+      sort={sort}
+    />
+  );
+}
+
+function GeneratorResultater({ alderTal, koen, kategori, pris, dato, by, sort }) {
   // Ukendte værdier i URL'en ignoreres, fx ?kategori=hest
   const gyldigKategori = kategoriMuligheder.some((m) => m.vaerdi === kategori)
     ? kategori
@@ -52,45 +69,51 @@ async function GeneratorIndhold({ searchParams }) {
     sort: gyldigSort,
   };
 
-  // Alle byer til dropdownen i filterpanelet. Set fjerner dubletter
-  const { data: byData } = await supabase.from("event").select("by");
-  const byer = [...new Set(byData?.map((r) => r.by).filter(Boolean))].sort((a, b) =>
-    a.localeCompare(b, "da"),
-  );
+  const svar = useHent(async () => {
+    // Alle byer til dropdownen i filterpanelet. Set fjerner dubletter
+    const { data: byData } = await supabase.from("event").select("by");
+    const byer = [...new Set(byData?.map((r) => r.by).filter(Boolean))].sort((a, b) =>
+      a.localeCompare(b, "da"),
+    );
 
-  // Hent events, hvor alderen ligger mellem alder_min og alder_max
-  let query = supabase
-    .from("event")
-    .select(
-      "id, titel, card_image_url, kategori, spillested, by, starts_at, pris_fra, ekstra_datoer",
-    )
-    .lte("alder_min", alderTal)
-    .gte("alder_max", alderTal);
+    // Hent events, hvor alderen ligger mellem alder_min og alder_max
+    let query = supabase
+      .from("event")
+      .select(
+        "id, titel, card_image_url, kategori, spillested, by, starts_at, pris_fra, ekstra_datoer",
+      )
+      .lte("alder_min", alderTal)
+      .gte("alder_max", alderTal);
 
-  // Har man valgt Kvinde eller Mand: vis det køn + events til alle
-  if (koen !== "alle") {
-    query = query.in("koen", [koen, "alle"]);
-  }
+    // Har man valgt Kvinde eller Mand: vis det køn + events til alle
+    if (koen !== "alle") {
+      query = query.in("koen", [koen, "alle"]);
+    }
 
-  // Filtrene tilføjes kun, hvis de er valgt
-  if (gyldigKategori) query = query.eq("kategori", gyldigKategori);
+    // Filtrene tilføjes kun, hvis de er valgt
+    if (gyldigKategori) query = query.eq("kategori", gyldigKategori);
 
-  // "300-500" → minPris 300 og maxPris 500
-  if (pris) {
-    const [minPris, maxPris] = pris.split("-").map((tal) => parseInt(tal));
-    if (minPris >= 0) query = query.gte("pris_fra", minPris);
-    if (maxPris >= 0) query = query.lte("pris_fra", maxPris);
-  }
+    // "300-500" → minPris 300 og maxPris 500
+    if (pris) {
+      const [minPris, maxPris] = pris.split("-").map((tal) => parseInt(tal));
+      if (minPris >= 0) query = query.gte("pris_fra", minPris);
+      if (maxPris >= 0) query = query.lte("pris_fra", maxPris);
+    }
 
-  if (dato) query = query.gte("starts_at", dato);
-  if (by) query = query.eq("by", by);
+    if (dato) query = query.gte("starts_at", dato);
+    if (by) query = query.eq("by", by);
 
-  // Standard er dato: det, der sker snarest, står først
-  if (gyldigSort === "pris-lav") query = query.order("pris_fra", { ascending: true });
-  else if (gyldigSort === "pris-hoej") query = query.order("pris_fra", { ascending: false });
-  else query = query.order("starts_at", { ascending: true });
+    // Standard er dato: det, der sker snarest, står først
+    if (gyldigSort === "pris-lav") query = query.order("pris_fra", { ascending: true });
+    else if (gyldigSort === "pris-hoej") query = query.order("pris_fra", { ascending: false });
+    else query = query.order("starts_at", { ascending: true });
 
-  const { data: events, error } = await query;
+    const { data: events, error } = await query;
+    return { byer, events, error };
+  }, JSON.stringify(filtre));
+
+  if (!svar) return null;
+  const { byer = [], events, error } = svar;
   const harFiltre = Boolean(gyldigKategori || pris || dato || by);
 
   return (
@@ -154,13 +177,13 @@ async function GeneratorIndhold({ searchParams }) {
   );
 }
 
-export default function EventgeneratorPage({ searchParams }) {
+export default function EventgeneratorPage() {
   return (
     <main className={styles.side}>
       <StjerneBaggrund />
-      {/* Påkrævet i dette projekt, når man læser searchParams */}
+      {/* useSearchParams kræver Suspense ved statisk build */}
       <Suspense fallback={null}>
-        <GeneratorIndhold searchParams={searchParams} />
+        <GeneratorIndhold />
       </Suspense>
     </main>
   );

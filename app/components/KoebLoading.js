@@ -1,5 +1,6 @@
 "use client";
 import { Lottie } from "lottie-react";
+import { sti } from "@/lib/sti";
 import styles from "./KoebLoading.module.css";
 
 export default function KoebLoading({ onFaerdig }) {
@@ -8,7 +9,7 @@ export default function KoebLoading({ onFaerdig }) {
       <h2 className={styles.overskrift}>Vi behandler dit køb</h2>
 
       <Lottie
-        src="/assets/lotties/loading-stjerne-streg.json"
+        src={sti("/assets/lotties/loading-stjerne-streg.json")}
         autoplay
         loop={false}
         className={styles.animation}
