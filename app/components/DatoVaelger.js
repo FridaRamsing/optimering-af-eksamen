@@ -21,7 +21,10 @@ function tid(dato) {
 
 export default function DatoVaelger({ eventId, datoer }) {
   const router = useRouter();
-  const [valgtId, setValgtId] = useState(null);
+  // Første dato, der ikke er udsolgt, er valgt fra start
+  const [valgtId, setValgtId] = useState(
+    () => datoer.find((dato) => !dato.udsolgt)?.id ?? null,
+  );
   const [visFejl, setVisFejl] = useState(false);
 
   function vaelg(id) {
@@ -58,7 +61,8 @@ export default function DatoVaelger({ eventId, datoer }) {
           >
             <input
               type="radio"
-              name="dato"
+              // Unikt navn, så radioknapper fra et tidligere besøgt event ikke påvirker dette
+              name={`dato-${eventId}`}
               className={styles.radio}
               checked={valgtId === dato.id}
               disabled={dato.udsolgt}
