@@ -95,7 +95,9 @@ export default function LoginKort({ videreTil, indlejret = false, springOverHvis
     setVenter(false);
 
     if (error) {
-      console.error("Login fejlede:", error); // Hele fejlen i browserens konsol (F12)
+      if (error.code !== "invalid_credentials") {
+        console.error("Login fejlede:", error);
+      }
       setBesked({ type: "fejl", tekst: fejlTekst(error) });
       return;
     }
