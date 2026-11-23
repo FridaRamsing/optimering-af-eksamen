@@ -33,6 +33,7 @@ function AndreEvents({ event }) {
   if (!svar || svar.error || svar.data.length === 0) return null;
   const { data } = svar;
 
+  // true tæller som 1 og false som 0, så samme kategori kommer først
   const andre = data
     .sort((a, b) => (b.kategori === event.kategori) - (a.kategori === event.kategori))
     .slice(0, 4);
@@ -51,14 +52,18 @@ function AndreEvents({ event }) {
   );
 }
 
+// Detaljesiden kører i browseren, fordi GitHub Pages ikke har en server
 export default function EventIndhold() {
+  // Læser id'et fra URL'en: /events/8 → "8"
   const { id } = useParams();
 
+  // Henter eventet og alle dets datoer i ét kald
   const svar = useHent(
     () => supabase.from("event").select("*, event_dato(*)").eq("id", id).maybeSingle(),
     id,
   );
 
+  // svar er null, indtil Supabase har svaret
   if (!svar) return <p>Indlæser event...</p>;
   const { data: event, error } = svar;
 
@@ -66,10 +71,12 @@ export default function EventIndhold() {
     return <p>Noget gik galt. Prøv igen senere.</p>;
   }
 
+  // Id'et findes ikke → vis 404-siden
   if (!event) {
     notFound();
   }
 
+  // Kopi af datoerne, sorteret så den tidligste står først
   const datoer = [...event.event_dato].sort(
     (a, b) => new Date(a.starts_at) - new Date(b.starts_at),
   );
@@ -103,6 +110,7 @@ export default function EventIndhold() {
           </section>
         </div>
 
+        {/* id="datoer": "Vælg billetter" i Læs mere-panelet hopper hertil */}
         <section id="datoer" aria-labelledby="datoer-titel">
           <SektionOverskrift id="datoer-titel" className={styles.overskrift}>Datoer</SektionOverskrift>
           <DatoVaelger eventId={event.id} datoer={datoer} />

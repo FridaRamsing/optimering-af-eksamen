@@ -1,3 +1,4 @@
+/* position: relative, så beskeden kan placeres under knappen */
 .knap {
   position: relative;
   display: grid;
@@ -16,6 +17,7 @@
   transform: scale(0.95);
 }
 
+/* Synlig ring for dem, der bruger tastatur */
 .knap:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;

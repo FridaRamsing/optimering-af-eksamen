@@ -32,6 +32,7 @@ export default function DatoVaelger({ eventId, datoer }) {
     setVisFejl(false); // Fejlen forsvinder, så snart man vælger
   }
 
+  // Uden valgt dato vises en fejl. Ellers går man videre til pladsvalget
   function koeb() {
     if (!valgtId) {
       setVisFejl(true);
@@ -52,6 +53,7 @@ export default function DatoVaelger({ eventId, datoer }) {
       <fieldset className={styles.liste}>
         <legend className={styles.skjult}>Vælg en dato</legend>
 
+        {/* Én række pr. dato. Udsolgte datoer kan ikke vælges */}
         {datoer.map((dato) => (
           <label
             key={dato.id}
@@ -71,6 +73,7 @@ export default function DatoVaelger({ eventId, datoer }) {
             <span className={styles.dag}>{dag(dato)}</span>
             <span>{tid(dato)}</span>
 
+            {/* Udsolgt: venteliste i stedet for pris */}
             {dato.udsolgt ? (
               <>
                 <span className={styles.udsolgtTekst}>Udsolgt</span>

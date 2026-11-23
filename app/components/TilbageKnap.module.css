@@ -1,3 +1,4 @@
+/* Ligger ovenpå hero-billedet */
 .knap {
   position: absolute;
   top: var(--gap-24);
@@ -20,11 +21,13 @@
   background: var(--color-surface);
 }
 
+/* Synlig ring for dem, der bruger tastatur */
 .knap:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
+/* Mobil: tættere på hjørnet */
 @media (max-width: 800px) {
   .knap {
     top: var(--gap-16);

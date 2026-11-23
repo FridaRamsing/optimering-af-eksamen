@@ -6,12 +6,14 @@
     padding: 0 var(--gap-48);
 }
 
+/* Den hvide streg over overskriften */
 .streg {
     width: 48px;
     height: 5px;
     background: var(--color-text);
 }
 
+/* clamp: skriften skalerer med skærmen */
 .titel {
     font-size: clamp(28px, 4vw, var(--fs-4xl));
     font-weight: var(--fx-extrabold);
@@ -19,6 +21,7 @@
     text-transform: uppercase;
 }
 
+/* Mobil: mindre luft i siderne */
 @media (max-width: 600px) {
     .overskrift {
         padding: 0 var(--gap-16);

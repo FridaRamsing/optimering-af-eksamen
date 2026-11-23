@@ -32,9 +32,11 @@ function Sektion({ titel, children, tekst }) {
 }
 
 export default function EventInfoPanel({ event, datoTekst }) {
+  // Giver adgang til selve <dialog>-elementet
   const dialogRef = useRef(null);
 
   function aaben() {
+    // showModal giver mørk baggrund, holder fokus i panelet og lukker med Escape
     dialogRef.current.showModal();
   }
 
@@ -82,6 +84,7 @@ export default function EventInfoPanel({ event, datoTekst }) {
           </header>
 
           <div className={styles.indhold}>
+            {/* Kort overblik: billede, kategori og titel */}
             <div className={styles.event}>
               <div className={styles.thumb}>
                 <Image
@@ -122,6 +125,7 @@ export default function EventInfoPanel({ event, datoTekst }) {
               </li>
             </ul>
 
+            {/* Hver Sektion vises kun, hvis feltet har tekst i Supabase */}
             <Sektion titel="Om eventet" tekst={event.beskrivelse}>
               <p>{event.beskrivelse}</p>
             </Sektion>
@@ -132,6 +136,7 @@ export default function EventInfoPanel({ event, datoTekst }) {
 
             <Sektion titel="Tidsplan" tekst={event.tidsplan}>
               <ul className={styles.tidsplan}>
+                {/* Hver linje i Supabase bliver én række i tidsplanen */}
                 {linjer(event.tidsplan).map((linje) => {
                   const { tid, tekst, hoved } = tidspunkt(linje);
                   return (

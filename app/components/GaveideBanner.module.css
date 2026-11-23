@@ -1,6 +1,7 @@
 
 
 
+/* Tekst til venstre og knap til højre */
 .banner {
   display: flex;
   align-items: center;
@@ -39,6 +40,7 @@
   transition: filter 0.2s ease;
 }
 
+/* Knappen lyser op ved hover og tastatur-fokus */
 .knap:hover,
 .knap:focus-visible {
   filter: brightness(1.2);

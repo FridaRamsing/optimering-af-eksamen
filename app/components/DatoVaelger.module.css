@@ -37,6 +37,7 @@
   background: var(--color-surface);
 }
 
+/* Den valgte dato får blå kant */
 .valgt {
   border-color: var(--color-primary);
   background: var(--color-surface);
@@ -64,6 +65,7 @@
   font-weight: var(--fx-medium);
 }
 
+/* Udsolgte rækker er nedtonede */
 .udsolgt {
   color: var(--color-muted);
   cursor: default;
@@ -111,6 +113,7 @@
   cursor: pointer;
 }
 
+/* Knappen ser inaktiv ud, indtil der er valgt en dato */
 .inaktiv {
   background: var(--color-surface);
   color: var(--color-muted);
@@ -121,6 +124,7 @@
   outline-offset: 2px;
 }
 
+/* Fejlboksen over datolisten */
 .fejl {
   margin-bottom: var(--gap-16);
   padding: 12px var(--gap-16);
