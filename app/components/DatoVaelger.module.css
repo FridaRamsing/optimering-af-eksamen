@@ -156,3 +156,24 @@
     width: 100%;
   }
 }
+
+/* Mobil: dato og tid øverst, pris eller venteliste på linjen under */
+@media (max-width: 560px) {
+  .raekke {
+    grid-template-columns: 20px minmax(0, 1fr) auto;
+    row-gap: 4px;
+    padding-block: 12px;
+  }
+
+  .pris {
+    grid-column: 2 / 4;
+  }
+
+  .udsolgtTekst {
+    grid-column: 2;
+  }
+
+  .venteliste {
+    grid-column: 3;
+  }
+}

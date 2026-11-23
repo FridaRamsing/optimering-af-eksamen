@@ -60,6 +60,7 @@
   flex-direction: column;
   gap: var(--gap-32);
   width: 442px;
+  max-width: calc(100vw - 32px); /* Kan altid være på en telefon */
   max-height: calc(100vh - 140px);
   overflow-y: auto; /* Kan scrolles, hvis skærmen er lav */
   padding: var(--gap-24) 28px 28px;
@@ -260,6 +261,7 @@
     inset: 0;
     z-index: 1001; /* Over headeren (z-index 1000) */
     width: auto;
+    max-width: none; /* Fylder hele skærmen på mobil */
     max-height: none;
     border-radius: 0;
   }

@@ -1,0 +1,56 @@
+.boks {
+  position: relative; /* Ankeret for pilen */
+}
+
+/* appearance: none fjerner browserens egen pil, så vi kan bruge Figma-ikonet */
+.select {
+  width: 248px;
+  height: 56px;
+  padding: 0 48px 0 var(--gap-16);
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--fs-md);
+  font-weight: var(--fx-medium);
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.select:hover {
+  box-shadow: var(--lys-op-effekt);
+}
+
+.select:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* pointer-events: none – klik går igennem pilen og ned til select'en */
+.pil {
+  position: absolute;
+  top: 50%;
+  right: var(--gap-16);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Usynlig, men læses af skærmlæsere */
+.skjult {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .boks,
+  .select {
+    width: 100%;
+  }
+}

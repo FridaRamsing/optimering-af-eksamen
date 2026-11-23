@@ -147,3 +147,34 @@
     gap: var(--gap-24);
   }
 }
+
+/* ==============================
+   RESPONSIV: kolonnerne under hinanden
+   ============================== */
+@media (max-width: 1100px) {
+  .side {
+    flex-direction: column;
+    padding-inline: var(--gap-24);
+  }
+
+  .venstre {
+    width: 100%; /* Den faste bredde fra Figma er for bred her */
+  }
+
+  .hoejre {
+    width: 100%;
+    min-width: 0; /* Må gerne krympe, så indholdet ikke stikker ud */
+  }
+}
+
+@media (max-width: 600px) {
+  .side {
+    gap: var(--gap-24);
+    padding-inline: var(--gap-16);
+  }
+
+  .profilkort {
+    min-height: 180px;
+    padding: var(--gap-24);
+  }
+}

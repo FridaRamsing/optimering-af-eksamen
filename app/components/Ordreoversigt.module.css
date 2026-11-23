@@ -101,3 +101,21 @@
   font-size: var(--fs-2xl);
   font-weight: 700;
 }
+
+/* Mobil: mindre luft, og salen må krympe */
+@media (max-width: 560px) {
+  .kort {
+    padding: var(--gap-24) var(--gap-16);
+    border-radius: 16px;
+  }
+
+  .salMidte {
+    flex: 0 1 168px;
+    min-width: 0;
+  }
+
+  .salVenstre,
+  .salHoejre {
+    flex-shrink: 0;
+  }
+}

@@ -9,7 +9,7 @@ import FilterLinje from "@/app/components/FilterLinje";
 import StjerneBaggrund from "@/app/components/StjerneBaggrund";
 import KategoriLoading from "@/app/components/KategoriLoading";
 import KategoriIngenResultater from "@/app/components/KategoriIngenResultater";
-import { kategoriGenrer } from "@/lib/genre";
+import { kategoriGenrer, genreNavn } from "@/lib/genre";
 import styles from "./page.module.css";
 
 // Unikke værdier fra én kolonne, sorteret. Set fjerner dubletter: ["pop", "pop", "rap"] → ["pop", "rap"]
@@ -40,6 +40,8 @@ async function KategoriIndhold({ params, searchParams }) {
     ...new Set([...kategoriGenrer[kategori], ...unikke(valgData, "genre")]),
   ];
   const byer = unikke(valgData, "by");
+  // Som { vaerdi, tekst }, fordi funktioner ikke kan sendes til klientkomponenter
+  const muligheder = genrer.map((g) => ({ vaerdi: g, tekst: genreNavn(g) }));
 
   // Hent events – filtrene tilføjes kun, hvis de er valgt
   let query = supabase
@@ -84,9 +86,10 @@ async function KategoriIndhold({ params, searchParams }) {
 
       <div className={styles.indhold}>
         <FilterLinje
-          kategori={kategori}
+          sti={`/kategori/${kategori}`}
           filtre={filtre}
-          genrer={genrer}
+          felt="genre"
+          muligheder={muligheder}
           byer={byer}
         />
 
