@@ -536,3 +536,112 @@
   color: var(--color-light);
   font-size: var(--fs-md);
 }
+
+/* ==============================
+   RESPONSIV HEADER
+   ============================== */
+/* Tablet: logo og knapper øverst, kategorierne på deres egen linje */
+@media (max-width: 1250px) {
+  .header {
+    flex-wrap: wrap;
+    row-gap: var(--gap-16);
+    padding: var(--gap-16) var(--gap-24);
+  }
+
+  /* display: contents gør, at logo og navigation kan placeres hver for sig */
+  .leftSide {
+    display: contents;
+  }
+
+  .logo {
+    margin-right: auto;
+  }
+
+  .navigation {
+    order: 3;
+    width: 100%;
+    overflow-x: auto; /* Kategorierne kan swipes, hvis de ikke er plads til dem */
+    scrollbar-width: none;
+  }
+
+  .navigation a {
+    font-size: var(--fs-lg);
+    white-space: nowrap;
+  }
+
+  .categoryItem {
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hover-menuerne virker ikke på touch, så linkene går direkte til kategorien */
+  .categoryItem:hover:not([data-menu-dismissed="true"]) .dropdown {
+    display: none;
+  }
+
+  .actions {
+    gap: var(--gap-16);
+  }
+
+  .eventButton {
+    font-size: var(--fs-md);
+    white-space: nowrap;
+  }
+
+  .searchItem {
+    margin: 0;
+    padding: 0;
+  }
+
+  .searchPanel {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto; /* Lange søgeresultater kan scrolles inde i panelet */
+    padding: var(--gap-16) var(--gap-24);
+  }
+}
+
+@media (max-width: 800px) {
+  .searchColumns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dropdownContent {
+    gap: var(--gap-24);
+  }
+}
+
+/* Mobil: Eventgenerator-knappen får sin egen linje i fuld bredde */
+@media (max-width: 560px) {
+  .header {
+    column-gap: 12px;
+    padding: 12px var(--gap-16);
+  }
+
+  .actions {
+    display: contents;
+  }
+
+  .eventButton {
+    order: 4;
+    width: 100%;
+    text-align: center;
+  }
+
+  .navigation {
+    order: 5;
+    gap: var(--gap-16);
+  }
+
+  .navigation a {
+    font-size: var(--fs-md);
+  }
+
+  .searchPanel {
+    padding: var(--gap-16);
+  }
+
+  .searchFieldRow {
+    gap: var(--gap-8);
+  }
+}

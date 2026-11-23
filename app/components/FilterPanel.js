@@ -4,8 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { genreNavn } from "@/lib/genre";
-import { filterUrl } from "@/lib/filterUrl";
+import { lavUrl } from "@/lib/filterUrl";
 import PrisSkyder, { PRIS_MAX } from "./PrisSkyder";
 import styles from "./FilterPanel.module.css";
 
@@ -17,12 +16,13 @@ function lavPrisSpaend(pris) {
 }
 
 // "Filtrer"-knappen og panelet, der folder ud under den
-export default function FilterPanel({ kategori, filtre, genrer, byer, antalAktive }) {
+// felt er det filter, knapperne styrer: "genre" på kategorisiden og "kategori" i generatoren
+export default function FilterPanel({ sti, filtre, felt, muligheder, byer, antalAktive }) {
   const router = useRouter();
   const [erAaben, setErAaben] = useState(false);
 
   // Kladde: brugerens valg i panelet. Bruges først, når man klikker "Vis resultater"
-  const [genre, setGenre] = useState("");
+  const [valg, setValg] = useState("");
   const [prisSpaend, setPrisSpaend] = useState([0, PRIS_MAX]);
   const [dato, setDato] = useState("");
   const [by, setBy] = useState("");
@@ -33,7 +33,7 @@ export default function FilterPanel({ kategori, filtre, genrer, byer, antalAktiv
 
   // Ved åbning starter kladden med de filtre, der allerede står i URL'en
   function aaben() {
-    setGenre(filtre.genre ?? "");
+    setValg(filtre[felt] ?? "");
     setPrisSpaend(lavPrisSpaend(filtre.pris));
     setDato(filtre.dato ?? "");
     setBy(filtre.by ?? "");
@@ -73,7 +73,7 @@ export default function FilterPanel({ kategori, filtre, genrer, byer, antalAktiv
   }, [erAaben]);
 
   function nulstil() {
-    setGenre("");
+    setValg("");
     setPrisSpaend([0, PRIS_MAX]);
     setDato("");
     setBy("");
@@ -86,7 +86,8 @@ export default function FilterPanel({ kategori, filtre, genrer, byer, antalAktiv
     const pris =
       min > 0 || max < PRIS_MAX ? `${min}-${max < PRIS_MAX ? max : ""}` : undefined;
 
-    router.push(filterUrl(kategori, { genre, pris, dato, by }), { scroll: false });
+    // ...filtre beholder det, panelet ikke styrer (fx alder, køn og sortering)
+    router.push(lavUrl(sti, { ...filtre, [felt]: valg, pris, dato, by }), { scroll: false });
     setErAaben(false);
   }
 
@@ -127,21 +128,21 @@ export default function FilterPanel({ kategori, filtre, genrer, byer, antalAktiv
             <div className={styles.genrer}>
               <button
                 type="button"
-                className={`${styles.genre} ${!genre ? styles.valgt : ""}`}
-                aria-pressed={!genre}
-                onClick={() => setGenre("")}
+                className={`${styles.genre} ${!valg ? styles.valgt : ""}`}
+                aria-pressed={!valg}
+                onClick={() => setValg("")}
               >
                 Alle
               </button>
-              {genrer.map((g) => (
+              {muligheder.map((m) => (
                 <button
-                  key={g}
+                  key={m.vaerdi}
                   type="button"
-                  className={`${styles.genre} ${genre === g ? styles.valgt : ""}`}
-                  aria-pressed={genre === g}
-                  onClick={() => setGenre(g)}
+                  className={`${styles.genre} ${valg === m.vaerdi ? styles.valgt : ""}`}
+                  aria-pressed={valg === m.vaerdi}
+                  onClick={() => setValg(m.vaerdi)}
                 >
-                  {genreNavn(g)}
+                  {m.tekst}
                 </button>
               ))}
             </div>

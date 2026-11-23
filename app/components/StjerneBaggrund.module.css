@@ -5,6 +5,7 @@
 .himmel {
   position: absolute;
   inset: 0;
+  overflow: hidden; /* Skjuler stjernelagene, når de vipper ud over kanten */
   z-index: -1; /* Bag indholdet */
   pointer-events: none; /* Må aldrig fange klik */
   --stjerne: var(--color-text); /* Farven på prikkerne */

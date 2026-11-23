@@ -68,3 +68,17 @@
   font-weight: var(--fx-regular); /* 400 – Regular */
   color: var(--color-muted); /* Grå */
 }
+
+/* Mobil: teksten skal kunne være inden for skærmens bredde */
+@media (max-width: 600px) {
+  .indhold {
+    width: 100%;
+    padding: var(--gap-24) var(--gap-16);
+  }
+  .overskrift {
+    font-size: var(--fs-2xl);
+  }
+  .ventetid {
+    font-size: var(--fs-md);
+  }
+}

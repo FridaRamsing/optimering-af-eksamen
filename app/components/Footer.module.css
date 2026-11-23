@@ -143,3 +143,64 @@
   content: "|";
   margin: 0 var(--gap-8); /* Luft på begge sider af stregen */
 }
+
+/* ==============================
+   RESPONSIV FOOTER
+   ============================== */
+/* Tablet: venstre side over de 4 kolonner */
+@media (max-width: 1250px) {
+  .indhold {
+    flex-direction: column;
+    gap: var(--gap-48);
+  }
+
+  .kolonner {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .kolonne {
+    width: auto; /* Den faste bredde fra Figma er for bred her */
+  }
+
+  .bund {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-16);
+  }
+
+  .bundTekster {
+    flex-wrap: wrap;
+    row-gap: var(--gap-8);
+  }
+}
+
+/* Mobil: 2 kolonner og teksterne må gå på flere linjer */
+@media (max-width: 700px) {
+  .footer {
+    padding: var(--gap-40) var(--gap-16);
+  }
+
+  .kolonner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--gap-32) var(--gap-16);
+  }
+
+  .kolonneTitel {
+    font-size: var(--fs-lg);
+  }
+
+  .liste {
+    font-size: var(--fs-md);
+  }
+
+  .badges,
+  .netvaerk {
+    flex-wrap: wrap;
+  }
+
+  .netvaerk {
+    gap: var(--gap-16);
+  }
+}

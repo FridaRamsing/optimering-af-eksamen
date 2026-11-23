@@ -51,7 +51,16 @@
 
 /* Mobil: 1 kolonne */
 @media (max-width: 600px) {
+  /* minmax(0, ...): lange titler må ikke gøre kortet bredere end skærmen */
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Mobil: når filterpanelet er åbent, skal hele siden ligge over headeren,
+   ellers kan panelet ikke dække skærmen (siden har sin egen lagstak) */
+@media (max-width: 600px) {
+  .side:has([role="dialog"]) {
+    z-index: 1001;
   }
 }

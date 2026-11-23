@@ -33,7 +33,7 @@
 /* To kolonner ved siden af hinanden */
 .kolonner {
   display: grid;
-  grid-template-columns: 530px 490px; /* bredderne fra Figma */
+  grid-template-columns: minmax(0, 530px) minmax(0, 490px); /* bredderne fra Figma, men må krympe */
   gap: var(--gap-32);
   align-items: start; /* ellers bliver "Din ordre" lige så høj som venstre side */
 }
@@ -87,9 +87,22 @@
 /* Mobil/tablet: én kolonne, og "Din ordre" kommer først */
 @media (max-width: 1100px) {
   .kolonner {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .hoejre {
     order: -1; /* flytter ordren op foran formularen */
+  }
+}
+
+@media (max-width: 600px) {
+  .side {
+    padding-top: var(--gap-32);
+    padding-bottom: 64px;
+  }
+  .titel {
+    font-size: var(--fs-3xl);
+  }
+  .advarsel {
+    padding: var(--gap-16);
   }
 }

@@ -3,7 +3,7 @@
    ============================== */
 .boks {
   display: grid;
-  grid-template-columns: 447px 1fr; /* login | Din ordre */
+  grid-template-columns: minmax(0, 447px) minmax(0, 1fr); /* login | Din ordre */
   gap: var(--gap-48);
   width: 100%;
   max-width: 1056px;
@@ -129,7 +129,7 @@
    ============================== */
 @media (max-width: 960px) {
   .boks {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     padding: var(--gap-32) var(--gap-24);
   }
   .ordre {

@@ -1,42 +1,76 @@
-
-
 /* Kortet med space-baggrunden fra Figma */
 .kort {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-24);
+  gap: 80px;
   width: 100%;
   max-width: 800px;
   padding: var(--gap-48);
-  border-radius: 12px;
+  border-radius: 16px;
   background: var(--space-effekt);
   box-shadow: var(--lys-stroke);
 }
 
-.titel {
-  font-size: var(--fs-3xl);
-  font-weight: var(--fx-medium);
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-24);
 }
 
-/* accent-color farver browserens egen skyder hvid – den nemmeste måde */
-.skyder {
-  width: 100%;
-  accent-color: var(--color-text);
+.titel {
+  font-size: var(--fs-4xl);
+  font-weight: var(--fx-semibold);
+}
+
+.tekst {
+  color: var(--color-light);
+  font-size: var(--fs-xl);
+}
+
+.valg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-48);
+}
+
+.felt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-16);
+}
+
+.label {
+  font-size: var(--fs-lg);
+  font-weight: var(--fx-medium);
 }
 
 .knapper {
   display: flex;
+  flex-wrap: wrap; /* Pillerne går på ny linje på smalle skærme */
   gap: var(--gap-16);
 }
 
 .pille {
-  padding: var(--gap-8) var(--gap-16);
-  border: none;
+  padding: 9px var(--gap-16);
+  border: 2px solid transparent; /* Fylder altid det samme, også når kanten bliver rød */
   border-radius: 20px;
-  background: var(--color-text);
+  background: var(--color-light);
   color: var(--color-primary);
   font-family: inherit; /* Knapper arver ikke fonten af sig selv */
+  font-size: var(--fs-md);
+  font-weight: var(--fx-medium);
   cursor: pointer;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.pille:hover {
+  box-shadow: var(--lys-op-effekt);
+}
+
+.pille:focus-visible,
+.knap:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
 }
 
 /* Den valgte pille: blå med lys om */
@@ -46,26 +80,88 @@
   box-shadow: var(--lys-op-effekt);
 }
 
-/* Samme røde farve som fejlen i DatoVaelger */
+.fejlKant {
+  border-color: #e90000;
+}
+
 .fejl {
-  padding: 12px var(--gap-16);
-  border: 1px solid #e5484d;
-  border-radius: 6px;
-  background: rgba(229, 72, 77, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px var(--gap-16);
+  border: 1px solid #e90000;
+  border-radius: 12px;
+  background: rgba(233, 0, 0, 0.16);
+}
+
+.fejlIkon {
+  display: flex;
+  flex-shrink: 0; /* Ikonet må ikke blive klemt af en lang tekst */
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #e90000;
+  font-size: 15px;
+  font-weight: var(--fx-bold);
+}
+
+.fejlTitel {
+  font-size: var(--fs-md);
+  font-weight: var(--fx-semibold);
+}
+
+.fejlTekst {
+  margin-top: 2px;
+  color: var(--color-light);
   font-size: var(--fs-sm);
 }
 
+.bund {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-40);
+}
+
 .knap {
+  height: 56px;
   padding: var(--gap-16);
   border: none;
   border-radius: 8px;
   background: var(--color-primary);
   color: var(--color-text);
   font-family: inherit;
+  font-size: var(--fs-md);
+  font-weight: var(--fx-medium);
   cursor: pointer;
+  transition: filter 0.2s ease, background-color 0.2s ease;
+}
+
+.knap:hover {
+  filter: brightness(1.2);
 }
 
 /* Grå knap – skal stå efter .knap, så den vinder */
 .inaktiv {
   background: var(--color-border);
+}
+
+.inaktiv:hover {
+  filter: none;
+}
+
+@media (max-width: 600px) {
+  .kort {
+    gap: var(--gap-40);
+    padding: var(--gap-24);
+  }
+
+  .titel {
+    font-size: var(--fs-3xl);
+  }
+
+  .tekst {
+    font-size: var(--fs-md);
+  }
 }

@@ -1,9 +1,9 @@
-
-/* Samme ramme som kategorisiden, så stjernerne ligger bag indholdet */
+/* Samme ramme som kategorisiden, så stjernerne ligger bag indholdet.
+   z-index: filterpanelet må gerne ligge hen over footeren på en kort side */
 .side {
   position: relative;
+  z-index: 1;
   isolation: isolate;
-  overflow: hidden;
   min-height: 100vh;
 }
 
@@ -14,32 +14,97 @@
   padding: var(--gap-48) var(--gap-16) 120px;
 }
 
-/*luft rundt om resultaterne - det er det smme som på kategorisiden*/
+/* Luft rundt om resultaterne – det samme som på kategorisiden */
 .indhold {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-24);
-    max-width: 1512px;
-    margin: 0 aut0;
-    padding: var(--gap-48);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-24);
+  width: 100%;
+  max-width: 1512px;
+  margin: 0 auto;
+  padding: var(--gap-48);
 }
 
-/* 4 kort pr. række*/
+/* Filtrer og mærker til venstre, Sortér til højre */
+.vaerktoejer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gap-24);
+}
+
+.ingenResultater {
+  display: flex;
+  justify-content: center;
+  padding: var(--gap-48) 0;
+}
+
+/* Samme udtryk som Freias boks, men uden knap */
+.ingenBoks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-16);
+  width: 100%;
+  max-width: 880px;
+  min-height: 320px;
+  padding: var(--gap-24);
+  border-radius: 8px;
+  background: var(--space-effekt);
+  box-shadow: var(--lys-stroke);
+  text-align: center;
+}
+
+.ingenBoks h2 {
+  font-size: var(--fs-3xl);
+  font-weight: var(--fx-extrabold);
+}
+
+.ingenBoks p {
+  font-size: var(--fs-lg);
+}
+
+/* 4 kort pr. række */
 .grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--gap-24);
-    list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gap-24);
+  list-style: none;
 }
 
-/*tablet så er det 2 kort pr. række og mindre luft imellem */
+/* Tablet: 2 kort pr. række */
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobil: 1 kort pr. række og mindre luft */
 @media (max-width: 600px) {
-    .indhold {
-        padding: var(--gap-16);
-    }
+  .indhold {
+    padding: var(--gap-16);
+  }
 
-    .grid {
-        grid-template-columns: 1fr;
-    }
+  /* minmax(0, ...): lange titler må ikke gøre kortet bredere end skærmen */
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .vaerktoejer > * {
+    width: 100%;
+  }
+
+  .ingenBoks h2 {
+    font-size: var(--fs-2xl);
+  }
 }
 
+/* Mobil: når filterpanelet er åbent, skal hele siden ligge over headeren,
+   ellers kan panelet ikke dække skærmen (siden har sin egen lagstak) */
+@media (max-width: 600px) {
+  .side:has([role="dialog"]) {
+    z-index: 1001;
+  }
+}

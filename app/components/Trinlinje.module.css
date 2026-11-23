@@ -96,3 +96,44 @@
     font-size: var(--fs-2xl);
   }
 }
+
+/* Tablet: kortere streger, så alle trin kan være på linjen */
+@media (max-width: 1250px) {
+  .bar {
+    padding: 0 var(--gap-24);
+  }
+  .trin {
+    gap: var(--gap-16);
+  }
+  .streg {
+    width: 40px;
+  }
+  .timer {
+    font-size: var(--fs-3xl);
+  }
+}
+
+@media (max-width: 800px) {
+  .bar {
+    padding: 0 var(--gap-16);
+  }
+  .timer {
+    font-size: var(--fs-2xl);
+  }
+}
+
+/* Lille mobil: kun plads til korte streger */
+@media (max-width: 480px) {
+  .bar {
+    gap: var(--gap-8);
+  }
+  .trin {
+    gap: 4px;
+  }
+  .punkt {
+    gap: 4px;
+  }
+  .streg {
+    width: 12px;
+  }
+}

@@ -61,3 +61,23 @@
     gap: var(--gap-16);
   }
 }
+
+/* Mellem tablet og stor skærm må begge kolonner krympe */
+@media (max-width: 1300px) {
+  .kolonner {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: var(--gap-48);
+  }
+}
+
+@media (max-width: 1000px) {
+  .kolonner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .kortListe {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

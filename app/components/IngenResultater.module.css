@@ -64,3 +64,20 @@
   background-color: var(--color-text); /* Hvid */
   color: var(--color-primary); /* Blå tekst */
 }
+
+/* Mobil: mindre tekst og luft i siderne */
+@media (max-width: 600px) {
+  .boks {
+    gap: var(--gap-24);
+    min-height: 260px;
+    padding: var(--gap-24) var(--gap-16);
+  }
+
+  .overskrift {
+    font-size: var(--fs-2xl);
+  }
+
+  .undertekst {
+    font-size: var(--fs-md);
+  }
+}
